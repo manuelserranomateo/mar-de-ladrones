@@ -6,8 +6,10 @@ describe("El juego...", function() {
     miJuego = new Juego();
     miJuego.agregarUsuario('pepe');
     miJuego.agregarUsuario('luis');
+    miJuego.agregarUsuario('gabri');
     usr1 = miJuego.usuarios['pepe'];
     usr2 = miJuego.usuarios['luis'];
+    usr3 = miJuego.usuarios['gabri'];
   });
 
   it("inicialmente", function() { // it son los tests
@@ -17,15 +19,18 @@ describe("El juego...", function() {
     expect(usr2.nick).toEqual('luis');
   });
 
-  it("partida creada", function() { // it son los tests
+  it("crear partida", function() { 
     let codigo = usr1.crearPartida();
-    expect(miJuego.partidas[codigo]).toBeDfined();
+    expect(miJuego.partidas[codigo]).toBeDefined();
     let partida = miJuego.partidas[codigo];
-    expect(partida.owner).toEqual();
-  });
+    expect(partida.owner).toEqual(usr1.nick);
+    expect(partida.jugadores[0]).toEqual(usr1.nick);
+    expect(partida.codigo).toEqual(codigo);
 
-  // escribir secuencia completa en la que usuario1 crea partida, usr2 se une y lo que se puede esperar
-  // comprobar que la partida se ha creado, que el propietario es el que deberia ser
-  // que la coleccion de jugadores de la partida esta el nick que lo ha creado
-  // comprobar el metodo crearPartida, codigo, nick, propietario, coleccion de jugadores
+    usr2.unirseAPartida(codigo);
+    expect(partida.jugadores.length).toEqual(2);
+    
+    usr3.unirseAPartida(codigo);
+    expect(partida.jugadores.length).toEqual(2);  
+  });
 });

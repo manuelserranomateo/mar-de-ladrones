@@ -35,6 +35,14 @@ function Juego(){
     }
     this.obtenerPartidasDisponibles = function(){
         // devolver solo las partidas en las que haya hueco
+        let lista = [];
+        //for(i = 0; i < this.partidas.length; i++) para array normal
+        for (let key in this.partidas){ // para array asociativo (diccionario) for each de otros lenguajes
+            if(this.partidas[key].jugadores.length < 2)
+                lista.push({'codigo':key, 'owner': this.partidas[key].owner});
+        }
+        return lista;
+
     }
 }
 
