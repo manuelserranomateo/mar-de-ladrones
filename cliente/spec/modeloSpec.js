@@ -1,6 +1,6 @@
 describe("El juego...", function() {
   var miJuego;
-  var usr1, usr2;
+  var usr1, usr2, usr3;
 
   beforeEach(function() { // definicion de variables, que se ejecuta siempre antes de cada it
     miJuego = new Juego();
@@ -23,8 +23,8 @@ describe("El juego...", function() {
     let codigo = usr1.crearPartida();
     expect(miJuego.partidas[codigo]).toBeDefined();
     let partida = miJuego.partidas[codigo];
-    expect(partida.owner).toEqual(usr1.nick);
-    expect(partida.jugadores[0]).toEqual(usr1.nick);
+    expect(partida.owner.nick).toEqual(usr1.nick);
+    expect(partida.jugadores[0].nick).toEqual(usr1.nick);
     expect(partida.codigo).toEqual(codigo);
 
     usr2.unirseAPartida(codigo);
@@ -32,5 +32,9 @@ describe("El juego...", function() {
     
     usr3.unirseAPartida(codigo);
     expect(partida.jugadores.length).toEqual(2);  
+  });
+
+  xit("el usuario luis se une a la partida", function(){ // al ser xit se deshabilita temporalmente
+    // TO-DO
   });
 });
