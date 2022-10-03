@@ -26,17 +26,34 @@ let juego = new modelo.Juego(); // Conectamos API REST con la capa logica (index
 
 app.use(express.static(__dirname + "/"));
 
-app.get("/", function(request,response){
-	var contenido=fs.readFileSync(__dirname+"/cliente/index.html");
-	response.setHeader("Content-type","text/html");
-	response.send(contenido);
+app.get("/", function (request, response) {
+  var contenido = fs.readFileSync(__dirname + "/cliente/index.html");
+  response.setHeader("Content-type", "text/html");
+  response.send(contenido);
 });
 
 // en funcion de como se llama en la logica, tmbn tener en cuenta parametros
-app.get("/agregarUsuario/:nick", function(request, response){
+app.get("/agregarUsuario/:nick", function (request, response) {
   let nick = request.params.nick; // recuperamos parametro de la ruta agregarUsuario
-  juego.agregarUsuario(nick);
-  response.send({nick: "ok"}); // Siempre responder para no evitar timeouts y cosas raras
+  let res;
+  res = juego.agregarUsuario(nick);
+  response.send(res); // Siempre responder para no evitar timeouts y cosas raras
+
+  // En la capa REST se evita poner logica, esto se debe hacer en la capa logica
+});
+
+app.get('/crearPartida/:nick', function (request, response) {
+  let nick = request.params.nick; // recuperamos parametro de la ruta agregarUsuario
+  let res = juego.crearPartida(nick);
+  // let usr = juego.usuarios[nick]; // lo suyo seria con un metodo, ya que si no se expone como esta implementanda la coleccion
+  // juego.obtenerUsuario(nick)
+  // let res = { codigo: -1 };
+  // let codigo;
+  // if (usr) { // lo suyo seria redefinir esto en el modelo
+  //   codigo = usr.crearPartida();
+  //   res = { codigo: codigo };
+  // }
+  response.send(res);
 });
 
 

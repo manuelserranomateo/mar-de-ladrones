@@ -4,9 +4,13 @@ function Juego(){
     this.usuarios = {};
 
     this.agregarUsuario = function(nick){
+        let res = {nick:-1};
         if (!this.usuarios[nick]){
             this.usuarios[nick] = new Usuario(nick, this); // con el this le paso el objeto de Juego
+            res = {nick:nick};
+            console.log('Nuevo usuario: ' + nick);
         }
+        return res;
     }
 
     this.eliminarUsuario = function(nick){
