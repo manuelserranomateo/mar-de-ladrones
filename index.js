@@ -45,15 +45,6 @@ app.get("/agregarUsuario/:nick", function (request, response) {
 app.get('/crearPartida/:nick', function (request, response) {
   let nick = request.params.nick; // recuperamos parametro de la ruta agregarUsuario
   let res = juego.jugadorCreaPartida(nick);
-
-  // let usr = juego.usuarios[nick]; // lo suyo seria con un metodo, ya que si no se expone como esta implementanda la coleccion
-  // juego.obtenerUsuario(nick)
-  // let res = { codigo: -1 };
-  // let codigo;
-  // if (usr) { // lo suyo seria redefinir esto en el modelo
-  //   codigo = usr.crearPartida();
-  //   res = { codigo: codigo };
-  // }
   response.send(res);
 });
 
