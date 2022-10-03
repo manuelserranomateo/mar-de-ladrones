@@ -20,10 +20,10 @@ function Juego() {
     this.jugadorCreaPartida = function (nick) { // esta funcion comprueba si el usuario existe a dif de crearPartida
         let usr = this.usuarios[nick]; // lo suyo seria con un metodo, ya que si no se expone como esta implementanda la coleccion
         let res = { codigo: -1 };
-        let codigo;
         if (usr) { // lo suyo seria redefinir esto en el modelo
-            codigo = usr.crearPartida();
+            let codigo = usr.crearPartida();
             res = { codigo: codigo };
+            console.log('Usuario ' + nick + " ha creado la partida " + codigo)
         }
         return res;
     }
@@ -34,13 +34,26 @@ function Juego() {
         return codigo;
     }
     this.unirseAPartida = function (codigo, user) {
+        let res = -1
         if (this.partidas[codigo]) {
-            this.partidas[codigo].agregarJugador(user);
+            res = this.partidas[codigo].agregarJugador(user);
         }
         else {
             console.log('La partida no existe');
         }
+        return res;
     }
+
+    this.jugadorSeUneAPartida = function (nick, codigo){
+        let usr = this.usuarios[nick];
+        let res = {'codigo': -1}
+        if (usr){
+            let valor = usr.unirseAPartida(codigo);
+            res = {'codigo' : valor}
+        }
+        return res;
+    }
+
     this.obtenerPartidas = function () {
         let lista = [];
         //for(i = 0; i < this.partidas.length; i++) para array normal
@@ -79,12 +92,16 @@ function Partida(codigo, user) {
     this.fase = "inicial"; // new Inicial(), paradigma de crearlo con un string o con un patron de dise;o (state)
     // this.maxJugadores = 2;
     this.agregarJugador = function (user) {
+        let res = this.codigo;
         if (this.jugadores.length < 2) { // Ese 2 seria la var maxJugadores, se pone asi por si se cambia de idea
             this.jugadores.push(user);
+            console.log('Usuario ' + user.nick + ' se ha unido a la partida ' + codigo)
         }
         else {
+            res = -1;
             console.log('La partida esta completa');
         }
+        return res;
     }
     this.agregarJugador(this.owner);
 }
