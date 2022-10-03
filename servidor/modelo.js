@@ -58,7 +58,7 @@ function Juego() {
         let lista = [];
         //for(i = 0; i < this.partidas.length; i++) para array normal
         for (let key in this.partidas) { // para array asociativo (diccionario) for each de otros lenguajes
-            lista.push({ 'codigo': key, 'owner': this.partidas[key].owner });
+            lista.push({ 'codigo': key, 'owner': this.partidas[key].owner.nick });
         }
         return lista;
     }
@@ -67,7 +67,7 @@ function Juego() {
         let lista = [];
         for (let key in this.partidas) {
             if (this.partidas[key].jugadores.length < 2)
-                lista.push({ 'codigo': key, 'owner': this.partidas[key].owner });
+                lista.push({ 'codigo': key, 'owner': this.partidas[key].owner.nick });
         }
         return lista;
 
@@ -93,7 +93,7 @@ function Partida(codigo, user) {
     // this.maxJugadores = 2;
     this.agregarJugador = function (user) {
         let res = this.codigo;
-        if (this.jugadores.length < 2) { // Ese 2 seria la var maxJugadores, se pone asi por si se cambia de idea
+        if (this.hayHueco) { // Ese 2 seria la var maxJugadores, se pone asi por si se cambia de idea
             this.jugadores.push(user);
             console.log('Usuario ' + user.nick + ' se ha unido a la partida ' + codigo)
         }
@@ -102,6 +102,9 @@ function Partida(codigo, user) {
             console.log('La partida esta completa');
         }
         return res;
+    }
+    this.hayHueco = function(){
+        return (this.jugadores.length < 2)
     }
     this.agregarJugador(this.owner);
 }

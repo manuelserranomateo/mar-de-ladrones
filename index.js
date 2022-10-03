@@ -55,9 +55,15 @@ app.get('/unirseAPartida/:nick/:codigo', function (request, response) {
   response.send(res);
 });
 
-app.get('/obtenerPartidas'), function (request, response) {
-  // todo
-}
+app.get('/obtenerPartidas', function (request, response) {
+  let res = juego.obtenerPartidas();
+  response.send(res);
+});
+
+app.get('/obtenerPartidasDisponibles', function (request, response) {
+  let res = juego.obtenerPartidasDisponibles();
+  response.send(res);
+});
 
 // Start the server
 
