@@ -90,12 +90,13 @@ function Partida(codigo, user) {
     this.owner = user;
     this.jugadores = []; // Array normal
     this.fase = "inicial"; // new Inicial(), paradigma de crearlo con un string o con un patron de dise;o (state)
-    // this.maxJugadores = 2;
+    this.maxJugadores = 2;
     this.agregarJugador = function (user) {
         let res = this.codigo;
         if (this.hayHueco) { // Ese 2 seria la var maxJugadores, se pone asi por si se cambia de idea
             this.jugadores.push(user);
             console.log('Usuario ' + user.nick + ' se ha unido a la partida ' + codigo)
+            this.comprobarFase();
         }
         else {
             res = -1;
@@ -103,8 +104,13 @@ function Partida(codigo, user) {
         }
         return res;
     }
+    this.comprobarFase = function(){
+        if(!this.hayHueco()){
+            this.fase="jugando";
+        }
+    }
     this.hayHueco = function(){
-        return (this.jugadores.length < 2)
+        return (this.jugadores.length < this.maxJugadores) // solo tocamos aqui por si hay que cambiar el n de jugadores
     }
     this.agregarJugador(this.owner);
 }
