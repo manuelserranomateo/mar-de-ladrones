@@ -27,7 +27,7 @@ let juego = new modelo.Juego(); // Conectamos API REST con la capa logica (index
 app.use(express.static(__dirname + "/"));
 
 app.get("/", function (request, response) {
-  var contenido = fs.readFileSync(__dirname + "/cliente/index.html");
+  var contenido = fs.readFileSync(__dirname + "/cliente/index.html"); // lectura bloqueante
   response.setHeader("Content-type", "text/html");
   response.send(contenido);
 });
@@ -36,20 +36,20 @@ app.get("/", function (request, response) {
 app.get("/agregarUsuario/:nick", function (request, response) {
   let nick = request.params.nick; // recuperamos parametro de la ruta agregarUsuario
   let res;
-  res = juego.agregarUsuario(nick);
+  res = juego.agregarUsuario(nick); // este res se llama data en clienteRest.js
   response.send(res); // Siempre responder para no evitar timeouts y cosas raras
 
   // En la capa REST se evita poner logica, esto se debe hacer en la capa logica
 });
 
 app.get('/crearPartida/:nick', function (request, response) {
-  let nick = request.params.nick; // recuperamos parametro de la ruta agregarUsuario
+  let nick = request.params.nick; 
   let res = juego.jugadorCreaPartida(nick);
   response.send(res);
 });
 
 app.get('/unirseAPartida/:nick/:codigo', function (request, response) {
-  let nick = request.params.nick; // recuperamos parametro de la ruta agregarUsuario
+  let nick = request.params.nick; 
   let codigo = request.params.codigo;
   let res = juego.jugadorSeUneAPartida(nick, codigo);
   response.send(res);

@@ -4,10 +4,10 @@ function Juego() {
     this.usuarios = {};
 
     this.agregarUsuario = function (nick) {
-        let res = { nick: -1 };
+        let res = { "nick": -1 };
         if (!this.usuarios[nick]) {
             this.usuarios[nick] = new Usuario(nick, this); // con el this le paso el objeto de Juego
-            res = { nick: nick };
+            res = { "nick": nick };
             console.log('Nuevo usuario: ' + nick);
         }
         return res;
@@ -49,7 +49,7 @@ function Juego() {
         let res = {'codigo': -1}
         if (usr){
             let valor = usr.unirseAPartida(codigo);
-            res = {'codigo' : valor}
+            res = {'codigo' : valor};
         }
         return res;
     }
@@ -93,7 +93,7 @@ function Partida(codigo, user) {
     this.maxJugadores = 2;
     this.agregarJugador = function (user) {
         let res = this.codigo;
-        if (this.hayHueco) { // Ese 2 seria la var maxJugadores, se pone asi por si se cambia de idea
+        if (this.hayHueco()) { // Ese 2 seria la var maxJugadores, se pone asi por si se cambia de idea
             this.jugadores.push(user);
             console.log('Usuario ' + user.nick + ' se ha unido a la partida ' + codigo)
             this.comprobarFase();
