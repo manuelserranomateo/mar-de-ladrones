@@ -1,4 +1,5 @@
 function ClienteRest() { // ClienteRest es una funcion global
+    this.nick;
     this.agregarUsuario = function (nick) {
         var cli = this; // tipico de JS, se guarda una referencia el objeto para no perder el contexto
         $.getJSON("/agregarUsuario/" + nick, function (data) { // peticion asincrona al servidor
@@ -22,8 +23,8 @@ function ClienteRest() { // ClienteRest es una funcion global
     }
 
     this.crearPartida = function (nick) {
-        var cli = this; 
-        $.getJSON("/crearPartida/" + nick, function (data) { 
+        var cli = this;
+        $.getJSON("/crearPartida/" + nick, function (data) {
             this.nick = nick;
             console.log(data);
             if (data.codigo != -1) {
@@ -34,18 +35,22 @@ function ClienteRest() { // ClienteRest es una funcion global
             }
         });
     }
-    this.unirseAPartida = function (nick, codigo) {
-        var cli = this; 
-        $.getJSON("/unirseAPartida/" + nick + '/' + codigo ,function (data) { 
-            console.log(data);
-            if (data.codigo != -1) {
-                console.log('Usuario ' + nick + ' se une a la partida ' + codigo);
-            }
-            else {
-                console.log('El usuario ' + nick + ' no se ha podido unir a la partida ' + codigo);
-            }
-        });
-    }
-
+    this.unirseAPartida=function(nick,codigo){
+		let cli=this;
+		$.getJSON("/unirseAPartida/"+nick+"/"+codigo,function(data){
+			//se ejecuta cuando conteste el servidor
+			//console.log(data);
+			if (data.codigo!=-1){
+				console.log("Usuario "+nick+" se une a partida codigo: "+data.codigo)
+				//ws.nick=data.nick;
+				//$.cookie("nick",ws.nick);
+				//iu.mostrarHome(data);
+			}
+			else{
+				console.log("No se ha podido unir a partida")
+				//iu.mostrarModal("El nick ya está en uso");
+				//iu.mostrarAgregarJugador();
+			}
+		});
+	}
 }
-

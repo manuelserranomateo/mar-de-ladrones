@@ -48,10 +48,10 @@ app.get('/crearPartida/:nick', function (request, response) {
   response.send(res);
 });
 
-app.get('/unirseAPartida/:nick/:codigo', function (request, response) {
-  let nick = request.params.nick; 
+app.get("/unirseAPartida/:nick/:codigo",function(request,response){
+  let nick = request.params.nick;
   let codigo = request.params.codigo;
-  let res = juego.jugadorSeUneAPartida(nick, codigo);
+  let res = juego.jugadorSeUneAPartida(nick,codigo);
   response.send(res);
 });
 
