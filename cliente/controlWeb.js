@@ -45,12 +45,14 @@ function ControlWeb(){
         let cadena= '<div class="row" id="mCP">';
         cadena=cadena+'<button id="btnCP" class="btn btn-primary mb-2 mr-sm-2">Crear partida</button>';
         cadena=cadena+'</div>';
+        cadena=cadena+'<div id="nota"></div>';
         cadena=cadena+'</div></div>';
 
 		$("#crearPartida").append(cadena);
         
-        $("#btnCP").on("click",function(e){
+        $("#btnCP").on("click",function(){
 				rest.crearPartida(rest.nick);
+				$('#nota').append('Partida ' + rest.codigo + ' creada satisfactoriamente por ' + rest.nick);
 		})
 	}
 
@@ -58,5 +60,9 @@ function ControlWeb(){
 		//crear un control visual tipo lista para mostrar
 		//la lista de partidas
 		//y permitir unirse con un click
+		console.log(lista);
+	    let cadena= '<h4>Lista de partidas disponibles</h4>';
+		$("#listaPartidas").append(cadena);
+
 	}
 }

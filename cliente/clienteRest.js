@@ -12,6 +12,7 @@ function ClienteRest(){
 				//$.cookie("nick",ws.nick);
 				iu.mostrarHome();
 				iu.mostrarCrearPartida();
+				iu.mostrarListaDePartidas(this.obtenerPartidas);
 			}
 			else{
 				console.log("No se ha podido registrar el usuario")
@@ -56,4 +57,10 @@ function ClienteRest(){
 			}
 		});
 	}
+
+// 	this.obtenerPartidas =function(){
+// 		$.getJSON("/obtenerPartidas/",function(data){
+// 			//console.log(data);
+// 		});
+// }
 }
