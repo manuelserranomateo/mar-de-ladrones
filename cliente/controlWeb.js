@@ -46,7 +46,7 @@ function ControlWeb() {
 		//dibujar un boton, que al hacer click llame a crear
 		//partida de rest
 		$("mCP").remove();
-		let cadena = '<div class="row" id="mCP">';
+		let cadena = '<div class="col" id="mCP">';
 		cadena = cadena + '<button id="btnCP" class="btn btn-primary mb-2 mr-sm-2">Crear partida</button>';
 		cadena = cadena + '</div>';
 		cadena = cadena + '<div id="nota"></div>';
@@ -70,17 +70,18 @@ function ControlWeb() {
 		//la lista de partidas
 		//y permitir unirse con un click
 		$('mLP').remove();
-		let cadena = '<div id="mLP">';
+		let cadena = '<div id="mLP"><h3>Partidas disponibles</h3>';
 		cadena = cadena + '<div class="row">';
 		cadena = cadena + '<ul class="list-group">';
 		for (i = 0; i < lista.length; i++) {
-			cadena = cadena + "<li class='list-group-item'>" + lista[i].codigo + " creada por " + lista[i].owner + "</li>";
+			cadena = cadena + "<li class='list-group-item'>Partida <b>" + lista[i].codigo + "</b> creada por <b>" + lista[i].owner + "</b></li>";
 			cadena = cadena + '<button id="btnUP" class="btn btn-primary mb-2 mr-sm-2">Unirse</button>';
 
 		}
 		cadena = cadena + " </ul>";
 		cadena = cadena + " </div></div>";
 		$("#listaPartidas").append(cadena);
+
 
 
 	}

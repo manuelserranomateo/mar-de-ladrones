@@ -4,7 +4,7 @@ function ClienteRest() {
         let cli = this;
         $.getJSON("/agregarUsuario/" + nick, function (data) {
             //se ejecuta cuando conteste el servidor
-            console.log(data);
+            //console.log(data);
             if (data.nick != -1) {
                 console.log("Usuario " + data.nick + " registrado")
                 cli.nick = data.nick;
