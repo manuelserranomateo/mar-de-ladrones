@@ -40,9 +40,9 @@ function ClienteRest() {
             }
         });
     }
-    this.unirseAPartida = function (nick, codigo) {
+    this.unirseAPartida = function (codigo) {
         let cli = this;
-        $.getJSON("/unirseAPartida/" + nick + "/" + codigo, function (data) {
+        $.getJSON("/unirseAPartida/" + cli.nick + "/" + codigo, function (data) {
             //se ejecuta cuando conteste el servidor
             //console.log(data);
             if (data.codigo != -1) {

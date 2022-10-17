@@ -74,14 +74,22 @@ function ControlWeb() {
 		cadena = cadena + '<div class="row">';
 		cadena = cadena + '<ul class="list-group">';
 		for (i = 0; i < lista.length; i++) {
-			cadena = cadena + "<li class='list-group-item'>Partida <b>" + lista[i].codigo + "</b> creada por <b>" + lista[i].owner + "</b></li>";
-			cadena = cadena + '<button id="btnUP" class="btn btn-primary mb-2 mr-sm-2">Unirse</button>';
-
+			cadena = cadena + "<li class='list-group-item'><a href='#' value='" + lista[i].codigo +
+				"'>Partida <b>" + lista[i].codigo + "</b> creada por <b>" + lista[i].owner + "</b></a></li>";
 		}
 		cadena = cadena + " </ul>";
 		cadena = cadena + " </div></div>";
 		$("#listaPartidas").append(cadena);
 
+		$(".list-group a").click(function(){
+	        codigo=$(this).attr("value");
+
+			if (codigo){
+	            $('#mLP').remove();
+	            $('#mCP').remove();
+	            rest.unirseAPartida(codigo);
+	        }
+	    });		
 
 
 	}
