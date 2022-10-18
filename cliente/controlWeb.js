@@ -1,12 +1,13 @@
 function ControlWeb() {
+
 	this.comprobarCookie = function () {
-        if ($.cookie('nick')){
+		if ($.cookie('nick')) {
 			rest.nick = $.cookie('nick');
 			this.mostrarHome();
 		} else {
 			this.mostrarAgregarUsuario();
 		}
-    }
+	}
 
 	this.mostrarAgregarUsuario = function () {
 		let cadena = '<div class="row" id="mAU">';//'<form class="form-row needs-validation"  id="mAJ">';
@@ -49,20 +50,21 @@ function ControlWeb() {
 		cadena = cadena + '<button id="btnBC" class="btn btn-primary mb-2 mr-sm-2">Salir</button>';
 		cadena = cadena + "</div></div>";
 		$('#agregarUsuario').append(cadena);
-
+		this.mostrarCrearPartida();
+		rest.obtenerPartidas();
 		$("#btnBC").on("click", function () {
-			$("#btnBC").remove();
+			$("#mCP").remove();
+			$('#mLP').remove();
+			$('#mH').remove();
 			$.removeCookie('nick');
 			iu.comprobarCookie();
 		})
-		this.mostrarCrearPartida();
-		rest.obtenerPartidas();
 	}
 
 	this.mostrarCrearPartida = function () {
 		//dibujar un boton, que al hacer click llame a crear
 		//partida de rest
-		$("mCP").remove();
+		$("#mCP").remove();
 		let cadena = '<div class="col" id="mCP">';
 		cadena = cadena + '<button id="btnCP" class="btn btn-primary mb-2 mr-sm-2">Crear partida</button>';
 		cadena = cadena + '</div>';
@@ -87,7 +89,7 @@ function ControlWeb() {
 		//crear un control visual tipo lista para mostrar
 		//la lista de partidas
 		//y permitir unirse con un click
-		$('mLP').remove();
+		$('#mLP').remove();
 		let cadena = '<div id="mLP"><h3>Partidas disponibles</h3>';
 		cadena = cadena + '<button id="btnRL" class="btn btn-primary mb-2 mr-sm-2">Refrescar lista</button>';
 		cadena = cadena + '<div class="row">';
@@ -100,15 +102,15 @@ function ControlWeb() {
 		cadena = cadena + " </div></div>";
 		$("#listaPartidas").append(cadena);
 
-		$(".list-group a").click(function(){
-	        codigo=$(this).attr("value");
+		$(".list-group a").click(function () {
+			codigo = $(this).attr("value");
 
-			if (codigo){
-	            $('#mLP').remove();
-	            $('#mCP').remove();
-	            rest.unirseAPartida(codigo);
-	        }
-	    });		
+			if (codigo) {
+				$('#mLP').remove();
+				$('#mCP').remove();
+				rest.unirseAPartida(codigo);
+			}
+		});
 
 		$("#btnRL").on("click", function () {
 			$("#btnRL").remove();
@@ -117,9 +119,9 @@ function ControlWeb() {
 		})
 	}
 
-	this.mostrarModal=function(msg){
+	this.mostrarModal = function (msg) {
 		$('#mM').remove();
-		var cadena="<p id='mM'>"+msg+"</p>";
+		var cadena = "<p id='mM'>" + msg + "</p>";
 		$('#contenidoModal').append(cadena);
 		$('#miModal').modal("show");
 	}
