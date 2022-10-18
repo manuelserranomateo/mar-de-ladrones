@@ -1,4 +1,13 @@
 function ControlWeb() {
+	this.comprobarCookie = function () {
+        if ($.cookie('nick')){
+			rest.nick = $.cookie('nick');
+			this.mostrarHome();
+		} else {
+			this.mostrarAgregarUsuario();
+		}
+    }
+
 	this.mostrarAgregarUsuario = function () {
 		let cadena = '<div class="row" id="mAU">';//'<form class="form-row needs-validation"  id="mAJ">';
 		cadena = cadena + "<div class='col'>"
@@ -37,9 +46,17 @@ function ControlWeb() {
 		cadena = cadena + "<div class='col'>";
 		cadena = cadena + "<p>Bienvenido " + rest.nick + "</p>";
 		cadena = cadena + "<div id='codigo'></div>"
+		cadena = cadena + '<button id="btnBC" class="btn btn-primary mb-2 mr-sm-2">Salir</button>';
 		cadena = cadena + "</div></div>";
 		$('#agregarUsuario').append(cadena);
+
+		$("#btnBC").on("click", function () {
+			$("#btnBC").remove();
+			$.removeCookie('nick');
+			iu.comprobarCookie();
+		})
 		this.mostrarCrearPartida();
+		rest.obtenerPartidas();
 	}
 
 	this.mostrarCrearPartida = function () {
@@ -55,6 +72,7 @@ function ControlWeb() {
 		$("#crearPartida").append(cadena);
 
 		$("#btnCP").on("click", function () {
+			$("mLP").remove();
 			$("#mCP").remove();
 			rest.crearPartida();
 		})
@@ -71,6 +89,7 @@ function ControlWeb() {
 		//y permitir unirse con un click
 		$('mLP').remove();
 		let cadena = '<div id="mLP"><h3>Partidas disponibles</h3>';
+		cadena = cadena + '<button id="btnRL" class="btn btn-primary mb-2 mr-sm-2">Refrescar lista</button>';
 		cadena = cadena + '<div class="row">';
 		cadena = cadena + '<ul class="list-group">';
 		for (i = 0; i < lista.length; i++) {
@@ -91,6 +110,18 @@ function ControlWeb() {
 	        }
 	    });		
 
-
+		$("#btnRL").on("click", function () {
+			$("#btnRL").remove();
+			$("#mLP").remove();
+			rest.obtenerPartidas();
+		})
 	}
+
+	this.mostrarModal=function(msg){
+		$('#mM').remove();
+		var cadena="<p id='mM'>"+msg+"</p>";
+		$('#contenidoModal').append(cadena);
+		$('#miModal').modal("show");
+	}
+
 }
