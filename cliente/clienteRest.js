@@ -50,4 +50,17 @@ function ClienteRest() {
             iu.mostrarListaDePartidas(lista);
         });
     }
+
+    this.eliminarUsuario = function (){
+        let cli = this;
+        $.getJSON("/eliminarUsuario/" + cli.nick, function (data) {
+            //se ejecuta cuando conteste el servidor
+            if (data.nick != -1) {
+                console.log("Usuario " + data.nick + " eliminado correctamente")
+            }
+            else {
+                console.log("No se ha podido eliminar el usuario")
+            }
+        });
+    }
 }

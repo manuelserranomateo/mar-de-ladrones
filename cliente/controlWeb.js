@@ -52,11 +52,13 @@ function ControlWeb() {
 		$('#agregarUsuario').append(cadena);
 		this.mostrarCrearPartida();
 		rest.obtenerPartidas();
+
 		$("#btnBC").on("click", function () {
 			$("#mCP").remove();
 			$('#mLP').remove();
 			$('#mH').remove();
 			$.removeCookie('nick');
+			rest.eliminarUsuario();
 			iu.comprobarCookie();
 		})
 	}

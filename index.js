@@ -2,11 +2,19 @@
 const fs = require('fs');
 const express = require('express');
 const app = express();
+
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server);
+
 const modelo = require('./servidor/modelo.js');
+const sWS = require('./servidor/servidorWS.js');
 
 const PORT = process.env.PORT || 3000; // Util para el despliegue process.env.PORT por si el OS tiene una variable definida
 
 let juego = new modelo.Juego(); // Conectamos API REST con la capa logica (index.js --> modelo.js)
+let servidorWS = new sWS.ServidorWS();
 
 /*  http get post put delete (se llaman verbos)
     get "/"
@@ -65,9 +73,22 @@ app.get('/obtenerPartidasDisponibles', function (request, response) {
   response.send(res);
 });
 
+app.get('/eliminarUsuario/:nick', function (request, response) {
+  let nick = request.params.nick;
+  let res = juego.eliminarUsuario(nick);
+  response.send(res);
+});
+
 // Start the server
 
-app.listen(PORT, () => { // funcion de callback, 
+// app.listen(PORT, () => { // funcion de callback, 
+//   console.log(`App listening on port ${PORT}`);
+//   console.log('Press Ctrl+C to quit.');
+// });
+
+server.listen(PORT, () => { // funcion de callback, 
   console.log(`App listening on port ${PORT}`);
   console.log('Press Ctrl+C to quit.');
 });
+
+servidorWS.lanzarServidorWS(io, juego)

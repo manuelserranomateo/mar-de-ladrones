@@ -14,7 +14,19 @@ function Juego() {
     }
 
     this.eliminarUsuario = function (nick) {
-        delete this.usuarios[nick];
+        let res = { "nick": -1 };
+        // eliminar usuario al borrar cookies
+        if (this.usuarios[nick]) {
+            delete this.usuarios[nick];
+            res = { "nick": nick };
+        } 
+        // eliminar partidas en las que el usuario era propietario
+        for (let codigo in this.partidas){
+            if (this.partidas[codigo].owner.nick == nick){
+                delete this.partidas[codigo];
+            }
+        }
+        return res;
     }
 
     this.jugadorCreaPartida = function (nick) { // esta funcion comprueba si el usuario existe a dif de crearPartida
