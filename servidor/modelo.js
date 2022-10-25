@@ -88,6 +88,10 @@ function Juego() {
         return lista;
 
     }
+
+    this.obtenerPartida = function(codigo){
+        return this.partidas[codigo];
+    }
 }
 
 function Usuario(nick, juego) {
@@ -128,6 +132,11 @@ function Partida(codigo, user) {
     this.hayHueco = function(){
         return (this.jugadores.length < this.maxJugadores) // solo tocamos aqui por si hay que cambiar el n de jugadores
     }
+
+    this.esJugando() = function(){
+        return this.fase == "jugando";
+    }
+
     this.agregarJugador(this.owner);
 }
 

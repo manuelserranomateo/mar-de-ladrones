@@ -3,11 +3,11 @@ function ClienteRest() {
     this.agregarUsuario = function (nick) { 
         let cli = this;
         $.getJSON("/agregarUsuario/" + nick, function (data) {
-            //se ejecuta cuando conteste el servidor
             if (data.nick != -1) {
                 console.log("Usuario " + data.nick + " registrado")
                 cli.nick = data.nick;
                 $.cookie("nick",cli.nick);
+                cws.conectar();
                 iu.mostrarHome();
             }
             else {
@@ -17,6 +17,7 @@ function ClienteRest() {
             }
         });
     }
+
     this.crearPartida = function () {
         let cli = this;
         let nick = cli.nick;
@@ -31,6 +32,7 @@ function ClienteRest() {
             }
         });
     }
+
     this.unirseAPartida = function (codigo) {
         let cli = this;
         $.getJSON("/unirseAPartida/" + cli.nick + "/" + codigo, function (data) {
@@ -54,7 +56,6 @@ function ClienteRest() {
     this.eliminarUsuario = function (){
         let cli = this;
         $.getJSON("/eliminarUsuario/" + cli.nick, function (data) {
-            //se ejecuta cuando conteste el servidor
             if (data.nick != -1) {
                 console.log("Usuario " + data.nick + " eliminado correctamente")
             }

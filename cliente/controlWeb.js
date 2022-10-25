@@ -78,7 +78,8 @@ function ControlWeb() {
 		$("#btnCP").on("click", function () {
 			$("mLP").remove();
 			$("#mCP").remove();
-			rest.crearPartida();
+			//rest.crearPartida();
+			cws.crearPartida();
 		})
 	}
 
@@ -111,6 +112,7 @@ function ControlWeb() {
 				$('#mLP').remove();
 				$('#mCP').remove();
 				rest.unirseAPartida(codigo);
+				// cws.unirseAPartida(codigo);
 			}
 		});
 
