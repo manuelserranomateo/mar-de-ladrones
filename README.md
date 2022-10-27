@@ -14,7 +14,7 @@ Este repositorio contiene la arquitectura base de una solución software estilo 
 ### Pre-requisitos 📋
 Tener instalado Node
 ```
-(https://nodejs.org/en/)
+https://nodejs.org/en/
 ```
 
 ### Instalación 🔧
@@ -24,7 +24,7 @@ git clone https://github.com/manuelserranomateo/proyecto22.git
 ```
 Instalar las dependencias en la carpeta raiz
 ```
-[npm install]
+npm install
 ```
 En la carpeta raiz ejecutar
 ```
@@ -32,7 +32,7 @@ npm start
 ```
 Acceder a (el puerto(3000) podria variar si existe en el sistema un puerto establecido)
 ```
-(http://localhost:3000)
+http://localhost:3000
 ```
 
 
