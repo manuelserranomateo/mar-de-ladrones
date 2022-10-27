@@ -22,6 +22,10 @@ Clonar el repositorio
 ```
 git clone https://github.com/manuelserranomateo/proyecto22.git
 ```
+Instalar las dependencias en la carpeta raiz
+```
+[npm install](https://nodejs.org/en/)
+```
 En la carpeta raiz ejecutar
 ```
 npm start
