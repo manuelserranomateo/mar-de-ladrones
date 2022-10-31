@@ -32,6 +32,7 @@ function Juego() {
     this.jugadorCreaPartida = function (nick) { // esta funcion comprueba si el usuario existe a dif de crearPartida
         let usr = this.usuarios[nick]; // lo suyo seria con un metodo, ya que si no se expone como esta implementanda la coleccion
         let res = { codigo: -1 };
+        console.log(usr);
         if (usr) { // lo suyo seria redefinir esto en el modelo
             let codigo = usr.crearPartida();
             res = { codigo: codigo };
@@ -130,10 +131,10 @@ function Partida(codigo, user) {
         }
     }
     this.hayHueco = function(){
-        return (this.jugadores.length < this.maxJugadores) // solo tocamos aqui por si hay que cambiar el n de jugadores
+        return (this.jugadores.length < this.maxJugadores); // solo tocamos aqui por si hay que cambiar el n de jugadores
     }
 
-    this.esJugando() = function(){
+    this.esJugando = function(){
         return this.fase == "jugando";
     }
 

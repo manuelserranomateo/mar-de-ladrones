@@ -1,38 +1,44 @@
-function ServidorWS(){
+function ServidorWS() {
     // zona de atributos
 
 
-    // enviar peticiones
-    this.enviarAlRemitente=function(socket,mensaje,datos){
-		socket.emit(mensaje,datos);
+    //enviar peticiones
+    this.enviarAlRemitente = function (socket, mensaje, datos) {
+        socket.emit(mensaje, datos);
     }
-
-    this.enviarATodosEnPartida=function(io,codigo,mensaje,datos){
-		io.sockets.in(codigo).emit(mensaje,datos)
-	}
+    this.enviarATodosEnPartida = function (io, codigo, mensaje, datos) {
+        io.sockets.in(codigo).emit(mensaje, datos);
+    }
+    this.enviarATodos = function (socket, mens, datos) {
+        socket.broadcast.emit(mens, datos);
+    }
 
 
     // gestionar peticiones
-    this.lanzarServidorWS = function(io, juego){
+    this.lanzarServidorWS = function (io, juego) {
         let cli = this;
         io.on('connection', (socket) => {
-
-            socket.on("crearPartida", function(nick){ 
+            console.log('Usuario conectado');
+            socket.on("crearPartida", function (nick) {
                 let res = juego.jugadorCreaPartida(nick);
-                socket.join(res.codigo);
+                let codigoStr = res.codigo.toString();
+                socket.join(codigoStr);
                 cli.enviarAlRemitente(socket, "partidaCreada", res);
+                let lista = juego.obtenerPartidasDisponibles();
+                cli.enviarATodos(socket, "actualizarListaPartidas", lista);
             });
 
-            socket.on("unirseAPartida", function(nick,codigo){
+            socket.on("unirseAPartida", function (nick, codigo) {
                 let res = juego.jugadorSeUneAPartida(nick, codigo);
+                let codigoStr = codigo.toString();
+                socket.join(codigoStr);
                 cli.enviarAlRemitente(socket, "unidoAPartida", res);
-                socket.join(codigo);
                 let partida = juego.obtenerPartida(codigo);
-                if (partida.fase.esJugando()){
+                if (partida.fase.esJugando()) {
                     cli.enviarATodosEnPartida(io, codigo, "aJugar", {});
                 }
             })
-          });
+        });
     }
 }
 

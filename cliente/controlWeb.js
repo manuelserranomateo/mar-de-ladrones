@@ -3,6 +3,7 @@ function ControlWeb() {
 	this.comprobarCookie = function () {
 		if ($.cookie('nick')) {
 			rest.nick = $.cookie('nick');
+			cws.conectar();
 			this.mostrarHome();
 		} else {
 			this.mostrarAgregarUsuario();
