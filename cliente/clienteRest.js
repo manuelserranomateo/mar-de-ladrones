@@ -1,12 +1,12 @@
 function ClienteRest() {
     this.nick;
-    this.agregarUsuario = function (nick) { 
+    this.agregarUsuario = function (nick) {
         let cli = this;
         $.getJSON("/agregarUsuario/" + nick, function (data) {
             if (data.nick != -1) {
                 console.log("Usuario " + data.nick + " registrado")
                 cli.nick = data.nick;
-                $.cookie("nick",cli.nick);
+                $.cookie("nick", data.nick);
                 cws.conectar();
                 iu.mostrarHome();
             }
@@ -53,15 +53,11 @@ function ClienteRest() {
         });
     }
 
-    this.eliminarUsuario = function (){
-        let cli = this;
-        $.getJSON("/eliminarUsuario/" + cli.nick, function (data) {
-            if (data.nick != -1) {
-                console.log("Usuario " + data.nick + " eliminado correctamente")
-            }
-            else {
-                console.log("No se ha podido eliminar el usuario")
-            }
+    this.eliminarUsuario = function () {
+        let nick = this.nick;
+        $.getJSON("/eliminarUsuario/" + nick, function (data) {
+            $.removeCookie("nick");
+            iu.comprobarCookie();
         });
     }
 }

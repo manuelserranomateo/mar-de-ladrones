@@ -19,10 +19,10 @@ function Juego() {
         if (this.usuarios[nick]) {
             delete this.usuarios[nick];
             res = { "nick": nick };
-        } 
+        }
         // eliminar partidas en las que el usuario era propietario
-        for (let codigo in this.partidas){
-            if (this.partidas[codigo].owner.nick == nick){
+        for (let codigo in this.partidas) {
+            if (this.partidas[codigo].owner.nick == nick) {
                 delete this.partidas[codigo];
             }
         }
@@ -32,7 +32,6 @@ function Juego() {
     this.jugadorCreaPartida = function (nick) { // esta funcion comprueba si el usuario existe a dif de crearPartida
         let usr = this.usuarios[nick]; // lo suyo seria con un metodo, ya que si no se expone como esta implementanda la coleccion
         let res = { codigo: -1 };
-        console.log(usr);
         if (usr) { // lo suyo seria redefinir esto en el modelo
             let codigo = usr.crearPartida();
             res = { codigo: codigo };
@@ -41,16 +40,16 @@ function Juego() {
         return res;
     }
 
-    this.jugadorSeUneAPartida=function(nick,codigo){
-		let usr = this.usuarios[nick];
-		let res={"codigo":-1};
-  		if (usr){
-    		let valor=usr.unirseAPartida(codigo);
-    		//let valor=this.unirseAPartida(codigo,usr)
-	    	res={"codigo":valor};
-	    }
-    	return res;
-	}
+    this.jugadorSeUneAPartida = function (nick, codigo) {
+        let usr = this.usuarios[nick];
+        let res = { "codigo": -1 };
+        if (usr) {
+            let valor = usr.unirseAPartida(codigo);
+            //let valor=this.unirseAPartida(codigo,usr)
+            res = { "codigo": valor };
+        }
+        return res;
+    }
 
 
     this.crearPartida = function (user) { // Diagrama de secuencia de crearPartida, Usuario -> Juego -> Partida
@@ -59,17 +58,17 @@ function Juego() {
         return codigo;
     }
 
-    
-    this.unirseAPartida=function(codigo,usr){
-		let res=-1;
-		if (this.partidas[codigo]){
-			res=this.partidas[codigo].agregarJugador(usr);
-		}
-		else{
-			console.log("La partida no existe");
-		}
-		return res;
-	}
+
+    this.unirseAPartida = function (codigo, usr) {
+        let res = -1;
+        if (this.partidas[codigo]) {
+            res = this.partidas[codigo].agregarJugador(usr);
+        }
+        else {
+            console.log("La partida no existe");
+        }
+        return res;
+    }
 
     this.obtenerPartidas = function () {
         let lista = [];
@@ -90,7 +89,7 @@ function Juego() {
 
     }
 
-    this.obtenerPartida = function(codigo){
+    this.obtenerPartida = function (codigo) {
         return this.partidas[codigo];
     }
 }
@@ -112,29 +111,29 @@ function Partida(codigo, user) {
     this.jugadores = []; // Array normal
     this.fase = "inicial"; // new Inicial(), paradigma de crearlo con un string o con un patron de dise;o (state)
     this.maxJugadores = 2;
-    this.agregarJugador=function(usr){
-		let res=this.codigo;
-		if (this.hayHueco()){
-			this.jugadores.push(usr);
-			console.log("El usuario "+usr.nick+" se une a la partida "+this.codigo);
-			this.comprobarFase();
-		}
-		else{
-			res=-1;
-			console.log("La partida está completa")
-		}
-		return res;
-	}
-    this.comprobarFase = function(){
-        if(!this.hayHueco()){
-            this.fase="jugando";
+    this.agregarJugador = function (usr) {
+        let res = this.codigo;
+        if (this.hayHueco()) {
+            this.jugadores.push(usr);
+            console.log("El usuario " + usr.nick + " se une a la partida " + this.codigo);
+            this.comprobarFase();
+        }
+        else {
+            res = -1;
+            console.log("La partida está completa")
+        }
+        return res;
+    }
+    this.comprobarFase = function () {
+        if (!this.hayHueco()) {
+            this.fase = "jugando";
         }
     }
-    this.hayHueco = function(){
+    this.hayHueco = function () {
         return (this.jugadores.length < this.maxJugadores); // solo tocamos aqui por si hay que cambiar el n de jugadores
     }
 
-    this.esJugando = function(){
+    this.esJugando = function () {
         return this.fase == "jugando";
     }
 

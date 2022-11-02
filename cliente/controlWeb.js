@@ -14,7 +14,7 @@ function ControlWeb() {
 		let cadena = '<div class="row" id="mAU">';//'<form class="form-row needs-validation"  id="mAJ">';
 		cadena = cadena + "<div class='col'>"
 		cadena = cadena + '<div class="row"><div class="col"><h2>El juego indefinido</h2></div></div>';
-		cadena = cadena + '<div class="row">';
+		cadena = cadena + '<div class="row" style="margin-top:30px">';
 		cadena = cadena + '<div class="col">'
 		cadena = cadena + '<input type="text" class="form-control mb-2 mr-sm-2" id="usr" placeholder="Introduce tu nick (max 6 letras)" required></div>';
 		cadena = cadena + '<div class="col">';
@@ -30,7 +30,8 @@ function ControlWeb() {
 		$("#btnAU").on("click", function (e) {
 			if ($('#usr').val() === '' || $('#usr').val().length > 6) {
 				e.preventDefault();
-				$('#nota').append('Nick inválido');
+				//$('#nota').append('Nick inválido');
+				iu.mostrarModal('Nick invalido');
 			}
 			else {
 				var nick = $('#usr').val();
@@ -46,7 +47,7 @@ function ControlWeb() {
 		$('#mH').remove();
 		let cadena = "<div class ='row' id='mH'>";
 		cadena = cadena + "<div class='col'>";
-		cadena = cadena + "<p>Bienvenido " + rest.nick + "</p>";
+		cadena = cadena + "<h1>Bienvenido <b>" + rest.nick + "</b></h1>";
 		cadena = cadena + "<div id='codigo'></div>"
 		cadena = cadena + '<button id="btnBC" class="btn btn-primary mb-2 mr-sm-2">Salir</button>';
 		cadena = cadena + "</div></div>";
@@ -58,19 +59,15 @@ function ControlWeb() {
 			$("#mCP").remove();
 			$('#mLP').remove();
 			$('#mH').remove();
-			$.removeCookie('nick');
 			rest.eliminarUsuario();
-			iu.comprobarCookie();
 		})
 	}
 
 	this.mostrarCrearPartida = function () {
-		//dibujar un boton, que al hacer click llame a crear
-		//partida de rest
 		$("#mCP").remove();
-		let cadena = '<div class="col" id="mCP">';
+		let cadena = '<div id="mCP">';
 		cadena = cadena + '<button id="btnCP" class="btn btn-primary mb-2 mr-sm-2">Crear partida</button>';
-		cadena = cadena + '</div>';
+	
 		cadena = cadena + '<div id="nota"></div>';
 		cadena = cadena + '</div></div>';
 
@@ -79,7 +76,6 @@ function ControlWeb() {
 		$("#btnCP").on("click", function () {
 			$("mLP").remove();
 			$("#mCP").remove();
-			//rest.crearPartida();
 			cws.crearPartida();
 		})
 	}
@@ -90,16 +86,13 @@ function ControlWeb() {
 	}
 
 	this.mostrarListaDePartidas = function (lista) {
-		//crear un control visual tipo lista para mostrar
-		//la lista de partidas
-		//y permitir unirse con un click
 		$('#mLP').remove();
 		let cadena = '<div id="mLP"><h3>Partidas disponibles</h3>';
-		cadena = cadena + '<button id="btnRL" class="btn btn-primary mb-2 mr-sm-2">Refrescar lista</button>';
-		cadena = cadena + '<div class="row">';
+		// cadena = cadena + '<button id="btnRL" class="btn btn-primary mb-2 mr-sm-2">Refrescar lista</button>';
+		cadena = cadena + '<div class="row" style="margin-top:10px">';
 		cadena = cadena + '<ul class="list-group">';
 		for (i = 0; i < lista.length; i++) {
-			cadena = cadena + "<li class='list-group-item'><a href='#' value='" + lista[i].codigo +
+			cadena = cadena + "<li class='list-group-item' style='margin-top:10px'><a href='#' value='" + lista[i].codigo +
 				"'>Partida <b>" + lista[i].codigo + "</b> creada por <b>" + lista[i].owner + "</b></a></li>";
 		}
 		cadena = cadena + " </ul>";
@@ -112,16 +105,16 @@ function ControlWeb() {
 			if (codigo) {
 				$('#mLP').remove();
 				$('#mCP').remove();
-				rest.unirseAPartida(codigo);
-				// cws.unirseAPartida(codigo);
+				//rest.unirseAPartida(codigo);
+				cws.unirseAPartida(codigo);
 			}
 		});
 
-		$("#btnRL").on("click", function () {
-			$("#btnRL").remove();
-			$("#mLP").remove();
-			rest.obtenerPartidas();
-		})
+		// $("#btnRL").on("click", function () {
+		// 	// $("#btnRL").remove();
+		// 	// $("#mLP").remove();
+		// 	rest.obtenerPartidas();
+		// })
 	}
 
 	this.mostrarModal = function (msg) {

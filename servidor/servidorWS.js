@@ -23,7 +23,7 @@ function ServidorWS() {
                 let res = juego.jugadorCreaPartida(nick);
                 let codigoStr = res.codigo.toString();
                 socket.join(codigoStr);
-                cli.enviarAlRemitente(socket, "partidaCreada", res);
+                cli.enviarATodosEnPartida(io,codigoStr,"partidaCreada",res)
                 let lista = juego.obtenerPartidasDisponibles();
                 cli.enviarATodos(socket, "actualizarListaPartidas", lista);
             });
@@ -34,7 +34,7 @@ function ServidorWS() {
                 socket.join(codigoStr);
                 cli.enviarAlRemitente(socket, "unidoAPartida", res);
                 let partida = juego.obtenerPartida(codigo);
-                if (partida.fase.esJugando()) {
+                if (partida.esJugando()) {
                     cli.enviarATodosEnPartida(io, codigo, "aJugar", {});
                 }
             })
