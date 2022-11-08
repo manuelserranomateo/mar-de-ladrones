@@ -222,6 +222,10 @@ function Partida(codigo, user) {
         return this.fase == "desplegando";
     }
 
+    this.esFinal = function () {
+        return this.fase == "final";
+    }
+
     this.flotasDesplegadas = function () {
         for (i = 0; i < this.jugadores.length; i++) {
             if (!this.jugadores[i].todosDesplegados()) {
