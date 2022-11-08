@@ -48,7 +48,7 @@ function ControlWeb() {
 		let cadena = "<div class ='row' id='mH'>";
 		cadena = cadena + "<div class='col'>";
 		cadena = cadena + "<h1>Bienvenido <b>" + rest.nick + "</b></h1>";
-		cadena = cadena + "<div id='codigo'></div>"
+		cadena = cadena + "<div style='margin-bottom:15px' id='codigo'></div>"
 		cadena = cadena + '<button id="btnBC" class="btn btn-primary mb-2 mr-sm-2">Salir</button>';
 		cadena = cadena + "</div></div>";
 		$('#agregarUsuario').append(cadena);
@@ -67,14 +67,13 @@ function ControlWeb() {
 		$("#mCP").remove();
 		let cadena = '<div id="mCP">';
 		cadena = cadena + '<button id="btnCP" class="btn btn-primary mb-2 mr-sm-2">Crear partida</button>';
-	
 		cadena = cadena + '<div id="nota"></div>';
 		cadena = cadena + '</div></div>';
 
 		$("#crearPartida").append(cadena);
 
 		$("#btnCP").on("click", function () {
-			$("mLP").remove();
+			$("#mLP").remove();
 			$("#mCP").remove();
 			cws.crearPartida();
 		})
