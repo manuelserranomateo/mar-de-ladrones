@@ -74,6 +74,7 @@ describe("El juego...", function() {
       expect(us1.todosDesplegados()).toEqual(true);
       expect(us2.todosDesplegados()).toEqual(true);
       expect(partida.flotasDesplegadas()).toEqual(true);
+      expect(partida.esJugando()).toEqual(true);
     });
 
     it("Comprobar jugada que Pepe gana",function(){

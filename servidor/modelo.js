@@ -238,14 +238,17 @@ function Partida(codigo, user) {
         if (this.flotasDesplegadas()) {
             this.fase = "jugando";
             this.asignarTurnoInicial();
+            console.log('Los barcos han sido desplegados');
         }
     }
     this.asignarTurnoInicial = function () {
         this.turno = this.jugadores[0];
+        console.log('Turno inicial asignado a : ', this.jugadores[0].nick );
     }
 
     this.cambiarTurno = function(nick){
         this.turno = this.obtenerRival(nick);
+        console.log('Turno asignado a : ', this.turno.nick );
     }
 
     this.obtenerRival = function (nick) {
@@ -275,6 +278,7 @@ function Partida(codigo, user) {
             let estado = atacado.obtenerEstado(x, y);
             atacante.marcarEstado(estado, x, y);
             this.comprobarFin(atacado);
+            console.log(atacante.nick + ' dispara a ' + atacado.nick + ' en casillas ' + x,y + ' barco en estado : ' + estado);
         }
         else {
             console.log('No es tu turno');
@@ -308,6 +312,7 @@ function Tablero(size) {
         if (this.casillasLibres(x, y, barco.tam)) {
             for (i = x; i < barco.tam; i++) {
                 this.casillas[i][y].contiene = barco;
+                console.log('Barco colocado en las casillas: ', i, y);
             }
             barco.desplegado = true;
         }
@@ -356,7 +361,6 @@ function Barco(nombre, tam) {
     }
 
     this.meDisparan = function () {
-        console.log("Barco");
         this.disparos++;
         if (this.disparos < this.tam) {
             this.estado = "tocado";

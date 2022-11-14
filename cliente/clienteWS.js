@@ -19,11 +19,18 @@ function ClienteWS() {
     this.abandonarPartida = function () {
         this.socket.emit("abandonarPartida", rest.nick, cws.codigo);
     }
-    
-    //this.colocarBarco=function(nombre,x,y)
-    //this.barcosDesplegados=function()
-    //this.disparar=function(x,y)
 
+    this.colocarBarco = function (nombre, x, y) {
+        this.socket.emit("colocarBarco", rest.nick, nombre, x, y);
+    }
+
+    this.barcosDesplegados = function () {
+        this.socket.emit("barcosDesplegados", rest.nick);
+    }
+
+    this.disparar = function (x, y) {
+        this.socket.emit("disparar", rest.nick, x, y);
+    }
 
     // gestionar peticiones
     this.servidorWS = function () {
@@ -57,6 +64,10 @@ function ClienteWS() {
         });
         this.socket.on("aJugar", function () {
             iu.mostrarModal("Ambos jugadores en la partida");
+        });
+
+        this.socket.on("partidaTerminada", function () {
+            iu.mostrarModal("La partida ha terminado");           
         })
     }
 }

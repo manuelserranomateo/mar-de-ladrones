@@ -41,7 +41,7 @@ function ClienteRest() {
                 iu.mostrarCodigo(data.codigo);
             }
             else {
-                console.log("No se ha podido unir a partida")
+                console.log("No se ha podido unir a partida");
             }
         });
     }

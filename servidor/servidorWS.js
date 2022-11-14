@@ -23,7 +23,7 @@ function ServidorWS() {
                 let res = juego.jugadorCreaPartida(nick);
                 let codigoStr = res.codigo.toString();
                 socket.join(codigoStr);
-                cli.enviarATodosEnPartida(io,codigoStr,"partidaCreada",res)
+                cli.enviarATodosEnPartida(io, codigoStr, "partidaCreada", res)
                 let lista = juego.obtenerPartidasDisponibles();
                 cli.enviarATodos(socket, "actualizarListaPartidas", lista);
             });
@@ -34,12 +34,40 @@ function ServidorWS() {
                 socket.join(codigoStr);
                 cli.enviarAlRemitente(socket, "unidoAPartida", res);
                 let partida = juego.obtenerPartida(codigo);
-                if (partida.esJugando()) {
-                    cli.enviarATodosEnPartida(io, codigo, "aJugar", {});
+            });
+
+            socket.on("colocarBarco", function (nick, nombre, x, y) {
+                let user = juego.obtenerUsuario(nick);
+                let partida = user.partida;
+                if (user) {
+                    let res = user.colocarBarco(nombre, x, y);
+                    cli.enviarAlRemitente(socket, "colocarBarco", res);
                 }
-            })
+            });
+            socket.on("barcosDesplegados", function (nick) {
+                let user = juego.obtenerUsuario(nick);
+                if (user) {
+                    user.barcosDesplegados();
+                    let partida = user.partida;
+                    let res = {}
+                    let codigoStr = partida.codigo.toString();
+                    cli.enviarATodosEnPartida(io, codigoStr, "aJugar", res);
+                }
+            });
+
+            socket.on("disparar", function (nick, x, y) {
+                let user = juego.obtenerUsuario(nick);
+                let partida = user.partida;
+                if (user) {
+                    user.disparar(x, y);
+                    let codigoStr = partida.codigo.toString();
+                    if (partida.esFinal()){
+                        cli.enviarATodosEnPartida(io, codigoStr, "partidaTerminada", {});
+                    }
+                }
+            });
         });
     }
 }
 
-module.exports.ServidorWS = ServidorWS; // diff entre servidor y cliente, aqui hace falta exportarlos
+module.exports.ServidorWS = ServidorWS; 
