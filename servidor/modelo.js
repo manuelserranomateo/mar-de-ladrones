@@ -94,8 +94,11 @@ function Juego() {
     }
 
     this.obtenerUsuario = function (nick) {
-        return this.usuarios[nick];
+        if (this.usuarios[nick]) {
+            return this.usuarios[nick];
+        }
     }
+
 }
 
 function Usuario(nick, juego) {
@@ -119,8 +122,6 @@ function Usuario(nick, juego) {
     }
 
     this.inicializarFlota = function () {
-        // this.flota.push(new Barco("b2", 2));
-        // this.flota.push(new Barco("b4", 4));
         this.flota["b2"] = new Barco("b2", 2);
         this.flota["b4"] = new Barco("b4", 4);
     }
@@ -150,7 +151,7 @@ function Usuario(nick, juego) {
     }
 
     this.meDisparan = function (x, y) {
-        this.tableroPropio.meDisparan(x, y);
+        return this.tableroPropio.meDisparan(x, y);
     }
 
     this.obtenerEstado = function (x, y) {
@@ -166,7 +167,7 @@ function Usuario(nick, juego) {
 
     this.flotaHundida = function () {
         for (let key in this.flota) {
-            if (this.flota[key].estado!="hundido") {
+            if (this.flota[key].estado != "hundido") {
                 return false;
             }
         }
@@ -243,12 +244,12 @@ function Partida(codigo, user) {
     }
     this.asignarTurnoInicial = function () {
         this.turno = this.jugadores[0];
-        console.log('Turno inicial asignado a : ', this.jugadores[0].nick );
+        console.log('Turno inicial asignado a : ', this.jugadores[0].nick);
     }
 
-    this.cambiarTurno = function(nick){
+    this.cambiarTurno = function (nick) {
         this.turno = this.obtenerRival(nick);
-        console.log('Turno asignado a : ', this.turno.nick );
+        console.log('Turno asignado a : ', this.turno.nick);
     }
 
     this.obtenerRival = function (nick) {
@@ -274,20 +275,19 @@ function Partida(codigo, user) {
         let atacante = this.obtenerJugador(nick);
         if (this.turno.nick == atacante.nick) {
             let atacado = this.obtenerRival(nick);
-            atacado.meDisparan(x, y);
-            let estado = atacado.obtenerEstado(x, y);
+            let estado = atacado.meDisparan(x, y);
             atacante.marcarEstado(estado, x, y);
             this.comprobarFin(atacado);
-            console.log(atacante.nick + ' dispara a ' + atacado.nick + ' en casillas ' + x,y + ' barco en estado : ' + estado);
+            console.log(atacante.nick + ' dispara a ' + atacado.nick + ' en casillas ' + x, y);
         }
         else {
             console.log('No es tu turno');
         }
     }
 
-    this.comprobarFin = function(jugador){
-        if (jugador.flotaHundida()){
-            this.fase="final";
+    this.comprobarFin = function (jugador) {
+        if (jugador.flotaHundida()) {
+            this.fase = "final";
             console.log('Fin de la partida');
             console.log('Gana ' + this.turno.nick);
         }
@@ -329,7 +329,7 @@ function Tablero(size) {
     }
 
     this.meDisparan = function (x, y) {
-        this.casillas[x][y].contiene.meDisparan();
+        return this.casillas[x][y].contiene.meDisparan(this, x, y);
     }
 
     this.obtenerEstado = function (x, y) {
@@ -338,6 +338,10 @@ function Tablero(size) {
 
     this.marcarEstado = function (estado, x, y) {
         this.casillas[x][y].contiene = estado;
+    }
+
+    this.ponerAgua = function (x, y) {
+        return this.casillas[x][y].contiene = new Agua();
     }
 
     this.crearTablero(size);
@@ -352,24 +356,26 @@ function Casilla(x, y) {
 function Barco(nombre, tam) {
     this.nombre = nombre;
     this.tam = tam;
-    //this.orientacion; lo podemos implementar nosotros
+    this.orientacion; //horizontal, vertical...
     this.desplegado = false;
     this.estado = "intacto";
     this.disparos = 0;
     this.esAgua = function () {
         return false;
     }
-
-    this.meDisparan = function () {
+    this.meDisparan = function (tablero, x, y) {
         this.disparos++;
         if (this.disparos < this.tam) {
             this.estado = "tocado";
+            console.log("Tocado");
         }
         else {
             this.estado = "hundido";
+            console.log("Hundido");
         }
+        tablero.ponerAgua(x, y);
+        return this.estado;
     }
-
     this.obtenerEstado = function () {
         return this.estado;
     }
@@ -377,22 +383,20 @@ function Barco(nombre, tam) {
 
 function Agua() {
     this.nombre = "agua";
-
     this.esAgua = function () {
         return true;
     }
-
-    this.meDisparan = function () {
-        console.log("Agua")
+    this.meDisparan = function (tablero, x, y) {
+        console.log("agua");
+        return this.obtenerEstado();
     }
-
     this.obtenerEstado = function () {
         return "agua";
     }
 }
 
-function Inicial(){  //En esta por ejemplo el agregar jugador
-	this.nombre="inicial"
+function Inicial() {  //En esta por ejemplo el agregar jugador
+    this.nombre = "inicial"
 }
 
 module.exports.Juego = Juego;

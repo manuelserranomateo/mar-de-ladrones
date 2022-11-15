@@ -22,14 +22,17 @@ function ClienteWS() {
 
     this.colocarBarco = function (nombre, x, y) {
         this.socket.emit("colocarBarco", rest.nick, nombre, x, y);
+        console.log(rest.nick + " coloca el barco " + nombre + " en " + x,y);
     }
 
     this.barcosDesplegados = function () {
         this.socket.emit("barcosDesplegados", rest.nick);
+        console.log("Jugador " + rest.nick + " despliega los barcos");
     }
 
     this.disparar = function (x, y) {
         this.socket.emit("disparar", rest.nick, x, y);
+        console.log("Jugador " + rest.nick + " dispara a las coordenadas " + x,y);
     }
 
     // gestionar peticiones
@@ -42,9 +45,10 @@ function ClienteWS() {
                 cli.codigo = codigo;
             }
             else {
-                console.log("No se ha podido crear partida");
                 iu.mostrarModal("No se ha podido crear partida");
                 iu.mostrarCrearPartida();
+                rest.comprobarUsuario();
+
             }
         });
         this.socket.on("unidoAPartida", function (data) {

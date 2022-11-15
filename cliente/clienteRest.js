@@ -18,6 +18,23 @@ function ClienteRest() {
         });
     }
 
+    this.comprobarUsuario = function(){
+		let cli= this;
+		$.getJSON("/comprobarUsuario/"+this.nick,function(data){
+			if (data.nick!=-1){
+                console.log("Usuario " + data.nick + " activo")
+				cws.conectar();    
+				iu.mostrarHome();
+		}
+			else{
+                console.log("No se ha podido registrar el usuario")
+				//iu.mostrarModal("El nick ya está en uso");
+				iu.mostrarAgregarUsuario();
+
+			}
+		});
+	}
+    
     this.crearPartida = function () {
         let cli = this;
         let nick = cli.nick;

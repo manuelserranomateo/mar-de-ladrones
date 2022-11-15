@@ -50,16 +50,26 @@ app.get("/agregarUsuario/:nick", function (request, response) {
   // En la capa REST se evita poner logica, esto se debe hacer en la capa logica
 });
 
+app.get("/comprobarUsuario/:nick", function (request, response) {
+  let nick = request.params.nick;
+  let us = juego.obtenerUsuario(nick);
+  if (us) {
+    res.nick = us.nick;
+  }
+  response.send(res);
+})
+
+
 app.get('/crearPartida/:nick', function (request, response) {
-  let nick = request.params.nick; 
+  let nick = request.params.nick;
   let res = juego.jugadorCreaPartida(nick);
   response.send(res);
 });
 
-app.get("/unirseAPartida/:nick/:codigo",function(request,response){
+app.get("/unirseAPartida/:nick/:codigo", function (request, response) {
   let nick = request.params.nick;
   let codigo = request.params.codigo;
-  let res = juego.jugadorSeUneAPartida(nick,codigo);
+  let res = juego.jugadorSeUneAPartida(nick, codigo);
   response.send(res);
 });
 
