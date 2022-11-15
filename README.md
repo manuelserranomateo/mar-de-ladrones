@@ -34,7 +34,9 @@ Acceder a (el puerto(3000) podria variar si existe en el sistema un puerto estab
 ```
 http://localhost:3000
 ```
-
-
+Tambien se puede acceder a traves de este link, ya que la aplicacion se encuentra conectada con los servicios de Google Cloud y esta configurada para el despliegue continuo
+```
+https://proyecto22-y3e2t6nkdq-no.a.run.app
+```
 
 
