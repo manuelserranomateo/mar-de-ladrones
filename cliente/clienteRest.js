@@ -11,7 +11,6 @@ function ClienteRest() {
                 iu.mostrarHome();
             }
             else {
-                console.log("No se ha podido registrar el usuario")
                 iu.mostrarModal("El nick ya está en uso");
                 iu.mostrarAgregarUsuario();
             }
@@ -27,8 +26,6 @@ function ClienteRest() {
 				iu.mostrarHome();
 		}
 			else{
-                console.log("No se ha podido registrar el usuario")
-				//iu.mostrarModal("El nick ya está en uso");
 				iu.mostrarAgregarUsuario();
 
 			}
@@ -44,7 +41,7 @@ function ClienteRest() {
                 iu.mostrarCodigo(data.codigo);
             }
             else {
-                console.log("No se ha podido crear partida")
+                iu.mostrarModal("No se ha podido crear partida")
 
             }
         });
@@ -58,7 +55,7 @@ function ClienteRest() {
                 iu.mostrarCodigo(data.codigo);
             }
             else {
-                console.log("No se ha podido unir a partida");
+                iu.mostrarModal("No se ha podido unir a partida");
             }
         });
     }
@@ -72,7 +69,7 @@ function ClienteRest() {
 
     this.eliminarUsuario = function () {
         let nick = this.nick;
-        $.getJSON("/eliminarUsuario/" + nick, function (data) {
+        $.getJSON("/eliminarUsuario/" + nick, function () {
             $.removeCookie("nick");
             iu.comprobarCookie();
         });

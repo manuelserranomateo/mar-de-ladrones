@@ -1,8 +1,4 @@
 function ServidorWS() {
-    // zona de atributos
-
-
-    //enviar peticiones
     this.enviarAlRemitente = function (socket, mensaje, datos) {
         socket.emit(mensaje, datos);
     }
@@ -33,7 +29,6 @@ function ServidorWS() {
                 let codigoStr = codigo.toString();
                 socket.join(codigoStr);
                 cli.enviarAlRemitente(socket, "unidoAPartida", res);
-                let partida = juego.obtenerPartida(codigo);
             });
             
             socket.on("abandonarPartida", function (nick,codigo) { //por hacer
@@ -45,7 +40,6 @@ function ServidorWS() {
                     let rival=partida.obtenerRival(jugador.nick);
                     let res={codigoP:codigo,nombreA:jugador.nick,nombreG:rival.nick}
                     partida.abandonarPartida(jugador)
-                    //cli.enviarAlRemitente(socket, "partidaAbandonada", res);
                     cli.enviarATodosEnPartida(io, codigoStr, "partidaAbandonada", res);
                     socket.leave(codigoStr)
 
@@ -53,10 +47,9 @@ function ServidorWS() {
             });
             socket.on("colocarBarco", function (nick, nombre, x, y) {
                 let user = juego.obtenerUsuario(nick);
-                let partida = user.partida;
                 if (user) {
                     let res = user.colocarBarco(nombre, x, y);
-                    cli.enviarAlRemitente(socket, "colocarBarco", res);
+                    cli.enviarATodosEnPartida(io, codigoStr, "colocarBarco", res);
                 }
             });
             socket.on("barcosDesplegados", function (nick) {
@@ -64,9 +57,8 @@ function ServidorWS() {
                 if (user) {
                     user.barcosDesplegados();
                     let partida = user.partida;
-                    let res = {}
                     let codigoStr = partida.codigo.toString();
-                    cli.enviarATodosEnPartida(io, codigoStr, "aJugar", res);
+                    cli.enviarATodosEnPartida(io, codigoStr, "aJugar", {});
                 }
             });
 
