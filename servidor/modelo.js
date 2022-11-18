@@ -13,21 +13,16 @@ function Juego() {
         return res;
     }
 
-    this.eliminarUsuario = function (nick) {
-        let res = { "nick": -1 };
-        // eliminar usuario al borrar cookies
-        if (this.usuarios[nick]) {
-            delete this.usuarios[nick];
-            res = { "nick": nick };
-        }
-        // eliminar partidas en las que el usuario era propietario
-        for (let codigo in this.partidas) {
-            if (this.partidas[codigo].owner.nick == nick) {
-                delete this.partidas[codigo];
-            }
-        }
-        return res;
-    }
+    this.eliminarUsuario=function(nick){
+		delete this.usuarios[nick];
+	}
+
+	this.usuarioSale=function(nick){
+		if (this.usuarios[nick]){
+			this.finalizarPartida(nick);
+			this.eliminarUsuario(nick);
+		}
+	}
 
     this.jugadorCreaPartida = function (nick) { // esta funcion comprueba si el usuario existe a dif de crearPartida
         let usr = this.usuarios[nick]; // lo suyo seria con un metodo, ya que si no se expone como esta implementanda la coleccion
@@ -57,7 +52,6 @@ function Juego() {
         this.partidas[codigo] = new Partida(codigo, user); // Valorar si interesa el string de Nick o el objeto 
         return codigo;
     }
-
 
     this.unirseAPartida = function (codigo, usr) {
         let res = -1;
@@ -89,14 +83,20 @@ function Juego() {
 
     }
 
+    this.finalizarPartida=function(nick){
+		for (let key in this.partidas){
+			if (this.partidas[key].fase=="inicial" && this.partidas[key].estoy(nick)){
+				this.partidas[key].fase="final";
+			}
+		}
+	}
+
     this.obtenerPartida = function (codigo) {
         return this.partidas[codigo];
     }
 
     this.obtenerUsuario = function (nick) {
-        if (this.usuarios[nick]) {
-            return this.usuarios[nick];
-        }
+        return this.usuarios[nick];
     }
 
 }
@@ -202,6 +202,15 @@ function Partida(codigo, user) {
             this.fase = "desplegando";
         }
     }
+    this.abandonarPartida = function (jugador) {
+        if (jugador) {
+            rival = this.obtenerRival(jugador.nick)
+            this.fase = "final";
+            console.log("Fin de la partida");
+            console.log("Ha abandonado el jugador " + jugador.nick);
+        }
+    }
+
     this.hayHueco = function () {
         return (this.jugadores.length < this.maxJugadores); // solo tocamos aqui por si hay que cambiar el n de jugadores
     }

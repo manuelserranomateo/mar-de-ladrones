@@ -51,6 +51,14 @@ function ClienteWS() {
 
             }
         });
+
+        this.socket.on("partidaAbandonada",function(data){
+			if (data.codigo!=-1){
+				iu.mostrarHome();
+                iu.mostrarModal(data.nombreA+" ha abandonado la partida");
+			}
+		});
+
         this.socket.on("unidoAPartida", function (data) {
             if (data.codigo != -1) {
                 console.log("Usuario " + rest.nick + " se une a partida codigo: " + data.codigo);
@@ -61,6 +69,9 @@ function ClienteWS() {
                 console.log("No se ha podido unir a partida");
             }
         });
+
+        
+
         this.socket.on("actualizarListaPartidas", function (lista) {
             if (!cli.codigo) {
                 iu.mostrarListaDePartidas(lista);
@@ -72,6 +83,14 @@ function ClienteWS() {
 
         this.socket.on("partidaTerminada", function () {
             iu.mostrarModal("La partida ha terminado");           
+        });
+
+        this.socket.on("barcoColocado",function(data){
+            iu.mostrarModal("Barco: "+ data.barco + " colocado")
+        })
+
+        this.socket.on("disparo",function(data){
+            iu.mostrarModal("El jugador: "+data.jugador + " ha disparado en la posicion "+ data.disparoX+ " " +data.disparoY)
         })
     }
 }

@@ -81,7 +81,14 @@ function ControlWeb() {
 
 	this.mostrarCodigo = function (codigo) {
 		let cadena = "Codigo de la partida: " + codigo;
-		$("#codigo").append(cadena)
+		cadena = cadena + '<div style="margin-top:15px">';
+		cadena = cadena + '<button id="btnAP" class="btn btn-primary mb-2 mr-sm-2">Abandonar partida</button>';
+		cadena = cadena + '</div>';
+		$("#codigo").append(cadena);
+
+		$("#btnAP").on("click", function () {
+			cws.abandonarPartida();
+		})
 	}
 
 	this.mostrarListaDePartidas = function (lista) {

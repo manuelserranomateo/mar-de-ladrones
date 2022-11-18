@@ -35,7 +35,22 @@ function ServidorWS() {
                 cli.enviarAlRemitente(socket, "unidoAPartida", res);
                 let partida = juego.obtenerPartida(codigo);
             });
+            
+            socket.on("abandonarPartida", function (nick,codigo) { //por hacer
+                let jugador= juego.obtenerUsuario(nick);
+                let partida= juego.obtenerPartida(codigo)
+                
+                let codigoStr = codigo.toString();
+                if(jugador && partida){
+                    let rival=partida.obtenerRival(jugador.nick);
+                    let res={codigoP:codigo,nombreA:jugador.nick,nombreG:rival.nick}
+                    partida.abandonarPartida(jugador)
+                    //cli.enviarAlRemitente(socket, "partidaAbandonada", res);
+                    cli.enviarATodosEnPartida(io, codigoStr, "partidaAbandonada", res);
+                    socket.leave(codigoStr)
 
+                }
+            });
             socket.on("colocarBarco", function (nick, nombre, x, y) {
                 let user = juego.obtenerUsuario(nick);
                 let partida = user.partida;
