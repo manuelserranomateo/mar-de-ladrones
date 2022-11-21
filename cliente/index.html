@@ -21,7 +21,10 @@
     <script src="./cliente/clienteRest.js"></script>
     <script src="./cliente/controlWeb.js"></script>
     <script src="./cliente/clienteWS.js"></script>
+    <script src="./cliente/tablero.js"></script>
 
+
+    <link href="./cliente/css/styles.css" rel="stylesheet" media="all" />
 </head>
 
 <body class="bg-dark">
@@ -40,6 +43,23 @@
             </div>
         </div>
     </div>
+    <h2>Coloca tus barcos pibe</h2>
+    <ul class="fleet-roster">
+        <li id="b2">b2</li>
+        <li id="b4">b4</li>
+    </ul>
+
+    <div class="col-8 text-center">
+        <div class="grid-container">
+            <h2 class="text-light">Tu flota</h2>
+            <div class="grid human-player"></div>
+        </div>
+        <div class="grid-container">
+            <h2 class="text-light">Flota enemiga</h2>
+            <div class="grid computer-player"></div>
+        </div>
+    </div>
+
     <div class="modal" id="miModal">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -61,6 +81,7 @@
         iu = new ControlWeb();
         cws = new ClienteWS();
         iu.comprobarCookie();
+        tablero = new Tablero()
     </script>
 </body>
 

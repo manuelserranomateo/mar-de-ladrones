@@ -49,7 +49,7 @@ function ServidorWS() {
                 let user = juego.obtenerUsuario(nick);
                 if (user) {
                     let res = user.colocarBarco(nombre, x, y);
-                    cli.enviarATodosEnPartida(io, codigoStr, "colocarBarco", res);
+                    cli.enviarAlRemitente(socket, "colocarBarco", res);
                 }
             });
             socket.on("barcosDesplegados", function (nick) {
