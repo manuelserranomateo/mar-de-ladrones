@@ -43,6 +43,7 @@
             </div>
         </div>
     </div>
+    <div id="tablero">
     <h2>Coloca tus barcos pibe</h2>
     <ul class="fleet-roster">
         <li id="b2">b2</li>
@@ -59,7 +60,7 @@
             <div class="grid computer-player"></div>
         </div>
     </div>
-
+</div>
     <div class="modal" id="miModal">
         <div class="modal-dialog text-dark">
             <div class="modal-content">
@@ -81,7 +82,7 @@
         iu = new ControlWeb();
         cws = new ClienteWS();
         iu.comprobarCookie();
-        tablero = new Tablero()
+        tablero = new Tablero(10)
     </script>
 </body>
 

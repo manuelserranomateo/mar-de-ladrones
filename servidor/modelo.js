@@ -6,7 +6,7 @@ function Juego() {
     this.agregarUsuario = function (nick) {
         let res = { "nick": -1 };
         if (!this.usuarios[nick]) {
-            this.usuarios[nick] = new Usuario(nick, this); // con el this le paso el objeto de Juego
+            this.usuarios[nick] = new Usuario(nick, this); 
             res = { "nick": nick };
             console.log('Nuevo usuario: ' + nick);
         }
@@ -24,10 +24,10 @@ function Juego() {
 		}
 	}
 
-    this.jugadorCreaPartida = function (nick) { // esta funcion comprueba si el usuario existe a dif de crearPartida
-        let usr = this.usuarios[nick]; // lo suyo seria con un metodo, ya que si no se expone como esta implementanda la coleccion
+    this.jugadorCreaPartida = function (nick) { 
+        let usr = this.usuarios[nick]; 
         let res = { codigo: -1 };
-        if (usr) { // lo suyo seria redefinir esto en el modelo
+        if (usr) { 
             let codigo = usr.crearPartida();
             res = { codigo: codigo };
             console.log('Usuario ' + nick + " ha creado la partida " + codigo)
@@ -40,7 +40,6 @@ function Juego() {
         let res = { "codigo": -1 };
         if (usr) {
             let valor = usr.unirseAPartida(codigo);
-            //let valor=this.unirseAPartida(codigo,usr)
             res = { "codigo": valor };
         }
         return res;

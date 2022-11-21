@@ -37,7 +37,7 @@ function ServidorWS() {
 
             });
 
-            socket.on("abandonarPartida", function (nick, codigo) { //por hacer
+            socket.on("abandonarPartida", function (nick, codigo) {
                 let jugador = juego.obtenerUsuario(nick);
                 let partida = juego.obtenerPartida(codigo)
 

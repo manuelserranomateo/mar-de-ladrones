@@ -15,17 +15,17 @@ describe("El juego...", function () {
     partida = miJuego.obtenerPartida(res.codigo);
   });
 
-  it("comprobamos los nick de los usuarios", function () {
+  it("Comprobar nicks de los usuarios", function () {
     expect(us1.nick).toEqual("pepe");
     expect(us2.nick).toEqual("luis");
   });
 
-  it("comprobamos que luis y pepe están en la partida", function () {
+  it("Comprobar que estan en la partida", function () {
     expect(partida.estoy("pepe")).toEqual(true);
     expect(partida.estoy("luis")).toEqual(true);
   });
 
-  it("los dos jugadores tienen tablero propio y rival", function () {
+  it("Comprobar que tienen tablero propio y rival", function () {
     expect(us1.tableroPropio).toBeDefined();
     expect(us2.tableroPropio).toBeDefined();
     expect(us1.tableroRival).toBeDefined();
@@ -44,7 +44,7 @@ describe("El juego...", function () {
     expect(us1.tableroPropio.casillas[0][0].contiene.esAgua()).toEqual(true);
   });
 
-  it("los dos jugadores tienen flota (2 barcos, tam 2 y 4)", function () {
+  it("Comprobar que tienen flota (2 barcos, tam 2 y 4)", function () {
     expect(us1.flota).toBeDefined();
     expect(us2.flota).toBeDefined();
 
@@ -55,15 +55,15 @@ describe("El juego...", function () {
     expect(us1.flota["b4"].tam).toEqual(4);
   });
 
-  it("la partida está en fase desplegando", function () {
+  it("Comprobar que la partida está en fase desplegando", function () {
     expect(partida.esJugando()).toEqual(false);
     expect(partida.esDesplegando()).toEqual(true);
   });
 
   describe("A jugar!", function () {
     beforeEach(function () {
-      us1.colocarBarco("b2", 0, 0); // 0,0 1,0
-      us1.colocarBarco("b4", 0, 1); // 0,1 1,1 2,1 3,1
+      us1.colocarBarco("b2", 0, 0); 
+      us1.colocarBarco("b4", 0, 1); 
       us1.barcosDesplegados();
       us2.colocarBarco("b2", 0, 0);
       us2.colocarBarco("b4", 0, 1);

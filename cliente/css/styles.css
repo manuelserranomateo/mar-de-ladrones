@@ -190,6 +190,7 @@ button {
 		width: 40px;
 		display: inline-block;
 		background-color: #99C2E1;
+		/* background-image: url('../img/water.png'); */
 		margin: 1px;
 		-webkit-border-radius: 2px;
 		-moz-border-radius: 2px;
