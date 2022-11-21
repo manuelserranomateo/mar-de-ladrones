@@ -173,6 +173,15 @@ function Usuario(nick, juego) {
         }
         return true;
     }
+
+    this.obtenerBarcoDesplegado=function(nombre){
+		for(var key in this.flota){
+			if (this.flota[key]==nombre){
+				return this.flota[key];
+			}
+			return undefined
+		}
+	}
 }
 
 function Partida(codigo, user) {

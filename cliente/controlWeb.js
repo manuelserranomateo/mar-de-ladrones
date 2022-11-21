@@ -4,7 +4,6 @@ function ControlWeb() {
 		if ($.cookie('nick')) {
 			rest.nick = $.cookie('nick');
 			rest.comprobarUsuario();
-			this.mostrarHome();
 		} else {
 			this.mostrarAgregarUsuario();
 		}
@@ -19,26 +18,21 @@ function ControlWeb() {
 		cadena = cadena + '<input type="text" class="form-control mb-2 mr-sm-2" id="usr" placeholder="Introduce tu nick (max 6 letras)" required></div>';
 		cadena = cadena + '<div class="col">';
 		cadena = cadena + '<button id="btnAU" class="btn btn-primary mb-2 mr-sm-2">Iniciar sesión</button>';
-		//cadena=cadena+'<a href="/auth/google" class="btn btn-primary mb-2 mr-sm-2">Accede con Google</a>';
 		cadena = cadena + '</div>'; //' </form>';
 		cadena = cadena + '<div id="nota"></div>';
 		cadena = cadena + '</div></div>';
 
 		$("#agregarUsuario").append(cadena);
-		//$("#nota").append("<div id='aviso' style='text-align:right'>Inicia sesión con Google para jugar</div>");    
 
 		$("#btnAU").on("click", function (e) {
 			if ($('#usr').val() === '' || $('#usr').val().length > 6) {
 				e.preventDefault();
-				//$('#nota').append('Nick inválido');
 				iu.mostrarModal('Nick invalido');
 			}
 			else {
 				var nick = $('#usr').val();
 				$("#mAU").remove();
-				//$("#aviso").remove();
 				rest.agregarUsuario(nick);
-				//mostrar gif
 			}
 		})
 	}
@@ -60,6 +54,7 @@ function ControlWeb() {
 			$('#mLP').remove();
 			$('#mH').remove();
 			rest.eliminarUsuario();
+			cws.abandonarPartida()
 		})
 	}
 
@@ -94,7 +89,6 @@ function ControlWeb() {
 	this.mostrarListaDePartidas = function (lista) {
 		$('#mLP').remove();
 		let cadena = '<div id="mLP"><h3>Partidas disponibles</h3>';
-		// cadena = cadena + '<button id="btnRL" class="btn btn-primary mb-2 mr-sm-2">Refrescar lista</button>';
 		cadena = cadena + '<div class="row" style="margin-top:10px">';
 		cadena = cadena + '<ul class="list-group">';
 		for (i = 0; i < lista.length; i++) {
@@ -111,21 +105,14 @@ function ControlWeb() {
 			if (codigo) {
 				$('#mLP').remove();
 				$('#mCP').remove();
-				//rest.unirseAPartida(codigo);
 				cws.unirseAPartida(codigo);
 			}
 		});
-
-		// $("#btnRL").on("click", function () {
-		// 	// $("#btnRL").remove();
-		// 	// $("#mLP").remove();
-		// 	rest.obtenerPartidas();
-		// })
 	}
 
 	this.mostrarModal = function (msg) {
 		$('#mM').remove();
-		var cadena = "<p id='mM'>" + msg + "</p>";
+		var cadena = "<p class='text-dark' id='mM'>" + msg + "</p>";
 		$('#contenidoModal').append(cadena);
 		$('#miModal').modal("show");
 	}

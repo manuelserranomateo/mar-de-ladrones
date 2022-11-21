@@ -93,5 +93,3 @@ function Tablero() {
     this.createGrid()
     this.init()
 }
-// cargar en index html los div class grid
-// cargar al principio de index html los estilos

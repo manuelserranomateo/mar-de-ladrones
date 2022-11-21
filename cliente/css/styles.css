@@ -5,6 +5,7 @@ html, body {
 	margin: 0;
 	background-color: #ddd;
 	min-width: 860px;
+	color: #EEEEEE;
 }
 h1, h2, h3, h4, h5, h6, p, li, span {
 	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
