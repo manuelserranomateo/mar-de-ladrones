@@ -84,8 +84,8 @@ function Tablero() {
     this.colocarBarco = function (nombre, x, y,) {
         console.log("barco: ", nombre, "x: ", x, "y: ", y)
         cws.colocarBarco(nombre, x, y)
-        for (var j = 0; j < this.flota; j++) {
-            this.playerGrid.updateCell(shipCoords[j].x, shipCoords[j].y, 'ship', this.player);
+        for (var j = 0; j < 2; j++) {
+            this.playerGrid.updateCell(x, y, 'ship', this.player);
             // habria que cogerse updateCell
         }
         return true

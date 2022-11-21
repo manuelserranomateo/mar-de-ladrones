@@ -1,14 +1,13 @@
 function ClienteWS() {
     this.socket;
 
-    //enviar peticiones
-    this.conectar = function () { //Peticion de conexion
+    this.conectar = function () { 
         this.socket = io();
-        this.servidorWS(); //En el momento que mando la peticion de conexion, me pongo a escuchar
+        this.servidorWS(); 
     }
 
-    this.crearPartida = function () { //Esto lo enviara al servidorWS, que lo recoge en un bloque "socket.on"
-        this.socket.emit("crearPartida", rest.nick); //Emit para enviar peticiones+una cadena y el atributo
+    this.crearPartida = function () { 
+        this.socket.emit("crearPartida", rest.nick); 
     }
 
     this.unirseAPartida = function (codigo) {
@@ -29,11 +28,8 @@ function ClienteWS() {
         this.socket.emit("disparar", rest.nick, x, y)
     }
 
-
-    //gestionar peticiones
-
     this.servidorWS = function () {
-        let cli = this; //Esto lo hacemos por js para no confundir el this con tantos callbacks
+        let cli = this; 
 
         this.socket.on("partidaCreada", function (data) {
             console.log(data);
