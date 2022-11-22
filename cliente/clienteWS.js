@@ -99,12 +99,6 @@ function ClienteWS() {
             }
         })
 
-        this.socket.on("aJugar", function (res) {
-            if (res.fase == "jugando") {
-                console.log("A jugar, le toca a: " + res.turno);
-            }
-        });
-
         this.socket.on("disparo", function (data) {
             iu.mostrarModal("El jugador: " + data.jugador + " ha disparado en la posicion " + data.disparoX + " " + data.disparoY)
         })
