@@ -1,5 +1,4 @@
 function ControlWeb() {
-
 	this.comprobarCookie = function () {
 		if ($.cookie('nick')) {
 			rest.nick = $.cookie('nick');
@@ -10,7 +9,7 @@ function ControlWeb() {
 	}
 
 	this.mostrarAgregarUsuario = function () {
-		let cadena = '<div class="row" id="mAU">';//'<form class="form-row needs-validation"  id="mAJ">';
+		let cadena = '<div class="row" id="mAU">';
 		cadena = cadena + "<div class='col'>"
 		cadena = cadena + '<div class="row"><div class="col"><h2>Mar de Ladrones</h2></div></div>';
 		cadena = cadena + '<div class="row" style="margin-top:30px">';
@@ -18,7 +17,7 @@ function ControlWeb() {
 		cadena = cadena + '<input type="text" class="form-control mb-2 mr-sm-2" id="usr" placeholder="Introduce tu nick (max 6 letras)" required></div>';
 		cadena = cadena + '<div class="col">';
 		cadena = cadena + '<button id="btnAU" class="btn btn-primary mb-2 mr-sm-2">Iniciar sesión</button>';
-		cadena = cadena + '</div>'; //' </form>';
+		cadena = cadena + '</div>';
 		cadena = cadena + '<div id="nota"></div>';
 		cadena = cadena + '</div></div>';
 

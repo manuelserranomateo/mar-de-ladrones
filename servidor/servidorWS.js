@@ -14,12 +14,10 @@ function ServidorWS() {
     this.lanzarServidorWS = function (io, juego) {
         let cli = this;
         io.on('connection', (socket) => {
-            console.log('Usuario conectado');
             socket.on("crearPartida", function (nick) {
                 let res = juego.jugadorCreaPartida(nick);
                 let codigoStr = res.codigo.toString();
                 socket.join(codigoStr);
-                //cli.enviarAlRemitente(socket,"partidaCreada",res);
                 cli.enviarATodosEnPartida(io, codigoStr, "partidaCreada", res)
                 let lista = juego.obtenerPartidasDisponibles();
                 cli.enviarATodos(socket, "actualizarListaPartidas", lista);
@@ -49,7 +47,6 @@ function ServidorWS() {
                     let rival = partida.obtenerRival(jugador.nick);
                     let res = { codigoP: codigo, nombreA: jugador.nick }
                     partida.abandonarPartida(jugador)
-                    //cli.enviarAlRemitente(socket, "partidaAbandonada", res);
                     cli.enviarATodosEnPartida(io, codigoStr, "partidaAbandonada", res);
                     socket.leave(codigoStr)
 
@@ -60,9 +57,7 @@ function ServidorWS() {
                 let jugador = juego.obtenerUsuario(nick);
                 if (jugador) {
                     jugador.colocarBarco(nombre, x, y)
-                    //let estado=us.flota[nombre].desplegado;
                     let desplegado = jugador.obtenerBarcoDesplegado(nombre)
-                    //console.log(desplegado)
                     let res = { barco: nombre, x: x, y: y, colocado: desplegado }
                     cli.enviarAlRemitente(socket, "barcoColocado", res);
                 }
@@ -83,13 +78,10 @@ function ServidorWS() {
             socket.on("disparar", function (nick, x, y) {
                 let jugador = juego.obtenerUsuario(nick);
                 if (jugador) {
-
                     let partida = jugador.partida;
                     jugador.disparar(x, y)
                     let codigoStr = partida.codigo.toString();
-
                     let res = { jugador: nick, disparoX: x, disparoY: y }
-
                     cli.enviarATodosEnPartida(io, codigoStr, "disparo", res);
                 }
             });

@@ -17,8 +17,7 @@ function ClienteWS() {
         this.socket.emit("abandonarPartida", rest.nick, cws.codigo);
     }
 
-    this.colocarBarco = function (nombre, x, y) { // let data ={'nick': rest.nick, nombre: nombre, x:x, y:y}
-        // la ventaja de esto es que no trabajas con numero de parametros, unicamente envias uno
+    this.colocarBarco = function (nombre, x, y) {
         this.socket.emit("colocarBarco", rest.nick, nombre, x, y)
     }
 
@@ -32,15 +31,12 @@ function ClienteWS() {
     this.servidorWS = function () {
         let cli = this;
         this.socket.on("partidaCreada", function (data) {
-            console.log(data);
             if (data.codigo != -1) {
-                console.log("Partida creada por " + rest.nick + " con codigo " + data.codigo);
                 iu.mostrarCodigo(data.codigo);
                 cli.codigo = data.codigo;
 
             }
             else {
-                console.log("No se ha podido crear la partida");
                 iu.mostrarModal("No se ha podido crear partida");
                 iu.mostrarCrearPartida();
                 rest.comprobarUsuario();
@@ -50,12 +46,10 @@ function ClienteWS() {
 
         this.socket.on("unidoAPartida", function (data) {
             if (data.codigo != -1) {
-                console.log("Usuario " + rest.nick + " se une a partida codigo: " + data.codigo);
                 iu.mostrarCodigo(data.codigo);
                 cli.codigo = data.codigo;
             }
             else {
-                console.log("No se ha podido unir a partida")
 
             }
         });
@@ -68,12 +62,10 @@ function ClienteWS() {
 
         this.socket.on("partidaAbandonada", function (data) {
             if (data.codigo != -1) {
-                console.log(data.nombreA + " ha abandonado la partida con codigo: " + data.codigoP + "\n" + " Ha ganado " + data.nombreG)
                 iu.mostrarHome();
                 iu.mostrarModal(data.nombreA + " ha abandonado la partida con codigo: " + data.codigoP + "\n" + " Ha ganado " + data.nombreG);
             }
             else {
-                console.log("No se ha podido abandonar la partida");
                 iu.mostrarModal(data.nombreA + " ha intentado abandonar la partida pero no ha podido");
             }
         });
@@ -84,15 +76,12 @@ function ClienteWS() {
 
         this.socket.on("faseDesplegando", function (data) {
             tablero.flota = data.flota
-            console.log('Ya puedes desplegar la flota')
         })
 
-        this.socket.on("barcoColocado", function (res) { // esta function se llama funcion de callback
-            // podria delegar en el tablero.js
+        this.socket.on("barcoColocado", function (res) { 
             if (res.colocado) {
                 let barco = tablero.flota[res.barco]
                 tablero.puedesColocarBarco(barco, res.x, res.y)
-                console.log('comprueba barcos desplegados')
                 cli.barcosDesplegados()
             } else {
                 iu.mostrarModal('No se ha podido colocar el barco')

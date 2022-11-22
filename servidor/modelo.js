@@ -7,7 +7,7 @@ function Juego() {
         if (!this.usuarios[nick]) {
             this.usuarios[nick] = new Usuario(nick, this);
             res = { "nick": nick };
-            console.log('Nuevo usuario: ' + nick);
+            console.log('Nuevo usuario agregado: ' + nick);
         }
         return res;
     }
@@ -29,7 +29,7 @@ function Juego() {
         if (usr) {
             let codigo = usr.crearPartida();
             res = { codigo: codigo };
-            console.log('Usuario ' + nick + " ha creado la partida " + codigo)
+            console.log('El usuario ' + nick + " crea una partida con codigo " + codigo)
         }
         return res;
     }
@@ -45,9 +45,9 @@ function Juego() {
     }
 
 
-    this.crearPartida = function (user) { // Diagrama de secuencia de crearPartida, Usuario -> Juego -> Partida
+    this.crearPartida = function (user) {
         let codigo = Date.now();
-        this.partidas[codigo] = new Partida(codigo, user); // Valorar si interesa el string de Nick o el objeto 
+        this.partidas[codigo] = new Partida(codigo, user);  
         return codigo;
     }
 
@@ -55,9 +55,6 @@ function Juego() {
         let res = -1;
         if (this.partidas[codigo]) {
             res = this.partidas[codigo].agregarJugador(usr);
-        }
-        else {
-            console.log("La partida no existe");
         }
         return res;
     }
@@ -196,7 +193,7 @@ function Partida(codigo, user) {
         let res = this.codigo;
         if (this.hayHueco()) {
             this.jugadores.push(usr);
-            console.log("El usuario " + usr.nick + " se une a la partida " + this.codigo);
+            console.log("El usuario " + usr.nick + " se une a la partida con codigo " + this.codigo);
             usr.partida = this;
             usr.inicializarTableros(5);
             usr.inicializarFlota();
@@ -317,7 +314,7 @@ function Partida(codigo, user) {
 }
 
 function Tablero(size) {
-    this.size = size; // filas = columnas
+    this.size = size;
     this.casillas;
     this.crearTablero = function (tam) {
         this.casillas = new Array(tam);
@@ -333,7 +330,6 @@ function Tablero(size) {
         if (this.casillasLibres(x, y, barco.tam)) {
             for (i = x; i < barco.tam; i++) {
                 this.casillas[i][y].contiene = barco;
-                console.log('Barco colocado en las casillas: ', i, y);
             }
             barco.desplegado = true;
         }
@@ -377,7 +373,7 @@ function Casilla(x, y) {
 function Barco(nombre, tam) {
     this.nombre = nombre;
     this.tam = tam;
-    this.orientacion; //horizontal, vertical...
+    this.orientacion;
     this.desplegado = false;
     this.estado = "intacto";
     this.disparos = 0;
@@ -388,11 +384,9 @@ function Barco(nombre, tam) {
         this.disparos++;
         if (this.disparos < this.tam) {
             this.estado = "tocado";
-            console.log("Tocado");
         }
         else {
             this.estado = "hundido";
-            console.log("Hundido");
         }
         tablero.ponerAgua(x, y);
         return this.estado;
@@ -408,7 +402,6 @@ function Agua() {
         return true;
     }
     this.meDisparan = function (tablero, x, y) {
-        console.log("agua");
         return this.obtenerEstado();
     }
     this.obtenerEstado = function () {
@@ -416,7 +409,7 @@ function Agua() {
     }
 }
 
-function Inicial() {  //En esta por ejemplo el agregar jugador
+function Inicial() { 
     this.nombre = "inicial"
 }
 
