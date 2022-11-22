@@ -70,10 +70,13 @@ function ServidorWS() {
 
             socket.on("barcosDesplegados", function (nick) {
                 let jugador = juego.obtenerUsuario(nick);
-                let partida = jugador.partida
-                console.log(partida.esJugando())
-                if (partida.esJugando()) {
-                    console.log('ya se han desplegado los barcos')
+                if (jugador) {
+                    let partida = jugador.partida;
+                    let res = jugador.barcosDesplegados();
+                    let codigoStr = partida.codigo.toString();
+                    if (partida.esJugando()) {
+                        cli.enviarATodosEnPartida(io, codigoStr, "aJugar", {});
+                    }
                 }
             });
 

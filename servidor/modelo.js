@@ -1,6 +1,5 @@
-// modelo se mantiene aqui y no en servidor por comodidad de depuracion, cuando este acabado se va a servidor
 function Juego() {
-    this.partidas = {}; // [] array {} array asociativo(diccionario)
+    this.partidas = {};
     this.usuarios = {};
 
     this.agregarUsuario = function (nick) {
