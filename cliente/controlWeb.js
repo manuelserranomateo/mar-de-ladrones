@@ -12,7 +12,7 @@ function ControlWeb() {
 	this.mostrarAgregarUsuario = function () {
 		let cadena = '<div class="row" id="mAU">';//'<form class="form-row needs-validation"  id="mAJ">';
 		cadena = cadena + "<div class='col'>"
-		cadena = cadena + '<div class="row"><div class="col"><h2>Sea of Thieves</h2></div></div>';
+		cadena = cadena + '<div class="row"><div class="col"><h2>Mar de Ladrones</h2></div></div>';
 		cadena = cadena + '<div class="row" style="margin-top:30px">';
 		cadena = cadena + '<div class="col">'
 		cadena = cadena + '<input type="text" class="form-control mb-2 mr-sm-2" id="usr" placeholder="Introduce tu nick (max 6 letras)" required></div>';

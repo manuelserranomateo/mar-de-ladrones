@@ -6,28 +6,28 @@ function Juego() {
     this.agregarUsuario = function (nick) {
         let res = { "nick": -1 };
         if (!this.usuarios[nick]) {
-            this.usuarios[nick] = new Usuario(nick, this); 
+            this.usuarios[nick] = new Usuario(nick, this);
             res = { "nick": nick };
             console.log('Nuevo usuario: ' + nick);
         }
         return res;
     }
 
-    this.eliminarUsuario=function(nick){
-		delete this.usuarios[nick];
-	}
+    this.eliminarUsuario = function (nick) {
+        delete this.usuarios[nick];
+    }
 
-	this.usuarioSale=function(nick){
-		if (this.usuarios[nick]){
-			this.finalizarPartida(nick);
-			this.eliminarUsuario(nick);
-		}
-	}
+    this.usuarioSale = function (nick) {
+        if (this.usuarios[nick]) {
+            this.finalizarPartida(nick);
+            this.eliminarUsuario(nick);
+        }
+    }
 
-    this.jugadorCreaPartida = function (nick) { 
-        let usr = this.usuarios[nick]; 
+    this.jugadorCreaPartida = function (nick) {
+        let usr = this.usuarios[nick];
         let res = { codigo: -1 };
-        if (usr) { 
+        if (usr) {
             let codigo = usr.crearPartida();
             res = { codigo: codigo };
             console.log('Usuario ' + nick + " ha creado la partida " + codigo)
@@ -82,13 +82,13 @@ function Juego() {
 
     }
 
-    this.finalizarPartida=function(nick){
-		for (let key in this.partidas){
-			if (this.partidas[key].fase=="inicial" && this.partidas[key].estoy(nick)){
-				this.partidas[key].fase="final";
-			}
-		}
-	}
+    this.finalizarPartida = function (nick) {
+        for (let key in this.partidas) {
+            if (this.partidas[key].fase == "inicial" && this.partidas[key].estoy(nick)) {
+                this.partidas[key].fase = "final";
+            }
+        }
+    }
 
     this.obtenerPartida = function (codigo) {
         return this.partidas[codigo];
@@ -173,14 +173,18 @@ function Usuario(nick, juego) {
         return true;
     }
 
-    this.obtenerBarcoDesplegado=function(nombre){
-		for(var key in this.flota){
-			if (this.flota[key]==nombre){
-				return this.flota[key];
-			}
-			return undefined
-		}
-	}
+    this.obtenerBarcoDesplegado = function (nombre) {
+        for (var key in this.flota) {
+            if (this.flota[key].nombre == nombre) {
+                return true
+            }
+        }
+        return undefined
+    }
+
+    this.obtenerFlota = function () {
+        return this.flota;
+    }
 }
 
 function Partida(codigo, user) {
@@ -220,7 +224,7 @@ function Partida(codigo, user) {
     }
 
     this.hayHueco = function () {
-        return (this.jugadores.length < this.maxJugadores); // solo tocamos aqui por si hay que cambiar el n de jugadores
+        return (this.jugadores.length < this.maxJugadores); 
     }
 
     this.estoy = function (nick) {
@@ -325,6 +329,7 @@ function Tablero(size) {
             }
         }
     }
+
     this.colocarBarco = function (barco, x, y) {
         if (this.casillasLibres(x, y, barco.tam)) {
             for (i = x; i < barco.tam; i++) {

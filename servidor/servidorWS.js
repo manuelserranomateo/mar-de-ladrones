@@ -1,5 +1,5 @@
 function ServidorWS() {
-    this.enviarAlRemitente = function (socket, mensaje, datos) {  
+    this.enviarAlRemitente = function (socket, mensaje, datos) {
         socket.emit(mensaje, datos);
     }
 
@@ -31,10 +31,13 @@ function ServidorWS() {
                 let res = juego.jugadorSeUneAPartida(nick, codigo);
                 cli.enviarAlRemitente(socket, "unidoAPartida", res);
                 let partida = juego.obtenerPartida(codigo);
-                if (partida.esJugando()) {
-                    cli.enviarATodosEnPartida(io, codigoStr, "aJugar", {});
+                if (partida.esDesplegando()) {
+                    let us = juego.obtenerUsuario(nick)
+                    let flota = us.obtenerFlota()
+                    res = {}
+                    res.flota = flota
+                    cli.enviarATodosEnPartida(io, codigoStr, "faseDesplegando", res);
                 }
-
             });
 
             socket.on("abandonarPartida", function (nick, codigo) {
@@ -44,7 +47,7 @@ function ServidorWS() {
                 let codigoStr = codigo.toString();
                 if (jugador && partida) {
                     let rival = partida.obtenerRival(jugador.nick);
-                    let res = { codigoP: codigo, nombreA: jugador.nick}
+                    let res = { codigoP: codigo, nombreA: jugador.nick }
                     partida.abandonarPartida(jugador)
                     //cli.enviarAlRemitente(socket, "partidaAbandonada", res);
                     cli.enviarATodosEnPartida(io, codigoStr, "partidaAbandonada", res);
@@ -59,23 +62,21 @@ function ServidorWS() {
                     jugador.colocarBarco(nombre, x, y)
                     //let estado=us.flota[nombre].desplegado;
                     let desplegado = jugador.obtenerBarcoDesplegado(nombre)
-                    let res = { barco: nombre, colocado: desplegado }
+                    //console.log(desplegado)
+                    let res = { barco: nombre, x: x, y: y, colocado: desplegado }
                     cli.enviarAlRemitente(socket, "barcoColocado", res);
                 }
             });
 
             socket.on("barcosDesplegados", function (nick) {
                 let jugador = juego.obtenerUsuario(nick);
-                if (jugador) {
-                    let partida = jugador.partida;
-                    let res = jugador.barcosDesplegados();
-                    let codigoStr = partida.codigo.toString();
-
-                    cli.enviarATodosEnPartida(io, codigoStr, "aJugar", {});
-
+                let partida = jugador.partida
+                console.log(partida.esJugando())
+                if (partida.esJugando()) {
+                    console.log('ya se han desplegado los barcos')
                 }
             });
-            
+
             socket.on("disparar", function (nick, x, y) {
                 let jugador = juego.obtenerUsuario(nick);
                 if (jugador) {

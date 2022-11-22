@@ -1,13 +1,13 @@
 function ClienteWS() {
     this.socket;
 
-    this.conectar = function () { 
+    this.conectar = function () {
         this.socket = io();
-        this.servidorWS(); 
+        this.servidorWS();
     }
 
-    this.crearPartida = function () { 
-        this.socket.emit("crearPartida", rest.nick); 
+    this.crearPartida = function () {
+        this.socket.emit("crearPartida", rest.nick);
     }
 
     this.unirseAPartida = function (codigo) {
@@ -17,10 +17,11 @@ function ClienteWS() {
         this.socket.emit("abandonarPartida", rest.nick, cws.codigo);
     }
 
-    this.colocarBarco = function (nombre, x, y) {
+    this.colocarBarco = function (nombre, x, y) { // let data ={'nick': rest.nick, nombre: nombre, x:x, y:y}
+        // la ventaja de esto es que no trabajas con numero de parametros, unicamente envias uno
         this.socket.emit("colocarBarco", rest.nick, nombre, x, y)
     }
-       
+
     this.barcosDesplegados = function () {
         this.socket.emit("barcosDesplegados", rest.nick)
     }
@@ -29,8 +30,7 @@ function ClienteWS() {
     }
 
     this.servidorWS = function () {
-        let cli = this; 
-
+        let cli = this;
         this.socket.on("partidaCreada", function (data) {
             console.log(data);
             if (data.codigo != -1) {
@@ -82,9 +82,28 @@ function ClienteWS() {
             iu.mostrarModal("A jugaaar!");
         })
 
-        this.socket.on("barcoColocado", function (data) {
-            iu.mostrarModal("El barco: " + data.barco + " se ha colocado")
+        this.socket.on("faseDesplegando", function (data) {
+            tablero.flota = data.flota
+            console.log('Ya puedes desplegar la flota')
         })
+
+        this.socket.on("barcoColocado", function (res) { // esta function se llama funcion de callback
+            // podria delegar en el tablero.js
+            if (res.colocado) {
+                let barco = tablero.flota[res.barco]
+                tablero.puedesColocarBarco(barco, res.x, res.y)
+                console.log('comprueba barcos desplegados')
+                cli.barcosDesplegados()
+            } else {
+                iu.mostrarModal('No se ha podido colocar el barco')
+            }
+        })
+
+        this.socket.on("aJugar", function (res) {
+            if (res.fase == "jugando") {
+                console.log("A jugar, le toca a: " + res.turno);
+            }
+        });
 
         this.socket.on("disparo", function (data) {
             iu.mostrarModal("El jugador: " + data.jugador + " ha disparado en la posicion " + data.disparoX + " " + data.disparoY)
