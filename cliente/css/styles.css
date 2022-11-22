@@ -1,13 +1,18 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700);
+@import url(//db.onlinewebfonts.com/c/d8b9c7291ced9e7de0e106125bb6bec5?family=Manuscript);
 html, body {
 	width: 100%;
 	padding: 0;
 	margin: 0;
-	background-color: #ddd;
 	min-width: 860px;
 	color: #EEEEEE;
 }
-h1, h2, h3, h4, h5, h6, p, li, span {
+h1 {
+	font-size: 400%;
+	font-family: 'Manuscript';
+	-webkit-text-stroke: 0.5px black;
+}
+h2, h3, h4, h5, h6, p, li, span {
 	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 	color: white;
 }
@@ -17,17 +22,17 @@ a {
 }
 	a:hover {
 		text-decoration: none;
-	}
+	} 
 div {
 	padding: 0;
 	margin: 0;
-}
+} */
 
+/* esto hace que el boton baje */
 button {
 	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 	font-size: 1.2em;
 	color: #EEEEEE;
-	/* background-color: #25567B; */
 	border: none;
 	margin: 1em auto 0 auto;
 	padding: 10px;
@@ -56,7 +61,7 @@ button {
 		#place-randomly:active,
 		#restart-game:active {
 			background-color: #FFCE8E;
-		}
+		} 
 
 #prefetch1 {
 	background: url('../img/cross-icon.svg');
@@ -67,10 +72,10 @@ button {
 #prefetch3 {
 	background: url('../img/crosshair.png');
 }
-.prefetch {
+ .prefetch {
 	background-repeat: no-repeat;
 	background-position: -9999px -9999px;
-}
+} 
 
 .tagline {
 	margin-bottom: 2em;
@@ -80,17 +85,17 @@ button {
 		display: inline-block;
 		text-align: left;
 		margin: 0 auto 3em auto;
-	}
+	} 
 
 .container {
 	width: 870px;
 	text-align: center;
 	margin: 20px auto 100px auto;
-}
+} 
 .game-container {
 	position: relative;
-}
-	#roster-sidebar, #stats-sidebar, #restart-sidebar {
+} 
+	 #roster-sidebar, #stats-sidebar, #restart-sidebar {
 		width: 150px;
 		padding: 20px;
 		margin: 0;
@@ -110,14 +115,14 @@ button {
 		#roster-sidebar h2, #stats-sidebar h2, #restart-sidebar h2 {
 			margin: 0 0 1em 0;
 			text-align: center;
-		}
+		} 
 
 .fleet-roster {
 	position: relative;
 	margin: 0;
 	padding: 0;
 	list-style: none;
-}
+} 
 .fleet-roster, button {
 	opacity: 1;
 	-webkit-transition: opacity 0.5s ease-out;
@@ -151,30 +156,30 @@ button {
 	}
 	.hidden {
 		display: none;
-	}
+	} 
 
 .grid-container {
 	width: 430px;
 	display: inline-block;
-}
+} 
 .grid-container h2 {
 	width: 430px;
 	display: inline-block;
-}
+} 
 
 .grid {
 	position: relative;
 	vertical-align: top;
-	padding: 5px;
+	padding: 20px;
 	height: 460px;
 	width: 460px;
-	/* background-color: #25567B; */
+	/* background-color: #25567B;  */
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 }
 	.grid-container:last-child {
-		margin-left: 10px;
+		margin-left: 100px;
 	}
 	.no-js {
 		width: 300px;
@@ -185,19 +190,19 @@ button {
 		font-size: 2em;
 	}
 	.grid-cell {
-		vertical-align: top; /*clears the vertical space between rows*/
+		vertical-align: top; 
 		height: 40px;
 		width: 40px;
 		display: inline-block;
 		background-color: #99C2E1;
-		/* background-image: url('../img/water.png'); */
+		
 		margin: 1px;
 		-webkit-border-radius: 2px;
 		-moz-border-radius: 2px;
 		border-radius: 2px;
 	}
 		.grid-cell:hover {
-			cursor: pointer; /* Fallback for IE */
+			cursor: pointer; 
 			background-color: #66A3D2;
 		}
 		.human-player .grid-cell:hover {
@@ -211,21 +216,22 @@ button {
 	}
 	.grid-miss, .grid-miss:hover, .human-player .grid-miss:hover {
 		background-color: #FFFFFF;
-		background-image: url('../img/cross-icon.png'); /* Fallback */
+		background-image: url('../img/cross-icon.png'); 
 		background-image: url('../img/cross-icon.svg');
 		background-position: center;
 		background-repeat: no-repeat;
 	}
 	.grid-hit, .grid-hit:hover, .human-player .grid-hit:hover {
 		background-color: #F60018;
-		background-image: url('../img/cross-icon.png'); /* Fallback */
+		background-image: url('../img/cross-icon.png'); 
 		background-image: url('../img/cross-icon.svg');
 		background-position: center;
 		background-repeat: no-repeat;
 	}
 	.grid-sunk, .grid-sunk:hover, .human-player .grid-sunk:hover {
 		background-color: #222222;
-	}
+	} 
+
 
 .highlight {
 	overflow: visible; /* Bugfix for IE */
@@ -250,6 +256,7 @@ button {
 	font-weight: bold;
 }
 
+/* afecta al proyecto */
 @media(max-width: 1300px) {
 	.container {
 		width: 440px;

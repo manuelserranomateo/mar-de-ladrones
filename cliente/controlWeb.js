@@ -11,7 +11,7 @@ function ControlWeb() {
 	this.mostrarAgregarUsuario = function () {
 		let cadena = '<div class="row" id="mAU">';
 		cadena = cadena + "<div class='col'>"
-		cadena = cadena + '<div class="row"><div class="col"><h2>Mar de Ladrones</h2></div></div>';
+		cadena = cadena + '<div class="row"><div class="col"><h1>Mar de Ladrones</h1></div></div>';
 		cadena = cadena + '<div class="row" style="margin-top:30px">';
 		cadena = cadena + '<div class="col">'
 		cadena = cadena + '<input type="text" class="form-control mb-2 mr-sm-2" id="usr" placeholder="Introduce tu nick (max 6 letras)" required></div>';
@@ -40,7 +40,7 @@ function ControlWeb() {
 		$('#mH').remove();
 		let cadena = "<div class ='row' id='mH'>";
 		cadena = cadena + "<div class='col'>";
-		cadena = cadena + "<h1>Bienvenido <b>" + rest.nick + "</b></h1>";
+		cadena = cadena + "<h2>Bienvenido <b>" + rest.nick + "</b></h2>";
 		cadena = cadena + "<div style='margin-bottom:15px' id='codigo'></div>"
 		cadena = cadena + '<button id="btnBC" class="btn btn-primary mb-2 mr-sm-2">Salir</button>';
 		cadena = cadena + "</div></div>";
