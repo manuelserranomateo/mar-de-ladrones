@@ -79,7 +79,7 @@ function ServidorWS() {
                 let jugador = juego.obtenerUsuario(nick);
                 if (jugador) {
                     let partida = jugador.partida;
-                    let estado = jugador.obtenerEstado(x, y)
+                    let estado = jugador.meDisparan(x, y)
                     console.log(estado)
                     jugador.disparar(x, y)
                     let res = { estado: estado }
@@ -88,7 +88,6 @@ function ServidorWS() {
             });
         });
     }
-
 }
 
 module.exports.ServidorWS = ServidorWS;

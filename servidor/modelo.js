@@ -329,6 +329,7 @@ function Tablero(size) {
         if (this.casillasLibres(x, y, barco.tam)) {
             for (i = x; i < barco.tam; i++) {
                 this.casillas[i][y].contiene = barco;
+                // console.log('mirar aqui',this.casillas[i][y].contiene)
                 console.log('Barco', barco.nombre, 'colocado en', i, y)
             }
             barco.desplegado = true;
@@ -389,6 +390,7 @@ function Barco(nombre, tam) {
             this.estado = "hundido";
         }
         tablero.ponerAgua(x, y);
+        console.log(this.estado)
         return this.estado;
     }
     this.obtenerEstado = function () {
