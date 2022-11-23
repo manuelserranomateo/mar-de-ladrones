@@ -79,10 +79,11 @@ function ServidorWS() {
                 let jugador = juego.obtenerUsuario(nick);
                 if (jugador) {
                     let partida = jugador.partida;
+                    let estado = jugador.obtenerEstado(x, y)
+                    console.log(estado)
                     jugador.disparar(x, y)
-                    let codigoStr = partida.codigo.toString();
-                    let res = { jugador: nick, disparoX: x, disparoY: y }
-                    cli.enviarATodosEnPartida(io, codigoStr, "disparo", res);
+                    let res = { estado: estado }
+                    cli.enviarATodosEnPartida(io, partida.codigo.toString(), "disparo", res);
                 }
             });
         });

@@ -1,8 +1,10 @@
 let modelo = require("./modelo.js");
 
+const SIZE = 10
+
 describe("El juego...", function () {
-  var miJuego;
-  var us1, us2, partida;
+  let miJuego;
+  let us1, us2, partida;
 
   beforeEach(function () {
     miJuego = new modelo.Juego();
@@ -31,14 +33,14 @@ describe("El juego...", function () {
     expect(us1.tableroRival).toBeDefined();
     expect(us2.tableroRival).toBeDefined();
 
-    expect(us1.tableroPropio.casillas.length).toEqual(5);
-    expect(us2.tableroPropio.casillas.length).toEqual(5);
+    expect(us1.tableroPropio.casillas.length).toEqual(SIZE);
+    expect(us2.tableroPropio.casillas.length).toEqual(SIZE);
 
-    //habría que recorrer las 5 columnas
-    for (x = 0; x < 5; x++) {
-      expect(us1.tableroPropio.casillas[x].length).toEqual(5);
+    //habría que recorrer las SIZE columnas
+    for (x = 0; x < SIZE; x++) {
+      expect(us1.tableroPropio.casillas[x].length).toEqual(SIZE);
     }
-    //  expect(us2.tableroPropio.casillas[0].length).toEqual(5);
+    //  expect(us2.tableroPropio.casillas[0].length).toEqual(SIZE);
 
     //habría que recorrer todo el tablero
     expect(us1.tableroPropio.casillas[0][0].contiene.esAgua()).toEqual(true);
@@ -62,8 +64,8 @@ describe("El juego...", function () {
 
   describe("A jugar!", function () {
     beforeEach(function () {
-      us1.colocarBarco("b2", 0, 0); 
-      us1.colocarBarco("b4", 0, 1); 
+      us1.colocarBarco("b2", 0, 0);
+      us1.colocarBarco("b4", 0, 1);
       us1.barcosDesplegados();
       us2.colocarBarco("b2", 0, 0);
       us2.colocarBarco("b4", 0, 1);

@@ -8,33 +8,40 @@ function Tablero() {
     this.flota;
 
     this.init = function () {
-        var humanCells = document.querySelector('.human-player').childNodes;
-        for (var k = 0; k < humanCells.length; k++) {
+        let humanCells = document.querySelector('.human-player').childNodes;
+        for (let k = 0; k < humanCells.length; k++) {
             humanCells[k].self = this;
             humanCells[k].addEventListener('click', this.placementListener, false);
         }
 
-        var playerRoster = document.querySelector('.fleet-roster').querySelectorAll('li');
-        for (var i = 0; i < playerRoster.length; i++) {
+        let computerCells = document.querySelector('.computer-player').childNodes;
+        for (let j = 0; j < computerCells.length; j++) {
+            computerCells[j].self = this;
+            computerCells[j].addEventListener('click', this.shootListener, false);
+        }
+
+        let playerRoster = document.querySelector('.fleet-roster').querySelectorAll('li');
+        for (let i = 0; i < playerRoster.length; i++) {
             playerRoster[i].self = this;
             playerRoster[i].addEventListener('click', this.rosterListener, false);
         }
     }
+
     this.placementListener = function (e) {
-        var self = e.target.self;
+        let self = e.target.self;
         if (self.placingOnGrid) {
-            var x = parseInt(e.target.getAttribute('data-x'), 10);
-            var y = parseInt(e.target.getAttribute('data-y'), 10);
+            let x = parseInt(e.target.getAttribute('data-x'), 10);
+            let y = parseInt(e.target.getAttribute('data-y'), 10);
 
             self.colocarBarco(self.nombreBarco, x, y);
         }
     };
 
     this.rosterListener = function (e) {
-        var self = e.target.self;
-        var roster = document.querySelectorAll('.fleet-roster li');
-        for (var i = 0; i < roster.length; i++) {
-            var classes = roster[i].getAttribute('class') || '';
+        let self = e.target.self;
+        let roster = document.querySelectorAll('.fleet-roster li');
+        for (let i = 0; i < roster.length; i++) {
+            let classes = roster[i].getAttribute('class') || '';
             classes = classes.replace('placing', '');
             roster[i].setAttribute('class', classes);
         }
@@ -44,8 +51,15 @@ function Tablero() {
         self.placingOnGrid = true;
     };
 
+    this.shootListener = function (e) {
+        let x = parseInt(e.target.getAttribute('data-x'), 10);
+        let y = parseInt(e.target.getAttribute('data-y'), 10);
+        console.log('Disparan en x: ', x, 'y: ', y)
+        cws.disparar(x, y);
+    }
+
     this.puedesColocarBarco = function (barco, x, y) {
-        for (var i = 0; i < barco.tam; i++) {
+        for (let i = 0; i < barco.tam; i++) {
             this.updateCell(x + i, y, 'ship', 'human-player');
         }
         this.endPlacing(barco.nombre)
@@ -54,28 +68,28 @@ function Tablero() {
     this.endPlacing = function (nombreBarco) {
         document.getElementById(nombreBarco).setAttribute('class', 'placed');
         this.placingOnGrid = false;
-    };
+    }
 
     this.colocarBarco = function (nombre, x, y,) {
         cws.colocarBarco(nombre, x, y)
     }
 
     this.updateCell = function (x, y, type, targetPlayer) {
-        var player = targetPlayer;
-        var classes = ['grid-cell', 'grid-cell-' + x + '-' + y, 'grid-' + type];
+        let player = targetPlayer;
+        let classes = ['grid-cell', 'grid-cell-' + x + '-' + y, 'grid-' + type];
         document.querySelector('.' + player + ' .grid-cell-' + x + '-' + y).setAttribute('class', classes.join(' '));
-    };
+    }
 
     this.mostrarTablero = function () {
 
     }
 
     this.createGrid = function () {
-        var gridDiv = document.querySelectorAll('.grid');
-        for (var grid = 0; grid < gridDiv.length; grid++) {
-            for (var i = 0; i < 10; i++) {
-                for (var j = 0; j < 10; j++) {
-                    var el = document.createElement('div');
+        let gridDiv = document.querySelectorAll('.grid');
+        for (let grid = 0; grid < gridDiv.length; grid++) {
+            for (let i = 0; i < 10; i++) {
+                for (let j = 0; j < 10; j++) {
+                    let el = document.createElement('div');
                     el.setAttribute('data-x', j);
                     el.setAttribute('data-y', i);
                     el.setAttribute('class', 'grid-cell grid-cell-' + j + '-' + i);

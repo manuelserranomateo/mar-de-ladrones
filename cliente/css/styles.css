@@ -16,20 +16,13 @@ h2, h3, h4, h5, h6, p, li, span {
 	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 	color: white;
 }
-a {
-	color: #222222;
-	font-weight: bold;
-}
-	a:hover {
-		text-decoration: none;
-	} 
+
 div {
 	padding: 0;
 	margin: 0;
-} */
+}
 
-/* esto hace que el boton baje */
-button {
+/* button {
 	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 	font-size: 1.2em;
 	color: #EEEEEE;
@@ -61,7 +54,7 @@ button {
 		#place-randomly:active,
 		#restart-game:active {
 			background-color: #FFCE8E;
-		} 
+		}  */
 
 #prefetch1 {
 	background: url('../img/cross-icon.svg');
@@ -72,7 +65,8 @@ button {
 #prefetch3 {
 	background: url('../img/crosshair.png');
 }
- .prefetch {
+
+.prefetch {
 	background-repeat: no-repeat;
 	background-position: -9999px -9999px;
 } 

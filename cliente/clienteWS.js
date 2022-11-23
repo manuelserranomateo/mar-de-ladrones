@@ -71,14 +71,14 @@ function ClienteWS() {
         });
 
         this.socket.on("aJugar", function () {
-            iu.mostrarModal("A jugaaar!");
+            iu.mostrarModal('Ya se puede disparar!!');
         })
 
         this.socket.on("faseDesplegando", function (data) {
             tablero.flota = data.flota
         })
 
-        this.socket.on("barcoColocado", function (res) { 
+        this.socket.on("barcoColocado", function (res) {
             if (res.colocado) {
                 let barco = tablero.flota[res.barco]
                 tablero.puedesColocarBarco(barco, res.x, res.y)
@@ -88,9 +88,9 @@ function ClienteWS() {
             }
         })
 
-        this.socket.on("disparo", function (data) {
-            iu.mostrarModal("El jugador: " + data.jugador + " ha disparado en la posicion " + data.disparoX + " " + data.disparoY)
-        })
+        this.socket.on("disparo", function (res) {
+            console.log(res)
+        });
 
 
     }

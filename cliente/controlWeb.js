@@ -29,7 +29,7 @@ function ControlWeb() {
 				iu.mostrarModal('Nick invalido');
 			}
 			else {
-				var nick = $('#usr').val();
+				let nick = $('#usr').val();
 				$("#mAU").remove();
 				rest.agregarUsuario(nick);
 			}
@@ -111,7 +111,7 @@ function ControlWeb() {
 
 	this.mostrarModal = function (msg) {
 		$('#mM').remove();
-		var cadena = "<p class='text-dark' id='mM'>" + msg + "</p>";
+		let cadena = "<p class='text-dark' id='mM'>" + msg + "</p>";
 		$('#contenidoModal').append(cadena);
 		$('#miModal').modal("show");
 	}

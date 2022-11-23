@@ -47,7 +47,7 @@ function Juego() {
 
     this.crearPartida = function (user) {
         let codigo = Date.now();
-        this.partidas[codigo] = new Partida(codigo, user);  
+        this.partidas[codigo] = new Partida(codigo, user);
         return codigo;
     }
 
@@ -170,7 +170,7 @@ function Usuario(nick, juego) {
     }
 
     this.obtenerBarcoDesplegado = function (nombre) {
-        for (var key in this.flota) {
+        for (let key in this.flota) {
             if (this.flota[key].nombre == nombre) {
                 return true
             }
@@ -195,7 +195,7 @@ function Partida(codigo, user) {
             this.jugadores.push(usr);
             console.log("El usuario " + usr.nick + " se une a la partida con codigo " + this.codigo);
             usr.partida = this;
-            usr.inicializarTableros(5);
+            usr.inicializarTableros(10);
             usr.inicializarFlota();
             this.comprobarFase();
         }
@@ -220,7 +220,7 @@ function Partida(codigo, user) {
     }
 
     this.hayHueco = function () {
-        return (this.jugadores.length < this.maxJugadores); 
+        return (this.jugadores.length < this.maxJugadores);
     }
 
     this.estoy = function (nick) {
@@ -330,6 +330,7 @@ function Tablero(size) {
         if (this.casillasLibres(x, y, barco.tam)) {
             for (i = x; i < barco.tam; i++) {
                 this.casillas[i][y].contiene = barco;
+                console.log('Barco', barco.nombre, 'colocado en', i, y)
             }
             barco.desplegado = true;
         }
@@ -409,7 +410,7 @@ function Agua() {
     }
 }
 
-function Inicial() { 
+function Inicial() {
     this.nombre = "inicial"
 }
 

@@ -35,7 +35,7 @@ let servidorWS = new sWS.ServidorWS();
 app.use(express.static(__dirname + "/"));
 
 app.get("/", function (request, response) {
-  var contenido = fs.readFileSync(__dirname + "/cliente/index.html"); // lectura bloqueante
+  let contenido = fs.readFileSync(__dirname + "/cliente/index.html"); // lectura bloqueante
   response.setHeader("Content-type", "text/html");
   response.send(contenido);
 });
