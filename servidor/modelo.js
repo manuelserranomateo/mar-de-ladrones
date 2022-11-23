@@ -204,11 +204,13 @@ function Partida(codigo, user) {
         }
         return res;
     }
+
     this.comprobarFase = function () {
         if (!this.hayHueco()) {
             this.fase = "desplegando";
         }
     }
+
     this.abandonarPartida = function (jugador) {
         if (jugador) {
             rival = this.obtenerRival(jugador.nick)
@@ -326,11 +328,14 @@ function Tablero(size) {
     }
 
     this.colocarBarco = function (barco, x, y) {
+        // este if lo hace de locos
         if (this.casillasLibres(x, y, barco.tam)) {
-            for (i = x; i < barco.tam; i++) {
+            //console.log('mirar esto',x,y,barco.tam)
+            for (let i = x; i < barco.tam + x; i++) {
+                // esto no lo ejecuta el numero de veces esperado al colocarlo en x>0
                 this.casillas[i][y].contiene = barco;
-                // console.log('mirar aqui',this.casillas[i][y].contiene)
-                console.log('Barco', barco.nombre, 'colocado en', i, y)
+                console.log('mirar aqui',this.casillas[i][y].contiene)
+                // console.log('Barco', barco.nombre, 'colocado en', i, y)
             }
             barco.desplegado = true;
         }

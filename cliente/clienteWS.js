@@ -91,8 +91,6 @@ function ClienteWS() {
         this.socket.on("disparo", function (res) {
             console.log(res)
         });
-
-
     }
 
 
