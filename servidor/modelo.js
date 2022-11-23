@@ -168,10 +168,18 @@ function Usuario(nick, juego) {
         return true;
     }
 
-    this.obtenerBarcoDesplegado = function (nombre) {
+    this.comprobarLimites = function (tam, x) {
+        return this.tableroPropio.comprobarLimites(tam, x)
+    }
+
+    this.obtenerBarcoDesplegado = function (nombre, x) {
         for (let key in this.flota) {
             if (this.flota[key].nombre == nombre) {
-                return true
+                if (this.comprobarLimites(this.flota[key].tam, x)) {
+                    return true
+                } else {
+                    return false
+                }
             }
         }
         return undefined
@@ -327,18 +335,24 @@ function Tablero(size) {
         }
     }
 
+    this.comprobarLimites = function (tam, x) {
+        if (x + tam > this.size) {
+            console.log('excede los limites')
+            return false
+        } else { return true }
+    }
+
     this.colocarBarco = function (barco, x, y) {
-        // este if lo hace de locos
-        if (this.casillasLibres(x, y, barco.tam)) {
-            //console.log('mirar esto',x,y,barco.tam)
-            for (let i = x; i < barco.tam + x; i++) {
-                // esto no lo ejecuta el numero de veces esperado al colocarlo en x>0
-                this.casillas[i][y].contiene = barco;
-                console.log('mirar aqui',this.casillas[i][y].contiene)
-                // console.log('Barco', barco.nombre, 'colocado en', i, y)
+        if (this.comprobarLimites(barco.tam, x)) {
+            if (this.casillasLibres(x, y, barco.tam)) {
+                for (let i = x; i < barco.tam + x; i++) {
+                    this.casillas[i][y].contiene = barco;
+                    console.log('Barco', barco.nombre, 'colocado en', i, y)
+                }
+                barco.desplegado = true;
             }
-            barco.desplegado = true;
         }
+
     }
 
     this.casillasLibres = function (x, y, tam) {

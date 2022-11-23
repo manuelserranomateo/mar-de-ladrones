@@ -1,5 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700);
 @import url(//db.onlinewebfonts.com/c/d8b9c7291ced9e7de0e106125bb6bec5?family=Manuscript);
+@import url(https://fonts.googleapis.com/css?family=Patrick+Hand);
+
 html, body {
 	width: 100%;
 	padding: 0;
@@ -12,8 +14,9 @@ h1 {
 	font-family: 'Manuscript';
 	-webkit-text-stroke: 0.5px black;
 }
+
 h2, h3, h4, h5, h6, p, li, span {
-	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+	font-family: 'Patrick Hand', 'Open Sans';
 	color: white;
 }
 

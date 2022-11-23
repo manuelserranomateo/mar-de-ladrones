@@ -57,7 +57,8 @@ function ServidorWS() {
                 let jugador = juego.obtenerUsuario(nick);
                 if (jugador) {
                     jugador.colocarBarco(nombre, x, y)
-                    let desplegado = jugador.obtenerBarcoDesplegado(nombre)
+                    let desplegado = jugador.obtenerBarcoDesplegado(nombre, x)
+                    console.log(desplegado)
                     let res = { barco: nombre, x: x, y: y, colocado: desplegado }
                     cli.enviarAlRemitente(socket, "barcoColocado", res);
                 }
