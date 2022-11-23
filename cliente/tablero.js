@@ -60,6 +60,7 @@ function Tablero() {
 
     this.puedesColocarBarco = function (barco, x, y) {
         for (let i = 0; i < barco.tam; i++) {
+            console.log('Barco ', barco.nombre, 'colocado en', x + i, y)
             this.updateCell(x + i, y, 'ship', 'human-player');
         }
         this.endPlacing(barco.nombre)

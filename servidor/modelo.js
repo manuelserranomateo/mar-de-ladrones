@@ -113,7 +113,6 @@ function Usuario(nick, juego) {
     this.inicializarTableros = function (dim) {
         this.tableroPropio = new Tablero(dim);
         this.tableroRival = new Tablero(dim);
-
     }
 
     this.inicializarFlota = function () {
