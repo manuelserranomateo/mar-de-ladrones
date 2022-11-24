@@ -88,17 +88,20 @@ function ClienteWS() {
             }
         })
 
-        this.socket.on("disparo", function (res) {
-            console.log("Jugador " + res.nick + " dispara en "+ res.x + ' ' + res.y)
-            //iu.mostrarModal("Jugador " + res.nick + " dispara en "+ res.x + ' ' + res.y)
-        })
+        this.socket.on("disparo",function(res){
+			if (res.atacante==rest.nick){
+				tablero.updateCell(res.x,res.y,res.impacto,'computer-player');
+			}
+			else{
+				tablero.updateCell(res.x,res.y,res.impacto,'human-player');	
+			}
+		});
 
         this.socket.on("turno", function () {
             iu.mostrarModal("Respeta los rangos, no es tu turno");
         });
 
         this.socket.on("faseFinal", function (res) {
-            console.log('cWs fase final')
             iu.mostrarModal(res+' ha ganado la partida!!');
         });
     }

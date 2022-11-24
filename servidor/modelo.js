@@ -7,7 +7,7 @@ function Juego() {
         if (!this.usuarios[nick]) {
             this.usuarios[nick] = new Usuario(nick, this);
             res = { "nick": nick };
-            console.log('Nuevo usuario agregado: ' + nick);
+            //console.log('Nuevo usuario agregado: ' + nick);
         }
         return res;
     }
@@ -29,7 +29,7 @@ function Juego() {
         if (usr) {
             let codigo = usr.crearPartida();
             res = { codigo: codigo };
-            console.log('El usuario ' + nick + " crea una partida con codigo " + codigo)
+            //console.log('El usuario ' + nick + " crea una partida con codigo " + codigo)
         }
         return res;
     }
@@ -200,7 +200,7 @@ function Partida(codigo, user) {
         let res = this.codigo;
         if (this.hayHueco()) {
             this.jugadores.push(usr);
-            console.log("El usuario " + usr.nick + " se une a la partida con codigo " + this.codigo);
+            //console.log("El usuario " + usr.nick + " se une a la partida con codigo " + this.codigo);
             usr.partida = this;
             usr.inicializarTableros(10);
             usr.inicializarFlota();
@@ -208,7 +208,7 @@ function Partida(codigo, user) {
         }
         else {
             res = -1;
-            console.log("La partida está completa")
+            //console.log("La partida está completa")
         }
         return res;
     }
@@ -223,8 +223,8 @@ function Partida(codigo, user) {
         if (jugador) {
             rival = this.obtenerRival(jugador.nick)
             this.fase = "final";
-            console.log("Fin de la partida");
-            console.log("Ha abandonado el jugador " + jugador.nick);
+            //console.log("Fin de la partida");
+            //console.log("Ha abandonado el jugador " + jugador.nick);
         }
     }
 
@@ -265,7 +265,7 @@ function Partida(codigo, user) {
         if (this.flotasDesplegadas()) {
             this.fase = "jugando";
             this.asignarTurnoInicial();
-            console.log('Los barcos han sido desplegados');
+            //console.log('Los barcos han sido desplegados');
         }
     }
     this.asignarTurnoInicial = function () {
@@ -341,7 +341,6 @@ function Tablero(size) {
 
     this.comprobarLimites = function (tam, x) {
         if (x + tam > this.size) {
-            console.log('excede los limites')
             return false
         } else { return true }
     }
@@ -413,7 +412,6 @@ function Barco(nombre, tam) {
             this.estado = "hundido";
         }
         tablero.ponerAgua(x, y);
-        console.log(this.estado)
         return this.estado;
     }
     this.obtenerEstado = function () {

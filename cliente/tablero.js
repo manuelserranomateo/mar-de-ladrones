@@ -2,6 +2,12 @@
 Esta funcion es una adpatacion de este repositorio: https://github.com/billmei/battleboat
 */
 
+CONST.CSS_TYPE_EMPTY = 'empty';
+CONST.CSS_TYPE_SHIP = 'ship';
+CONST.CSS_TYPE_MISS = 'miss';
+CONST.CSS_TYPE_HIT = 'hit';
+CONST.CSS_TYPE_SUNK = 'sunk';
+
 function Tablero() {
     this.placingOnGrid = false
     this.nombreBarco;
@@ -76,7 +82,7 @@ function Tablero() {
     }
 
     this.updateCell = function (x, y, type, targetPlayer) {
-        let player = targetPlayer;
+        let player = targetPlayer;    
         let classes = ['grid-cell', 'grid-cell-' + x + '-' + y, 'grid-' + type];
         document.querySelector('.' + player + ' .grid-cell-' + x + '-' + y).setAttribute('class', classes.join(' '));
     }

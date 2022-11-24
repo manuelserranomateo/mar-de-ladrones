@@ -58,7 +58,6 @@ function ServidorWS() {
                 if (jugador) {
                     jugador.colocarBarco(nombre, x, y)
                     let desplegado = jugador.obtenerBarcoDesplegado(nombre, x)
-                    console.log(desplegado)
                     let res = { barco: nombre, x: x, y: y, colocado: desplegado }
                     cli.enviarAlRemitente(socket, "barcoColocado", res);
                 }
@@ -82,12 +81,14 @@ function ServidorWS() {
                 if (jugador) {
                     let partida = jugador.partida;
                     let turno = partida.obtenerTurno();
+                    let impacto = jugador.meDisparan(x, y);
+                    let res2 = { atacante: jugador.nick, impacto: impacto, x: x, y: y, turno: turno.nick }
                     if (jugador == turno) {
                         jugador.disparar(x, y)
-                        if (partida.esFinal()){
+                        if (partida.esFinal()) {
                             cli.enviarATodosEnPartida(io, partida.codigo.toString(), "faseFinal", jugador.nick);
                         }
-                        cli.enviarATodosEnPartida(io, partida.codigo.toString(), "disparo", res);
+                        cli.enviarATodosEnPartida(io, partida.codigo.toString(), "disparo", res2);
                     }
                     else {
                         cli.enviarAlRemitente(socket, "turno", res);

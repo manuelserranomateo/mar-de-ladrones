@@ -211,21 +211,21 @@ div {
 	.grid-ship, .human-player .grid-ship:hover {
 		background-color: #808080;
 	}
-	.grid-miss, .grid-miss:hover, .human-player .grid-miss:hover {
+	.grid-agua, .grid-agua:hover, .human-player .grid-agua:hover {
 		background-color: #FFFFFF;
 		background-image: url('../img/cross-icon.png'); 
 		background-image: url('../img/cross-icon.svg');
 		background-position: center;
 		background-repeat: no-repeat;
 	}
-	.grid-hit, .grid-hit:hover, .human-player .grid-hit:hover {
+	.grid-tocado, .grid-tocado:hover, .human-player .grid-tocado:hover {
 		background-color: #F60018;
 		background-image: url('../img/cross-icon.png'); 
 		background-image: url('../img/cross-icon.svg');
 		background-position: center;
 		background-repeat: no-repeat;
 	}
-	.grid-sunk, .grid-sunk:hover, .human-player .grid-sunk:hover {
+	.grid-hundido, .grid-hundido:hover, .human-player .grid-hundido:hover {
 		background-color: #222222;
 	} 
 
