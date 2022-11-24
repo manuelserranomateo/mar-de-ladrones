@@ -102,7 +102,8 @@ function ClienteWS() {
         });
 
         this.socket.on("faseFinal", function (res) {
-            iu.mostrarModal(res+' ha ganado la partida!!');
+            iu.mostrarModal(res+' ha ganado la partida!!')
+            iu.finalPartida()
         });
     }
 

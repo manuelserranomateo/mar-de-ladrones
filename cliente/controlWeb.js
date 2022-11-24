@@ -109,6 +109,11 @@ function ControlWeb() {
 		});
 	}
 
+	this.finalPartida = function(){
+		$('#mH').remove()
+		this.mostrarHome()
+	}
+
 	this.mostrarModal = function (msg) {
 		$('#mM').remove();
 		let cadena = "<p class='text-dark' id='mM'>" + msg + "</p>";
