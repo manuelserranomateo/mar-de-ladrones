@@ -14,7 +14,7 @@ function ControlWeb() {
 		cadena = cadena + '<div class="row"><div class="col"><h1>Mar de Ladrones</h1></div></div>';
 		cadena = cadena + '<div class="row" style="margin-top:30px">';
 		cadena = cadena + '<div class="col">'
-		cadena = cadena + '<input type="text" class="form-control mb-2 mr-sm-2" id="usr" placeholder="Introduce tu nick (max 6 letras)" required></div>';
+		cadena = cadena + '<input type="text" class="form-control mb-2 mr-sm-2 text-center w-75" id="usr" placeholder="Introduce tu nick (max 6 letras)" required></div>';
 		cadena = cadena + '<div class="col">';
 		cadena = cadena + '<button type="button" id="btnAU" class="btn btn-primary">Iniciar sesión</button>';
 		cadena = cadena + '</div>';
