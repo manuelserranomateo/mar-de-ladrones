@@ -78,15 +78,23 @@ function ServidorWS() {
 
             socket.on("disparar", function (nick, x, y) {
                 let jugador = juego.obtenerUsuario(nick);
+                let res = { nick: nick, x: x, y: y }
                 if (jugador) {
                     let partida = jugador.partida;
-                    let estado = jugador.meDisparan(x, y)
-                    console.log(estado)
-                    jugador.disparar(x, y)
-                    let res = { estado: estado }
-                    cli.enviarATodosEnPartida(io, partida.codigo.toString(), "disparo", res);
+                    let turno = partida.obtenerTurno();
+                    if (jugador == turno) {
+                        jugador.disparar(x, y)
+                        if (partida.esFinal()){
+                            cli.enviarATodosEnPartida(io, partida.codigo.toString(), "faseFinal", jugador.nick);
+                        }
+                        cli.enviarATodosEnPartida(io, partida.codigo.toString(), "disparo", res);
+                    }
+                    else {
+                        cli.enviarAlRemitente(socket, "turno", res);
+                    }
                 }
             });
+
         });
     }
 }

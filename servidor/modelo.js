@@ -278,6 +278,10 @@ function Partida(codigo, user) {
         console.log('Turno asignado a : ', this.turno.nick);
     }
 
+    this.obtenerTurno = function () {
+		return this.turno
+	}
+
     this.obtenerRival = function (nick) {
         let rival;
         for (i = 0; i < this.jugadores.length; i++) {
