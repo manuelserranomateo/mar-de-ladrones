@@ -75,6 +75,7 @@ function ClienteWS() {
         })
 
         this.socket.on("faseDesplegando", function (data) {
+            tablero.mostrarTablero(true)
             tablero.flota = data.flota
         })
 
@@ -103,6 +104,7 @@ function ClienteWS() {
 
         this.socket.on("faseFinal", function (res) {
             iu.mostrarModal(res+' ha ganado la partida!!')
+            tablero.mostrarTablero(false)
             iu.finalPartida()
         });
     }
