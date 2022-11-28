@@ -80,7 +80,6 @@ function ClienteWS() {
         })
 
         this.socket.on("barcoColocado", function (res) {
-            console.log("🚀 ~ file: clienteWS.js ~ line 83 ~ res", res)
             if (res.colocado) {
                 let barco = tablero.flota[res.barco]
                 tablero.puedesColocarBarco(barco, res.x, res.y)
@@ -105,6 +104,7 @@ function ClienteWS() {
 
         this.socket.on("faseFinal", function (res) {
             iu.mostrarModal(res + ' ha ganado la partida!!')
+            tablero.createGrid()
             tablero.mostrarTablero(false)
             iu.finalPartida()
         });
