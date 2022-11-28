@@ -157,4 +157,37 @@ describe("El juego...", function () {
       expect(us1.flota["bote-de-remos"].estado).toEqual("intacto");
     });
   });
+
+  describe("Comprobar colocaciones invalidas", function () {
+    beforeEach(function () {
+      us1.colocarBarco("bote-de-remos", 0, 0);
+      us1.colocarBarco("balandro", 0, 0);
+      us1.colocarBarco("bergartin", 0, 2);
+      us1.colocarBarco("galeon", 6, 0);
+      us1.barcosDesplegados();
+      us2.colocarBarco("bote-de-remos", 3, 0);
+      us2.colocarBarco("balandro", 2, 0);
+      us2.colocarBarco("bergartin", 1, 0);
+      us2.colocarBarco("galeon", 7, 0);
+      us2.barcosDesplegados();
+    });
+
+    it("Comprobar limites del tablero", function (){
+      expect(us1.flota["galeon"].desplegado).toEqual(true);
+      expect(us2.flota["galeon"].desplegado).toEqual(false);
+    })
+
+    it("Comprobar que no se puede colocar un barco que colisione con otro", function (){
+      expect(us2.flota["bote-de-remos"].desplegado).toEqual(true);
+      expect(us2.flota["balandro"].desplegado).toEqual(false);
+      expect(us2.flota["bergartin"].desplegado).toEqual(false);
+    })
+
+    it("Comprobar que no se puede colocar un barco encima de otro", function (){
+      expect(us1.flota["bote-de-remos"].desplegado).toEqual(true);
+      expect(us1.flota["balandro"].desplegado).toEqual(false);
+    })
+    
+  });
+
 });
