@@ -116,8 +116,10 @@ function Usuario(nick, juego) {
     }
 
     this.inicializarFlota = function () {
-        this.flota["b2"] = new Barco("b2", 2);
-        this.flota["b4"] = new Barco("b4", 4);
+        this.flota["bote-de-remos"] = new Barco("bote-de-remos", 1);
+        this.flota["balandro"] = new Barco("balandro", 2);
+        this.flota["bergartin"] = new Barco("bergartin", 3);
+        this.flota["galeon"] = new Barco("galeon", 4);
     }
 
     this.colocarBarco = function (nombre, x, y) {

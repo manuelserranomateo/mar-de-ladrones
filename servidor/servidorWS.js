@@ -81,10 +81,11 @@ function ServidorWS() {
                 if (jugador) {
                     let partida = jugador.partida;
                     let turno = partida.obtenerTurno();
-                    let impacto = jugador.meDisparan(x, y);
-                    let res2 = { atacante: jugador.nick, impacto: impacto, x: x, y: y, turno: turno.nick }
+                    let rival = partida.obtenerRival(nick)
                     if (jugador == turno) {
                         jugador.disparar(x, y)
+                        let impacto = rival.meDisparan(x, y);
+                        let res2 = { atacante: jugador.nick, impacto: impacto, x: x, y: y, turno: turno.nick }
                         if (partida.esFinal()) {
                             cli.enviarATodosEnPartida(io, partida.codigo.toString(), "faseFinal", jugador.nick);
                         }
