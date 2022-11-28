@@ -143,7 +143,7 @@ function Usuario(nick, juego) {
     }
 
     this.disparar = function (x, y) {
-        this.partida.disparar(this.nick, x, y);
+        return this.partida.disparar(this.nick, x, y);
     }
 
     this.meDisparan = function (x, y) {
@@ -152,6 +152,9 @@ function Usuario(nick, juego) {
 
     this.obtenerEstado = function (x, y) {
         return this.tableroPropio.obtenerEstado(x, y);
+    }
+    this.obtenerEstadoMarcado = function (x, y) {
+        return this.tableroRival.obtenerEstado(x, y);
     }
 
     this.marcarEstado = function (estado, x, y) {
@@ -174,17 +177,21 @@ function Usuario(nick, juego) {
         return this.tableroPropio.comprobarLimites(tam, x)
     }
 
-    this.obtenerBarcoDesplegado = function (nombre, x) {
+    this.casillasLibres = function (nombre, x, y) {
+        console.log(nombre, x, y)
+        return this.tableroPropio.casillasLibres(nombre, x, y)
+    }
+
+    this.obtenerBarcoDesplegado = function (nombre, x, y) {
         for (let key in this.flota) {
             if (this.flota[key].nombre == nombre) {
-                if (this.comprobarLimites(this.flota[key].tam, x)) {
+                if ((this.comprobarLimites(this.flota[key].tam, x)) && (this.casillasLibres(nombre, x, y))) {
                     return true
                 } else {
                     return false
                 }
             }
         }
-        return undefined
     }
 
     this.obtenerFlota = function () {
@@ -281,8 +288,8 @@ function Partida(codigo, user) {
     }
 
     this.obtenerTurno = function () {
-		return this.turno
-	}
+        return this.turno
+    }
 
     this.obtenerRival = function (nick) {
         let rival;
@@ -293,6 +300,7 @@ function Partida(codigo, user) {
         }
         return rival;
     }
+
     this.obtenerJugador = function (nick) {
         let jugador;
         for (i = 0; i < this.jugadores.length; i++) {
@@ -348,7 +356,7 @@ function Tablero(size) {
     }
 
     this.colocarBarco = function (barco, x, y) {
-        if (this.comprobarLimites(barco.tam, x)) {
+        if (this.comprobarLimites(barco.tam, x, y)) {
             if (this.casillasLibres(x, y, barco.tam)) {
                 for (let i = x; i < barco.tam + x; i++) {
                     this.casillas[i][y].contiene = barco;
@@ -357,7 +365,6 @@ function Tablero(size) {
                 barco.desplegado = true;
             }
         }
-
     }
 
     this.casillasLibres = function (x, y, tam) {
