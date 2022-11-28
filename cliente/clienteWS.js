@@ -80,6 +80,7 @@ function ClienteWS() {
         })
 
         this.socket.on("barcoColocado", function (res) {
+            console.log("🚀 ~ file: clienteWS.js ~ line 83 ~ res", res)
             if (res.colocado) {
                 let barco = tablero.flota[res.barco]
                 tablero.puedesColocarBarco(barco, res.x, res.y)
@@ -89,21 +90,21 @@ function ClienteWS() {
             }
         })
 
-        this.socket.on("disparo",function(res){
-			if (res.atacante==rest.nick){
-				tablero.updateCell(res.x,res.y,res.impacto,'computer-player');
-			}
-			else{
-				tablero.updateCell(res.x,res.y,res.impacto,'human-player');	
-			}
-		});
+        this.socket.on("disparo", function (res) {
+            if (res.atacante == rest.nick) {
+                tablero.updateCell(res.x, res.y, res.impacto, 'computer-player');
+            }
+            else {
+                tablero.updateCell(res.x, res.y, res.impacto, 'human-player');
+            }
+        });
 
         this.socket.on("turno", function () {
             iu.mostrarModal("Respeta los rangos, no es tu turno");
         });
 
         this.socket.on("faseFinal", function (res) {
-            iu.mostrarModal(res+' ha ganado la partida!!')
+            iu.mostrarModal(res + ' ha ganado la partida!!')
             tablero.mostrarTablero(false)
             iu.finalPartida()
         });

@@ -56,9 +56,8 @@ function ServidorWS() {
             socket.on("colocarBarco", function (nick, nombre, x, y) {
                 let jugador = juego.obtenerUsuario(nick);
                 if (jugador) {
-                    jugador.colocarBarco(nombre, x, y)
-                    let desplegado = jugador.obtenerBarcoDesplegado(nombre, x)
-                    let res = { barco: nombre, x: x, y: y, colocado: desplegado }
+                    let barco = jugador.colocarBarco(nombre, x, y)
+                    let res = { barco: barco.nombre, x: x, y: y, colocado: barco.desplegado }
                     cli.enviarAlRemitente(socket, "barcoColocado", res);
                 }
             });
@@ -81,10 +80,8 @@ function ServidorWS() {
                 if (jugador) {
                     let partida = jugador.partida;
                     let turno = partida.obtenerTurno();
-                    let rival = partida.obtenerRival(nick)
                     if (jugador == turno) {
-                        jugador.disparar(x, y)
-                        let impacto = rival.meDisparan(x, y);
+                        let impacto = jugador.disparar(x, y)
                         let res2 = { atacante: jugador.nick, impacto: impacto, x: x, y: y, turno: turno.nick }
                         if (partida.esFinal()) {
                             cli.enviarATodosEnPartida(io, partida.codigo.toString(), "faseFinal", jugador.nick);

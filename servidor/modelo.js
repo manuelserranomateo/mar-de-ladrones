@@ -126,6 +126,7 @@ function Usuario(nick, juego) {
         if (this.partida.fase == "desplegando") {
             let barco = this.flota[nombre];
             this.tableroPropio.colocarBarco(barco, x, y)
+            return barco
         }
     }
 
@@ -182,17 +183,17 @@ function Usuario(nick, juego) {
         return this.tableroPropio.casillasLibres(nombre, x, y)
     }
 
-    this.obtenerBarcoDesplegado = function (nombre, x, y) {
-        for (let key in this.flota) {
-            if (this.flota[key].nombre == nombre) {
-                if ((this.comprobarLimites(this.flota[key].tam, x)) && (this.casillasLibres(nombre, x, y))) {
-                    return true
-                } else {
-                    return false
-                }
-            }
-        }
-    }
+    // this.obtenerBarcoDesplegado = function (nombre, x, y) {
+    //     for (let key in this.flota) {
+    //         if (this.flota[key].nombre == nombre) {
+    //             if ((this.comprobarLimites(this.flota[key].tam, x))) {
+    //                 return true
+    //             } else {
+    //                 return false
+    //             }
+    //         }
+    //     }
+    // }
 
     this.obtenerFlota = function () {
         return this.flota;
@@ -270,6 +271,7 @@ function Partida(codigo, user) {
         }
         return true;
     }
+    
     this.barcosDesplegados = function () {
         if (this.flotasDesplegadas()) {
             this.fase = "jugando";
@@ -277,6 +279,7 @@ function Partida(codigo, user) {
             //console.log('Los barcos han sido desplegados');
         }
     }
+
     this.asignarTurnoInicial = function () {
         this.turno = this.jugadores[0];
         console.log('Turno inicial asignado a : ', this.jugadores[0].nick);
@@ -319,6 +322,7 @@ function Partida(codigo, user) {
             atacante.marcarEstado(estado, x, y);
             this.comprobarFin(atacado);
             console.log(atacante.nick + ' dispara a ' + atacado.nick + ' en casillas ' + x, y);
+            return estado
         }
         else {
             console.log('No es tu turno');
@@ -368,7 +372,7 @@ function Tablero(size) {
     }
 
     this.casillasLibres = function (x, y, tam) {
-        for (i = x; i < tam; i++) {
+        for (i = x; i < tam + x; i++) {
             let contiene = this.casillas[i][y].contiene;
             if (!contiene.esAgua()) {
                 return false;
