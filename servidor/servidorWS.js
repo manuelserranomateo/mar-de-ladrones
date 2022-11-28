@@ -1,3 +1,5 @@
+const e = require("express");
+
 function ServidorWS() {
     this.enviarAlRemitente = function (socket, mensaje, datos) {
         socket.emit(mensaje, datos);
@@ -45,11 +47,14 @@ function ServidorWS() {
                 let codigoStr = codigo.toString();
                 if (jugador && partida) {
                     let rival = partida.obtenerRival(nick);
-                    let res = { codigoP: codigo, nombreA: jugador.nick, nombreG: rival.nick }
-                    partida.abandonarPartida(jugador)
-                    cli.enviarATodosEnPartida(io, codigoStr, "partidaAbandonada", res);
-                    socket.leave(codigoStr)
-
+                    if (rival == undefined){
+                        cli.enviarAlRemitente(socket, "partidaCancelada", {codigo: codigo})
+                    } else {
+                        let res = { codigoP: codigo, nombreA: jugador.nick, nombreG: rival.nick }                    
+                        partida.abandonarPartida(jugador)
+                        cli.enviarATodosEnPartida(io, codigoStr, "partidaAbandonada", res);
+                        socket.leave(codigoStr)
+                    }
                 }
             });
 

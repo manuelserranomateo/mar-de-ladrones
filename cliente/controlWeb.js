@@ -3,7 +3,7 @@ function ControlWeb() {
 		if ($.cookie('nick')) {
 			rest.nick = $.cookie('nick');
 			rest.comprobarUsuario();
-			this.mostrarHome()
+			//this.mostrarHome()
 		} else {
 			this.mostrarAgregarUsuario();
 		}
@@ -53,6 +53,7 @@ function ControlWeb() {
 			$("#mCP").remove();
 			$('#mLP').remove();
 			$('#mH').remove();
+			$('#mAU').remove();		
 			rest.usuarioSale();
 		})
 	}
@@ -81,6 +82,8 @@ function ControlWeb() {
 		$("#codigo").append(cadena);
 
 		$("#btnAP").on("click", function () {
+			$('#mH').remove();
+			$('#mAU').remove();
 			cws.abandonarPartida();
 		})
 	}

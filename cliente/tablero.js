@@ -92,11 +92,10 @@ function Tablero() {
     this.createGrid = function () {
         let gridDiv = document.querySelectorAll('.grid');
         for (let grid = 0; grid < gridDiv.length; grid++) {
-            let myNode=gridDiv[grid];
-			while (myNode.lastElementChild) {
-			    console.log("🚀 ~ file: tablero.js ~ line 97 ~ Tablero ~ myNode.lastElementChild", myNode.lastElementChild)
-			    myNode.removeChild(myNode.lastElementChild);
-			  }
+            let myNode = gridDiv[grid];
+            while (myNode.lastElementChild) {
+                myNode.removeChild(myNode.lastElementChild);
+            }
 
             for (let i = 0; i < 10; i++) {
                 for (let j = 0; j < 10; j++) {
@@ -109,7 +108,7 @@ function Tablero() {
             }
         }
     };
-    
+
     this.createGrid()
     this.init()
     this.mostrarTablero(false)

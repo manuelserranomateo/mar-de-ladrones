@@ -70,6 +70,11 @@ function ClienteWS() {
             }
         });
 
+        this.socket.on("partidaCancelada", function (res) {
+            iu.mostrarModal("Has terminado la partida " + res.codigo + " antes de que se uniese alguien")
+            iu.mostrarHome()
+        });
+
         this.socket.on("aJugar", function () {
             iu.mostrarModal('Ya se puede disparar!!');
         })
