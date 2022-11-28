@@ -84,17 +84,12 @@ app.get('/obtenerPartidasDisponibles', function (request, response) {
   response.send(res);
 });
 
-app.get('/eliminarUsuario/:nick', function (request, response) {
-  let nick = request.params.nick;
-  let res = juego.eliminarUsuario(nick);
-  response.send(res);
-});
-
-app.get("/abandonar/:nick", function (request, response) {
+app.get('/salir/:nick', function (request, response) {
   let nick = request.params.nick;
   juego.usuarioSale(nick);
-  response.send({ res: "ok" });
-})
+  response.send({res:"ok"});
+});
+
 // Start the server
 
 // app.listen(PORT, () => { // funcion de callback, 

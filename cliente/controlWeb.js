@@ -3,6 +3,7 @@ function ControlWeb() {
 		if ($.cookie('nick')) {
 			rest.nick = $.cookie('nick');
 			rest.comprobarUsuario();
+			this.mostrarHome()
 		} else {
 			this.mostrarAgregarUsuario();
 		}
@@ -52,8 +53,7 @@ function ControlWeb() {
 			$("#mCP").remove();
 			$('#mLP').remove();
 			$('#mH').remove();
-			rest.eliminarUsuario();
-			cws.abandonarPartida()
+			rest.usuarioSale();
 		})
 	}
 

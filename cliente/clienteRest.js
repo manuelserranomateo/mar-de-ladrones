@@ -38,11 +38,11 @@ function ClienteRest() {
         });
     }
 
-    this.eliminarUsuario = function () {
+    this.usuarioSale = function () {
         let nick = this.nick;
-        $.getJSON("/eliminarUsuario/" + nick, function () {
+        $.getJSON("/salir/" + nick, function () {
             $.removeCookie("nick");
             iu.comprobarCookie();
-        });
+        })
     }
 }

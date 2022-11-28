@@ -296,13 +296,13 @@ function Partida(codigo, user) {
 
     this.obtenerRival = function (nick) {
         let rival;
-        for (i = 0; i < this.jugadores.length; i++) {
-            if (this.jugadores[i].nick != nick) {
-                rival = this.jugadores[i];
-            }
-        }
-        return rival;
-    }
+		for (i = 0; i < this.jugadores.length; i++) {
+			if (this.jugadores[i].nick != nick) {
+				rival = this.jugadores[i];
+			}
+		}
+		return rival;
+	}
 
     this.obtenerJugador = function (nick) {
         let jugador;
