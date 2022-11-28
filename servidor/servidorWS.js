@@ -45,11 +45,12 @@ function ServidorWS() {
                 let codigoStr = codigo.toString();
                 if (jugador && partida) {
                     let rival = partida.obtenerRival(jugador.nick);
-                    let res = { codigoP: codigo, nombreA: jugador.nick }
+                    console.log("🚀 ~ file: servidorWS.js ~ line 48 ~ rival", rival)
+                    
+                    let res = { codigoP: codigo, nombreA: jugador.nick, nombreG: rival.nick }
                     partida.abandonarPartida(jugador)
                     cli.enviarATodosEnPartida(io, codigoStr, "partidaAbandonada", res);
                     socket.leave(codigoStr)
-
                 }
             });
 
