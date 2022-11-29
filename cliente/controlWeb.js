@@ -3,7 +3,6 @@ function ControlWeb() {
 		if ($.cookie('nick')) {
 			rest.nick = $.cookie('nick');
 			rest.comprobarUsuario();
-			//this.mostrarHome()
 		} else {
 			this.mostrarAgregarUsuario();
 		}
@@ -79,6 +78,7 @@ function ControlWeb() {
 		cadena = cadena + '<div style="margin-top:15px">';
 		cadena = cadena + '<button id="btnAP" class="btn btn-primary mb-2 mr-sm-2">Abandonar partida</button>';
 		cadena = cadena + '</div>';
+		this.mostrarEsperarPartidaEncontrada();
 		$("#codigo").append(cadena);
 
 		$("#btnAP").on("click", function () {
@@ -120,11 +120,18 @@ function ControlWeb() {
 		this.mostrarHome()
 	}
 
+	this.mostrarEsperarPartidaEncontrada = function () {
+		$('#mEPE').remove();
+		var cadena = '<div id="mEPE"><h3>Aun no tienes rival...</h3>';
+		cadena = cadena + '<img src="cliente/img/espera.gif">';
+		cadena = cadena + '</div>';
+		$('#listaPartidas').append(cadena);
+	}
+
 	this.mostrarModal = function (msg) {
 		$('#mM').remove();
 		let cadena = "<p class='text-dark' id='mM'>" + msg + "</p>";
 		$('#contenidoModal').append(cadena);
 		$('#miModal').modal("show");
 	}
-
 }

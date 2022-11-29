@@ -12,6 +12,7 @@ function Tablero(size){
 			x.style.display="none";
 		}
 	}
+	
 	this.ini=function(){
 		var humanCells = document.querySelector('.human-player').childNodes;
 		for (var k = 0; k < humanCells.length; k++) {

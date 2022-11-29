@@ -81,6 +81,7 @@ function ClienteWS() {
 
         this.socket.on("faseDesplegando", function (data) {
             tablero.flota = data.flota
+            $('#mEPE').remove();
             tablero.elementosGrid()
             tablero.mostrarFlota();
         })
