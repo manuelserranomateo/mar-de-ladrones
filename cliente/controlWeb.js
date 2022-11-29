@@ -122,10 +122,10 @@ function ControlWeb() {
 
 	this.mostrarEsperarPartidaEncontrada = function () {
 		$('#mEPE').remove();
-		var cadena = '<div id="mEPE"><h3>Aun no tienes rival...</h3>';
+		var cadena = '<div class="mt-5"id="mEPE"><h3>Aun no tienes rival...</h3>';
 		cadena = cadena + '<img src="cliente/img/espera.gif">';
 		cadena = cadena + '</div>';
-		$('#listaPartidas').append(cadena);
+		$('#agregarUsuario').append(cadena);
 	}
 
 	this.mostrarModal = function (msg) {
