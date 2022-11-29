@@ -80,14 +80,15 @@ function ClienteWS() {
         })
 
         this.socket.on("faseDesplegando", function (data) {
-            tablero.mostrarTablero(true)
             tablero.flota = data.flota
+            tablero.elementosGrid()
+            tablero.mostrarFlota();
         })
 
         this.socket.on("barcoColocado", function (res) {
             if (res.colocado) {
                 let barco = tablero.flota[res.barco]
-                tablero.puedesColocarBarco(barco, res.x, res.y)
+                tablero.terminarDeColocarBarco(barco, res.x, res.y)
                 cli.barcosDesplegados()
             } else {
                 iu.mostrarModal('No se ha podido colocar el barco')
@@ -109,11 +110,9 @@ function ClienteWS() {
 
         this.socket.on("faseFinal", function (res) {
             iu.mostrarModal(res + ' ha ganado la partida!!')
-            tablero.createGrid()
-            tablero.mostrarTablero(false)
+            // tablero.createGrid()
+            // tablero.mostrarTablero(false)
             iu.finalPartida()
         });
     }
-
-
 }

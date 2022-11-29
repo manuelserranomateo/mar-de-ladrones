@@ -53,7 +53,7 @@ function ControlWeb() {
 			$("#mCP").remove();
 			$('#mLP').remove();
 			$('#mH').remove();
-			$('#mAU').remove();		
+			$('#mAU').remove();
 			rest.usuarioSale();
 		})
 	}
@@ -112,8 +112,11 @@ function ControlWeb() {
 		});
 	}
 
-	this.finalPartida = function(){
+	this.finalPartida = function () {
 		$('#mH').remove()
+		cws.codigo = undefined;
+		$('#gc').remove();
+		tablero = new Tablero(10);
 		this.mostrarHome()
 	}
 
