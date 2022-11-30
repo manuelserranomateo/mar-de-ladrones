@@ -168,13 +168,18 @@ function Tablero(size) {
 		$('#gc').remove();
 		let cadena = '<div class="game-container" id="gc">';
 		cadena = cadena + '<div id="roster-sidebar">';
-		cadena = cadena + '<h4>Barcos</h4><div id="flota"></div></div><div class="grid-container"><h2>Tu flota</h2>';
+		cadena = cadena + '<h4>Barcos</h4><button class="btn btn-warning btn-sm" id="btnAyuda">Ayuda</button><div id="flota"></div></div><div class="grid-container"><h2>Tu flota</h2>';
 		cadena = cadena + '<div class="grid human-player"></div></div><div class="grid-container">';
 		cadena = cadena + '<h2>Flota enemiga</h2><div class="grid computer-player"></div></div>'
-		cadena = cadena + '<div id="ayuda"></div></div>';
+		cadena = cadena + '<div></div></div>';
 		$('#ancla').append(cadena);
 		this.createGrid();
+
+		$("#btnAyuda").on("click", function () {
+			iu.mostrarModal('<img src="cliente/img/ayuda.png"')
+		})
 	}
+
 	this.mostrarFlota = function () {
 		$("#listaF").remove();
 		let cadena = '<ul class="fleet-roster" id="listaF">';
