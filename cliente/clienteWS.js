@@ -84,6 +84,7 @@ function ClienteWS() {
             $('#mEPE').remove();
             tablero.elementosGrid()
             tablero.mostrarFlota();
+            iu.mostrarAyuda()
         })
 
         this.socket.on("barcoColocado", function (res) {

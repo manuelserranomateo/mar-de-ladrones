@@ -112,8 +112,8 @@ div {
 	width: 150px;
 	padding: 20px;
 	margin: 0;
-	background-color: #EEEEEE;
-	color: black;
+	background-color: #1648b9;
+	color: white;
 	position: absolute;
 	top: 4.5em;
 	-webkit-border-radius: 5px;
@@ -227,7 +227,6 @@ button {
 	width: 40px;
 	display: inline-block;
 	background-color: #99C2E1;
-
 	margin: 1px;
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
