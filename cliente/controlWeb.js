@@ -82,6 +82,7 @@ function ControlWeb() {
 		$("#codigo").append(cadena);
 
 		$("#btnAP").on("click", function () {
+			$('#mEPE').remove();
 			$('#mH').remove();
 			$('#mAU').remove();
 			cws.abandonarPartida();
