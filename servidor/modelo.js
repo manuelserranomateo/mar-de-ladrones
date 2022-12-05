@@ -14,7 +14,6 @@ function Juego(test) {
             this.insertarLog({ 'operacion': 'crearUsuario', 'nick': nick, 'fecha': Date() }, function () {
                 console.log('Registro insertado')
             })
-            //console.log('Nuevo usuario agregado: ' + nick);
         }
         return res;
     }
@@ -39,7 +38,6 @@ function Juego(test) {
         if (usr) {
             let codigo = usr.crearPartida();
             res = { codigo: codigo };
-            //console.log('El usuario ' + nick + " crea una partida con codigo " + codigo)
         }
         return res;
     }
@@ -109,16 +107,16 @@ function Juego(test) {
         return this.usuarios[nick];
     }
 
-    this.insertarLog = function (){
-        if (!this.test){
+    this.insertarLog = function (log, callback){
+        if(test == 'false'){
             this.cad.insertarLog(log, callback)
         }
     }
     this.obtenerLogs = function (callback) {
         this.cad.obtenerLogs(callback)
     }
-
-    if(!test){
+    
+    if(test == 'false'){
         this.cad.conectar(function(db){
             console.log('conectado a atlas')
         })
@@ -206,7 +204,7 @@ function Usuario(nick, juego) {
     }
 
     this.finalizarPartidaLog = function (res) {
-        this.juego.cad.insertarLog({
+        this.juego.insertarLog({
             'operacion': 'partidaFinalizada', 'ganador': res.ganador, 'perdedor': res.perdedor,
             'codigo': res.codigo, 'fecha': Date()
         }, function () {
@@ -240,9 +238,13 @@ function Usuario(nick, juego) {
     }
 
     this.abandonarPartidaLog = function (codigo) {
-        this.juego.cad.insertarLog({ 'operacion': 'abandonarPartida', 'nick': this.nick, 'codigo': codigo, 'fecha': Date() }, function () {
+        this.juego.insertarLog({ 'operacion': 'abandonarPartida', 'nick': this.nick, 'codigo': codigo, 'fecha': Date() }, function () {
             console.log('Registro insertado')
         })
+    }
+
+    this.insertarLog = function (){
+        return this.juego.insertarLog()
     }
 }
 
@@ -284,8 +286,8 @@ function Partida(codigo, user) {
             if (rival) {
                 console.log("Ganador: " + rival.nick);
             }
+            jugador.abandonarPartidaLog(this.codigo)
         }
-        jugador.abandonarPartidaLog(this.codigo)
     }
 
     this.hayHueco = function () {

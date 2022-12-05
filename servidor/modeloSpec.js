@@ -53,10 +53,10 @@ describe("El juego...", function () {
     expect(Object.keys(us1.flota).length).toEqual(4);
     expect(Object.keys(us2.flota).length).toEqual(4);
 
-    expect(us1.flota["bote-de-remos"].tam).toEqual(1);
-    expect(us1.flota["balandro"].tam).toEqual(2);
-    expect(us1.flota["bergartin"].tam).toEqual(3);
-    expect(us1.flota["galeon"].tam).toEqual(4);
+    expect(us1.flota["Bote de remos"].tam).toEqual(1);
+    expect(us1.flota["Balandro"].tam).toEqual(2);
+    expect(us1.flota["Bergartin"].tam).toEqual(3);
+    expect(us1.flota["Galeon"].tam).toEqual(4);
   });
 
   it("Comprobar que la partida está en fase desplegando", function () {
@@ -66,15 +66,15 @@ describe("El juego...", function () {
 
   describe("A jugar Caso 1!", function () {
     beforeEach(function () {
-      us1.colocarBarco("bote-de-remos", 0, 0);
-      us1.colocarBarco("balandro", 0, 1);
-      us1.colocarBarco("bergartin", 0, 2);
-      us1.colocarBarco("galeon", 0, 3);
+      us1.colocarBarco("Bote de remos", 0, 0);
+      us1.colocarBarco("Balandro", 0, 1);
+      us1.colocarBarco("Bergartin", 0, 2);
+      us1.colocarBarco("Galeon", 0, 3);
       us1.barcosDesplegados();
-      us2.colocarBarco("bote-de-remos", 0, 0);
-      us2.colocarBarco("balandro", 0, 1);
-      us2.colocarBarco("bergartin", 0, 2);
-      us2.colocarBarco("galeon", 0, 3);
+      us2.colocarBarco("Bote de remos", 0, 0);
+      us2.colocarBarco("Balandro", 0, 1);
+      us2.colocarBarco("Bergartin", 0, 2);
+      us2.colocarBarco("Galeon", 0, 3);
       us2.barcosDesplegados();
     });
 
@@ -111,36 +111,36 @@ describe("El juego...", function () {
       expect(partida.turno.nick).toEqual("pepe");
 
       // hundir bote-de-remos
-      expect(us2.flota["bote-de-remos"].estado).toEqual("intacto");
+      expect(us2.flota["Bote de remos"].estado).toEqual("intacto");
       us1.disparar(0, 0);
-      expect(us2.flota["bote-de-remos"].estado).toEqual("hundido");
+      expect(us2.flota["Bote de remos"].estado).toEqual("hundido");
 
       // hundir balandro
-      expect(us2.flota["balandro"].estado).toEqual("intacto");
+      expect(us2.flota["Balandro"].estado).toEqual("intacto");
       us1.disparar(0, 1)
-      expect(us2.flota["balandro"].estado).toEqual("tocado");
+      expect(us2.flota["Balandro"].estado).toEqual("tocado");
       us1.disparar(1, 1)
-      expect(us2.flota["balandro"].estado).toEqual("hundido");
+      expect(us2.flota["Balandro"].estado).toEqual("hundido");
 
       // hundir bergartin
-      expect(us2.flota["bergartin"].estado).toEqual("intacto");
+      expect(us2.flota["Bergartin"].estado).toEqual("intacto");
       us1.disparar(0, 2)
-      expect(us2.flota["bergartin"].estado).toEqual("tocado");
+      expect(us2.flota["Bergartin"].estado).toEqual("tocado");
       us1.disparar(1, 2)
-      expect(us2.flota["bergartin"].estado).toEqual("tocado");
+      expect(us2.flota["Bergartin"].estado).toEqual("tocado");
       us1.disparar(2, 2)
-      expect(us2.flota["bergartin"].estado).toEqual("hundido");
+      expect(us2.flota["Bergartin"].estado).toEqual("hundido");
 
       // hundir galeon
-      expect(us2.flota["galeon"].estado).toEqual("intacto");
+      expect(us2.flota["Galeon"].estado).toEqual("intacto");
       us1.disparar(0, 3)
-      expect(us2.flota["galeon"].estado).toEqual("tocado");
+      expect(us2.flota["Galeon"].estado).toEqual("tocado");
       us1.disparar(1, 3)
-      expect(us2.flota["galeon"].estado).toEqual("tocado");
+      expect(us2.flota["Galeon"].estado).toEqual("tocado");
       us1.disparar(2, 3)
-      expect(us2.flota["galeon"].estado).toEqual("tocado");
+      expect(us2.flota["Galeon"].estado).toEqual("tocado");
       us1.disparar(3, 3)
-      expect(us2.flota["galeon"].estado).toEqual("hundido");
+      expect(us2.flota["Galeon"].estado).toEqual("hundido");
 
       expect(partida.esFinal()).toEqual(true);
       expect(us2.flotaHundida()).toEqual(true);
@@ -154,38 +154,38 @@ describe("El juego...", function () {
 
     it("Comprobar que no deja disparar sin turno", function () {
       us2.disparar(0, 0);
-      expect(us1.flota["bote-de-remos"].estado).toEqual("intacto");
+      expect(us1.flota["Bote de remos"].estado).toEqual("intacto");
     });
   });
 
   describe("Comprobar colocaciones invalidas", function () {
     beforeEach(function () {
-      us1.colocarBarco("bote-de-remos", 0, 0);
-      us1.colocarBarco("balandro", 0, 0);
-      us1.colocarBarco("bergartin", 0, 2);
-      us1.colocarBarco("galeon", 6, 0);
+      us1.colocarBarco("Bote de remos", 0, 0);
+      us1.colocarBarco("Balandro", 0, 0);
+      us1.colocarBarco("Bergartin", 0, 2);
+      us1.colocarBarco("Galeon", 6, 0);
       us1.barcosDesplegados();
-      us2.colocarBarco("bote-de-remos", 3, 0);
-      us2.colocarBarco("balandro", 2, 0);
-      us2.colocarBarco("bergartin", 1, 0);
-      us2.colocarBarco("galeon", 7, 0);
+      us2.colocarBarco("Bote de remos", 3, 0);
+      us2.colocarBarco("Balandro", 2, 0);
+      us2.colocarBarco("Bergartin", 1, 0);
+      us2.colocarBarco("Galeon", 7, 0);
       us2.barcosDesplegados();
     });
 
     it("Comprobar limites del tablero", function (){
-      expect(us1.flota["galeon"].desplegado).toEqual(true);
-      expect(us2.flota["galeon"].desplegado).toEqual(false);
+      expect(us1.flota["Galeon"].desplegado).toEqual(true);
+      expect(us2.flota["Galeon"].desplegado).toEqual(false);
     })
 
     it("Comprobar que no se puede colocar un barco que colisione con otro", function (){
-      expect(us2.flota["bote-de-remos"].desplegado).toEqual(true);
-      expect(us2.flota["balandro"].desplegado).toEqual(false);
-      expect(us2.flota["bergartin"].desplegado).toEqual(false);
+      expect(us2.flota["Bote de remos"].desplegado).toEqual(true);
+      expect(us2.flota["Balandro"].desplegado).toEqual(false);
+      expect(us2.flota["Bergartin"].desplegado).toEqual(false);
     })
 
     it("Comprobar que no se puede colocar un barco encima de otro", function (){
-      expect(us1.flota["bote-de-remos"].desplegado).toEqual(true);
-      expect(us1.flota["balandro"].desplegado).toEqual(false);
+      expect(us1.flota["Bote de remos"].desplegado).toEqual(true);
+      expect(us1.flota["Balandro"].desplegado).toEqual(false);
     })
     
   });

@@ -94,7 +94,7 @@ function ControlWeb() {
 	this.mostrarListaDePartidas = function (lista) {
 		$('#mLP').remove();
 		let cadena = '<div id="mLP"><h3>Partidas disponibles</h3>';
-		cadena = cadena + '<div class="row" style="margin-top:10px">';
+		cadena = cadena + '<div class="col" style="margin-top:10px">';
 		cadena = cadena + '<ul class="list-group">';
 		for (i = 0; i < lista.length; i++) {
 			cadena = cadena + "<li class='list-group-item' style='margin-top:10px'><a href='#' value='" + lista[i].codigo +
