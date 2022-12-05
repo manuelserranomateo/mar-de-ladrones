@@ -12,8 +12,9 @@ const modelo = require('./servidor/modelo.js');
 const sWS = require('./servidor/servidorWS.js');
 
 const PORT = process.env.PORT || 3000; // Util para el despliegue process.env.PORT por si el OS tiene una variable definida
+var args = process.argv.slice(2);
 
-let juego = new modelo.Juego(); // Conectamos API REST con la capa logica (index.js --> modelo.js)
+let juego = new modelo.Juego(args[0]); // Conectamos API REST con la capa logica (index.js --> modelo.js)
 let servidorWS = new sWS.ServidorWS();
 
 /*  http get post put delete (se llaman verbos)
@@ -90,16 +91,15 @@ app.get('/salir/:nick', function (request, response) {
   response.send({res:"ok"});
 });
 
-// Start the server
+app.get('/obtenerLogs', function (request, response) {
+  juego.obtenerLogs(function (logs){
+    response.send(logs)
+  })
+});
 
-// app.listen(PORT, () => { // funcion de callback, 
-//   console.log(`App listening on port ${PORT}`);
-//   console.log('Press Ctrl+C to quit.');
-// });
-
-server.listen(PORT, () => { // funcion de callback, 
-  console.log(`App listening on port ${PORT}`);
-  console.log('Press Ctrl+C to quit.');
+server.listen(PORT, () => {
+  console.log(`Aplicacion escuchando en puerto ${PORT}`);
+  console.log('Ctrl+C para salir');
 });
 
 servidorWS.lanzarServidorWS(io, juego)

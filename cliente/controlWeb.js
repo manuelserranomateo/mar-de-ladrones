@@ -38,6 +38,7 @@ function ControlWeb() {
 
 	this.mostrarHome = function () {
 		$('#mH').remove();
+		$('#gc').remove();
 		let cadena = "<div class ='row' id='mH'>";
 		cadena = cadena + "<div class='col'>";
 		cadena = cadena + "<h2>Bienvenido <b>" + rest.nick + "</b></h2>";
@@ -52,6 +53,7 @@ function ControlWeb() {
 			$("#mCP").remove();
 			$('#mLP').remove();
 			$('#mH').remove();
+			$('#gc').remove();
 			$('#mAU').remove();
 			rest.usuarioSale();
 		})

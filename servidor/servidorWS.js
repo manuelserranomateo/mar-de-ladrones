@@ -1,5 +1,3 @@
-const e = require("express");
-
 function ServidorWS() {
     this.enviarAlRemitente = function (socket, mensaje, datos) {
         socket.emit(mensaje, datos);
@@ -49,6 +47,7 @@ function ServidorWS() {
                     let rival = partida.obtenerRival(nick);
                     if (rival == undefined){
                         cli.enviarAlRemitente(socket, "partidaCancelada", {codigo: codigo})
+                        partida.abandonarPartida(jugador)
                     } else {
                         let res = { codigoP: codigo, nombreA: jugador.nick, nombreG: rival.nick }                    
                         partida.abandonarPartida(jugador)

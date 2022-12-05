@@ -42,6 +42,7 @@ function ClienteRest() {
         let nick = this.nick;
         $.getJSON("/salir/" + nick, function () {
             $.removeCookie("nick");
+            $('#mEPE').remove();
             iu.comprobarCookie();
         })
     }
