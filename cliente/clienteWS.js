@@ -17,6 +17,10 @@ function ClienteWS() {
         this.socket.emit("abandonarPartida", rest.nick, cws.codigo);
     }
 
+    this.usuarioSale = function (nick, codigo) {
+        this.socket.emit("usuarioSale", rest.nick, codigo)
+    }
+
     this.colocarBarco = function (nombre, x, y) {
         this.socket.emit("colocarBarco", rest.nick, nombre, x, y)
     }
@@ -74,6 +78,16 @@ function ClienteWS() {
             iu.mostrarModal("Has terminado la partida " + res.codigo + " antes de que se uniese alguien")
             iu.mostrarHome()
         });
+
+        this.socket.on("usuarioSalido", function (res) {
+            if (!(res.nick == rest.nick)) {
+                iu.mostrarModal("El usuario " + res.nick + " se ha salido a mitad de la partida")
+                iu.mostrarHome()
+            }
+            else {
+                iu.mostrarModal("Te has salido a mitad de partida")
+            }
+        })
 
         this.socket.on("aJugar", function () {
             iu.mostrarModal('Ya se puede disparar!!');

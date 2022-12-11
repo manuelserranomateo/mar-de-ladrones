@@ -40,10 +40,12 @@ function ClienteRest() {
 
     this.usuarioSale = function () {
         let nick = this.nick;
-        $.getJSON("/salir/" + nick, function () {
+        $.getJSON("/salir/" + nick, function (data) {
             $.removeCookie("nick");
             $('#mEPE').remove();
             iu.comprobarCookie();
+            cws.usuarioSale(nick, data.codigo);
+
         })
     }
 }

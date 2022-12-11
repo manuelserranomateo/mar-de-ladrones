@@ -45,17 +45,27 @@ function ServidorWS() {
                 let codigoStr = codigo.toString();
                 if (jugador && partida) {
                     let rival = partida.obtenerRival(nick);
-                    if (rival == undefined){
-                        cli.enviarAlRemitente(socket, "partidaCancelada", {codigo: codigo})
+                    if (rival == undefined) {
+                        cli.enviarAlRemitente(socket, "partidaCancelada", { codigo: codigo })
                         partida.abandonarPartida(jugador)
                     } else {
-                        let res = { codigoP: codigo, nombreA: jugador.nick, nombreG: rival.nick }                    
+                        let res = { codigoP: codigo, nombreA: jugador.nick, nombreG: rival.nick }
                         partida.abandonarPartida(jugador)
                         cli.enviarATodosEnPartida(io, codigoStr, "partidaAbandonada", res);
                         socket.leave(codigoStr)
                     }
                 }
             });
+
+            socket.on("usuarioSale", function (nick, codigo) {
+                let lista = juego.obtenerPartidasDisponibles();
+                if (codigo) {
+                    let codigoStr = codigo.toString();
+                    cli.enviarATodosEnPartida(io, codigoStr, "usuarioSalido", { nick: nick });
+                    cli.enviarATodos(socket, "actualizarListaPartidas", lista);
+                }
+
+            })
 
             socket.on("colocarBarco", function (nick, nombre, x, y) {
                 let jugador = juego.obtenerUsuario(nick);

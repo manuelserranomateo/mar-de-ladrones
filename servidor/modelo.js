@@ -24,12 +24,15 @@ function Juego(test) {
 
     this.usuarioSale = function (nick) {
         if (this.usuarios[nick]) {
-            this.finalizarPartida(nick);
+            codigo = this.finalizarPartida(nick);
             this.eliminarUsuario(nick);
         }
         this.insertarLog({ 'operacion': 'usuarioSale', 'nick': nick, 'fecha': Date() }, function () {
             console.log('Registro insertado')
         })
+        if (codigo) {
+            return codigo
+        }
     }
 
     this.jugadorCreaPartida = function (nick) {
@@ -92,12 +95,14 @@ function Juego(test) {
     }
 
     this.finalizarPartida = function (nick) {
-        for (let key in this.partidas) {
-            if (this.partidas[key].fase == "inicial" && this.partidas[key].estoy(nick)) {
-                this.partidas[key].fase = "final";
-            }
-        }
-    }
+		for (let key in this.partidas) {
+			if ((this.partidas[key].fase == "inicial" || this.partidas[key].fase == "desplegando") && this.partidas[key].estoy(nick)) {
+				this.partidas[key].fase = "final";
+				return this.partidas[key].codigo;
+				
+			}
+		}
+	}
 
     this.obtenerPartida = function (codigo) {
         return this.partidas[codigo];
@@ -107,17 +112,17 @@ function Juego(test) {
         return this.usuarios[nick];
     }
 
-    this.insertarLog = function (log, callback){
-        if(test == 'false'){
+    this.insertarLog = function (log, callback) {
+        if (test == 'false') {
             this.cad.insertarLog(log, callback)
         }
     }
     this.obtenerLogs = function (callback) {
         this.cad.obtenerLogs(callback)
     }
-    
-    if(test == 'false'){
-        this.cad.conectar(function(db){
+
+    if (test == 'false') {
+        this.cad.conectar(function (db) {
             console.log('conectado a atlas')
         })
     }
@@ -243,7 +248,7 @@ function Usuario(nick, juego) {
         })
     }
 
-    this.insertarLog = function (){
+    this.insertarLog = function () {
         return this.juego.insertarLog()
     }
 }

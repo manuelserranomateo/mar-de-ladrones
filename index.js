@@ -88,7 +88,7 @@ app.get('/obtenerPartidasDisponibles', function (request, response) {
 app.get('/salir/:nick', function (request, response) {
   let nick = request.params.nick;
   juego.usuarioSale(nick);
-  response.send({res:"ok"});
+  response.send({res:"ok", codigo: codigo});
 });
 
 app.get('/obtenerLogs', function (request, response) {
