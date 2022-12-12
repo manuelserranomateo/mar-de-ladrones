@@ -88,13 +88,17 @@ app.get('/obtenerPartidasDisponibles', function (request, response) {
 app.get('/salir/:nick', function (request, response) {
   let nick = request.params.nick;
   juego.usuarioSale(nick);
-  response.send({res:"ok", codigo: codigo});
+  response.send({ res: "ok", codigo: codigo });
 });
 
 app.get('/obtenerLogs', function (request, response) {
-  juego.obtenerLogs(function (logs){
+  juego.obtenerLogs(function (logs) {
     response.send(logs)
   })
+});
+
+app.all('*', (req, res) => {
+  res.status(404).send('<div><h1>Parece que te has perdido...</h1><img src="/cliente/img/404.webp"></div>');
 });
 
 server.listen(PORT, () => {
