@@ -2,6 +2,7 @@
 const fs = require('fs');
 const express = require('express');
 const app = express();
+const passport = require('passport')
 
 const http = require('http');
 const server = http.createServer(app);
@@ -50,6 +51,9 @@ app.get("/agregarUsuario/:nick", function (request, response) {
 
   // En la capa REST se evita poner logica, esto se debe hacer en la capa logica
 });
+
+app.get("/auth/google",passport.authenticate('google', { scope: ['profile','email'] }));
+
 
 app.get("/comprobarUsuario/:nick", function (request, response) {
   let nick = request.params.nick;

@@ -1,9 +1,10 @@
 {
   "dependencies": {
     "express": "^4.18.1",
-    "socket.io": "^4.5.3",
     "jasmine-node": "^3.0.0",
-    "mongodb": "^3.6.3"
+    "mongodb": "^3.6.3",
+    "passport": "^0.6.0",
+    "socket.io": "^4.5.3"
   },
   "name": "proyecto22",
   "description": "Proyecto de Procesos Curso 22-23",
