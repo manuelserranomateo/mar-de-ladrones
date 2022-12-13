@@ -1,4 +1,4 @@
-# Proyecto22-23
+# Mar de Ladrones
 Proyecto de la asignatura Procesos de Software curso 22-23
 
 ## Descripción
@@ -20,7 +20,7 @@ https://nodejs.org/en/
 ### Instalación 🔧
 Clonar el repositorio
 ```
-git clone https://github.com/manuelserranomateo/proyecto22.git
+git clone https://github.com/manuelserranomateo/mar-de-ladrones.git
 ```
 Instalar las dependencias en la carpeta raiz
 ```
