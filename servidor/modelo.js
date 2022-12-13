@@ -155,10 +155,10 @@ function Usuario(nick, juego) {
         this.flota["Galeon"] = new Barco("Galeon", 4);
     }
 
-    this.colocarBarco = function (nombre, x, y) {
+    this.colocarBarco = function (nombre, x, y, orientacion) {
         if (this.partida.fase == "desplegando") {
             let barco = this.flota[nombre];
-            this.tableroPropio.colocarBarco(barco, x, y)
+            this.tableroPropio.colocarBarco(barco, x, y, orientacion)
             return barco
         }
     }
@@ -417,12 +417,19 @@ function Tablero(size) {
         } else { return true }
     }
 
-    this.colocarBarco = function (barco, x, y) {
+    this.colocarBarco = function (barco, x, y, orientacion) {
         if (this.comprobarLimites(barco.tam, x, y)) {
             if (this.casillasLibres(x, y, barco.tam)) {
-                for (let i = x; i < barco.tam + x; i++) {
-                    this.casillas[i][y].contiene = barco;
-                    console.log('Barco', barco.nombre, 'colocado en', i, y)
+                if (orientacion === 'horizontal') {
+                    for (let i = x; i < barco.tam + x; i++) {
+                        this.casillas[i][y].contiene = barco;
+                        console.log('Barco', barco.nombre, 'colocado en', i, y)
+                    }
+                } else if (orientacion === 'vertical') {
+                    for (let i = y; i < barco.tam + y; i++) {
+                        this.casillas[x][i].contiene = barco;
+                        console.log('Barco', barco.nombre, 'colocado en', x, i)
+                    }
                 }
                 barco.desplegado = true;
             }
