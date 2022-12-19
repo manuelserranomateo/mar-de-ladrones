@@ -57,7 +57,7 @@ app.get('/google/callback', passport.authenticate('google', { failureRedirect: '
         res.redirect('/good');
     });
 app.get("/good", function (request, response) {
-    var nick = request.user.emails[0].value;
+    var nick = request.user.name.givenName;
     if (nick) {
         juego.agregarUsuario(nick);
     }
