@@ -20,8 +20,6 @@ function Tablero(size) {
 		for (var k = 0; k < humanCells.length; k++) {
 			humanCells[k].self = this;
 			humanCells[k].addEventListener('click', this.placementListener, false);
-			//humanCells[k].addEventListener('mouseover', this.placementMouseover, false);
-			//humanCells[k].addEventListener('mouseout', this.placementMouseout, false);
 		}
 		var computerCells = document.querySelector('.computer-player').childNodes;
 		for (var j = 0; j < computerCells.length; j++) {
@@ -38,11 +36,11 @@ function Tablero(size) {
 	}
 	this.placementListener = function (e) {
 		self = e.target.self;
-		console.log(self)
 		if (self.placingOnGrid) {
 			var x = parseInt(e.target.getAttribute('data-x'), 10);
 			var y = parseInt(e.target.getAttribute('data-y'), 10);
 
+			console.log(self.orientacion)
 			self.colocarBarco(x, y, self.nombreBarco, self.orientacion);
 		}
 	};
@@ -53,7 +51,6 @@ function Tablero(size) {
 	this.rosterListener = function (e) {
 		var self = e.target.self;
 		var cli = this;
-		// Remove all classes of 'placing' from the fleet roster first
 		var roster = document.querySelectorAll('.fleet-roster li');
 		for (var i = 0; i < roster.length; i++) {
 			var classes = roster[i].getAttribute('class') || '';
@@ -156,6 +153,8 @@ function Tablero(size) {
 				btnRotar.innerText = 'Horizontal'
 				self.orientacion = 'horizontal'
 			}
+
+			console.log(self.orientacion)
 		})
 		this.asignarFlotaListener();
 	}

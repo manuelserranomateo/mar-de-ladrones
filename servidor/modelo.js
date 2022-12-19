@@ -412,7 +412,6 @@ function Tablero(size) {
     }
 
     this.comprobarLimites = function (tam, x, y, orientacion) {
-        console.log(x, y, orientacion)
         if (orientacion == 'horizontal') {
             if (x + tam > this.size) {
                 return false
