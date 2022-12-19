@@ -18,21 +18,6 @@ var args = process.argv.slice(2);
 let juego = new modelo.Juego(args[0]);
 let servidorWS = new sWS.ServidorWS();
 
-/*  http get post put delete (se llaman verbos)
-    get "/"
-    get "/obtenerPartidas"
-    post "/agregarUsuario/:nick" post para enviar mucha informacion
-    put "/actualizarPartida"     get si envias poca informacion
-    delete "/eliminarPartida"   
-    ... etc
-    Son las distintas rutas con los parametros que requiera la logica
-*/
-// app.get('/', (req, res) => { 
-//   res
-//     .status(200)
-//     .send("Hola")
-//     .end();
-// });
 
 app.use(express.static(__dirname + "/"));
 
@@ -62,33 +47,6 @@ app.use(passport.session());
 
 app.get('/google/callback', passport.authenticate('google', { failureRedirect: '/fallo' }),
     function (req, res) {
-        // Successful authentication, redirect home.
-        res.redirect('/good');
-    });
-app.get("/good", function (request, response) {
-    var nick = request.user.name.givenName;
-    if (nick) {
-        juego.agregarUsuario(nick);
-    }
-    response.cookie('nick', nick);
-    response.redirect('/');
-});
-
-app.get("/auth/google",passport.authenticate('google', { scope: ['profile','email'] }));
-
-const cookieSession=require("cookie-session");
-
-app.use(cookieSession({
-  name: 'Mar de Ladrones',
-  keys: ['key1', 'key2']
-}));
-app.use(passport.initialize());
-app.use(passport.session());
-
-
-app.get('/google/callback', passport.authenticate('google', { failureRedirect: '/fallo' }),
-    function (req, res) {
-        // Successful authentication, redirect home.
         res.redirect('/good');
     });
 app.get("/good", function (request, response) {
@@ -104,9 +62,7 @@ app.get("/fallo", function (request, response) {
     response.send({ nick: "nook" })
 })
 
-app.get("/fallo", function (request, response) {
-    response.send({ nick: "nook" })
-})
+
 
 app.get("/comprobarUsuario/:nick", function (req, response) {
   let nick = req.params.nick;
