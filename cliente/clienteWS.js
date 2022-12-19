@@ -21,8 +21,8 @@ function ClienteWS() {
         this.socket.emit("usuarioSale", rest.nick, codigo)
     }
 
-    this.colocarBarco = function (nombre, x, y) {
-        this.socket.emit("colocarBarco", rest.nick, nombre, x, y)
+    this.colocarBarco = function (nombre, x, y, orientacion) {
+        this.socket.emit("colocarBarco", rest.nick, nombre, x, y, orientacion)
     }
 
     this.barcosDesplegados = function () {
@@ -103,7 +103,7 @@ function ClienteWS() {
         this.socket.on("barcoColocado", function (res) {
             if (res.colocado) {
                 let barco = tablero.flota[res.barco]
-                tablero.terminarDeColocarBarco(barco, res.x, res.y)
+                tablero.terminarDeColocarBarco(barco, res.x, res.y, res.orientacion)
                 cli.barcosDesplegados()
             } else {
                 iu.mostrarModal('No se ha podido colocar el barco')
@@ -125,8 +125,6 @@ function ClienteWS() {
 
         this.socket.on("faseFinal", function (res) {
             iu.mostrarModal(res + ' ha ganado la partida!!')
-            // tablero.createGrid()
-            // tablero.mostrarTablero(false)
             iu.finalPartida()
         });
     }

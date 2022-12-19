@@ -3,6 +3,8 @@ function Tablero(size) {
 	this.nombreBarco;
 	this.placingOnGrid = false;
 	this.flota;
+	this.orientacion = 'horizontal'
+
 	this.mostrar = function (si) {
 		let x = document.getElementById("tablero");
 		if (si) {
@@ -41,7 +43,7 @@ function Tablero(size) {
 			var x = parseInt(e.target.getAttribute('data-x'), 10);
 			var y = parseInt(e.target.getAttribute('data-y'), 10);
 
-			self.colocarBarco(x, y, self.nombreBarco);
+			self.colocarBarco(x, y, self.nombreBarco, self.orientacion);
 		}
 	};
 	this.endPlacing = function (shipType) {
@@ -59,25 +61,32 @@ function Tablero(size) {
 			roster[i].setAttribute('class', classes);
 		}
 
-		// Set the class of the target ship to 'placing'
 		self.nombreBarco = e.target.getAttribute('id');
 		document.getElementById(self.nombreBarco).setAttribute('class', 'placing');
-		//Game.placeShipDirection = parseInt(document.getElementById('rotate-button').getAttribute('data-direction'), 10);
 		self.placingOnGrid = true;
 	};
-	this.colocarBarco = function (x, y, nombre) {
-		//comprobar límites
+
+	this.colocarBarco = function (x, y, nombre, orientacion) {
 		console.log("Colocar barco: " + x + "-" + y + " " + nombre);
-		cws.colocarBarco(nombre, x, y);
-		//return true;
+		cws.colocarBarco(nombre, x, y, orientacion);
 	}
-	this.terminarDeColocarBarco = function (barco, x, y) {
-		for (i = 0; i < barco.tam; i++) {
-			console.log("x: " + (x + i) + " y:" + y);
-			this.updateCell(x + i, y, "ship", 'human-player');
+
+	this.terminarDeColocarBarco = function (barco, x, y, orientacion) {
+		if (orientacion == 'horizontal') {
+			for (i = 0; i < barco.tam; i++) {
+				console.log("x: " + (x + i) + " y:" + y);
+				this.updateCell(x + i, y, "ship", 'human-player');
+			}
+		} else if (orientacion == 'vertical') {
+			for (i = 0; i < barco.tam; i++) {
+				console.log("x: " + x + " y:" + (i + y));
+				this.updateCell(x, i + y, "ship", 'human-player');
+			}
 		}
+		
 		self.endPlacing(barco.nombre);
 	}
+
 	this.shootListener = function (e) {
 		var x = parseInt(e.target.getAttribute('data-x'), 10);
 		var y = parseInt(e.target.getAttribute('data-y'), 10);
@@ -85,44 +94,15 @@ function Tablero(size) {
 		cws.disparar(x, y);
 	}
 	this.updateCell = function (x, y, type, target) {
-		var player = target;//'human-player';
-		// if (targetPlayer === CONST.HUMAN_PLAYER) {
-		// 	player = 'human-player';
-		// } else if (targetPlayer === CONST.COMPUTER_PLAYER) {
-		// 	player = 'computer-player';
-		// } else {
-		// 	// Should never be called
-		// 	console.log("There was an error trying to find the correct player's grid");
-		// }
-
-		// switch (type) {
-		// 	case CONST.CSS_TYPE_EMPTY:
-		// 		this.cells[x][y] = CONST.TYPE_EMPTY;
-		// 		break;
-		// 	case CONST.CSS_TYPE_SHIP:
-		// 		this.cells[x][y] = CONST.TYPE_SHIP;
-		// 		break;
-		// 	case CONST.CSS_TYPE_MISS:
-		// 		this.cells[x][y] = CONST.TYPE_MISS;
-		// 		break;
-		// 	case CONST.CSS_TYPE_HIT:
-		// 		this.cells[x][y] = CONST.TYPE_HIT;
-		// 		break;
-		// 	case CONST.CSS_TYPE_SUNK:
-		// 		this.cells[x][y] = CONST.TYPE_SUNK;
-		// 		break;
-		// 	default:
-		// 		this.cells[x][y] = CONST.TYPE_EMPTY;
-		// 		break;
-		// }
+		var player = target;
 		var classes = ['grid-cell', 'grid-cell-' + x + '-' + y, 'grid-' + type];
 		document.querySelector('.' + player + ' .grid-cell-' + x + '-' + y).setAttribute('class', classes.join(' '));
 	};
+
 	this.createGrid = function () {
 		var gridDiv = document.querySelectorAll('.grid');
 
 		for (var grid = 0; grid < gridDiv.length; grid++) {
-			//gridDiv[grid].removeChild(gridDiv[grid].querySelector('.no-js')); // Removes the no-js warning
 			let myNode = gridDiv[grid];
 			while (myNode.lastElementChild) {
 				myNode.removeChild(myNode.lastElementChild);
@@ -162,12 +142,21 @@ function Tablero(size) {
 			cadena = cadena + "<li id='" + key + "'>" + key + "</li>"
 		}
 		cadena = cadena + "</ul>";
+		cadena = cadena + "<button class='btn btn-primary' id='btnRotar'>Horizontal</button>"
 		$('#flota').append(cadena);
-		//<ul>
-		//	cadena=cadena+'<li id="b2">b2</li>'
-		//</ul>
+
+		$("#btnRotar").on("click", function () {
+			const btnRotar = document.getElementById('btnRotar')
+			orientacion = btnRotar.innerText
+			
+			if (orientacion == 'Horizontal') {
+				btnRotar.innerText = 'Vertical'
+				self.orientacion = 'vertical'
+			} else if (orientacion == 'Vertical') {
+				btnRotar.innerText = 'Horizontal'
+				self.orientacion = 'horizontal'
+			}
+		})
 		this.asignarFlotaListener();
 	}
-	//this.createGrid();
-	//this.mostrar(false);
 }
