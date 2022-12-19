@@ -95,14 +95,14 @@ function Juego(test) {
     }
 
     this.finalizarPartida = function (nick) {
-		for (let key in this.partidas) {
-			if ((this.partidas[key].fase == "inicial" || this.partidas[key].fase == "desplegando") && this.partidas[key].estoy(nick)) {
-				this.partidas[key].fase = "final";
-				return this.partidas[key].codigo;
-				
-			}
-		}
-	}
+        for (let key in this.partidas) {
+            if ((this.partidas[key].fase == "inicial" || this.partidas[key].fase == "desplegando") && this.partidas[key].estoy(nick)) {
+                this.partidas[key].fase = "final";
+                return this.partidas[key].codigo;
+
+            }
+        }
+    }
 
     this.obtenerPartida = function (codigo) {
         return this.partidas[codigo];
@@ -411,15 +411,23 @@ function Tablero(size) {
         }
     }
 
-    this.comprobarLimites = function (tam, x) {
-        if (x + tam > this.size) {
-            return false
-        } else { return true }
+    this.comprobarLimites = function (tam, x, y, orientacion) {
+        console.log(x, y, orientacion)
+        if (orientacion == 'horizontal') {
+            if (x + tam > this.size) {
+                return false
+            } else { return true }
+        } else if (orientacion == 'vertical') {
+            if (y + tam > this.size) {
+                return false
+            } else { return true }
+        }
+
     }
 
     this.colocarBarco = function (barco, x, y, orientacion) {
-        if (this.comprobarLimites(barco.tam, x, y)) {
-            if (this.casillasLibres(x, y, barco.tam)) {
+        if (this.comprobarLimites(barco.tam, x, y, orientacion)) {
+            if (this.casillasLibres(x, y, barco.tam, orientacion)) {
                 if (orientacion === 'horizontal') {
                     for (let i = x; i < barco.tam + x; i++) {
                         this.casillas[i][y].contiene = barco;
@@ -436,14 +444,25 @@ function Tablero(size) {
         }
     }
 
-    this.casillasLibres = function (x, y, tam) {
-        for (i = x; i < tam + x; i++) {
-            let contiene = this.casillas[i][y].contiene;
-            if (!contiene.esAgua()) {
-                return false;
+    this.casillasLibres = function (x, y, tam, orientacion) {
+        if (orientacion == 'horizontal') {
+            for (i = x; i < tam + x; i++) {
+                let contiene = this.casillas[i][y].contiene;
+                if (!contiene.esAgua()) {
+                    return false;
+                }
             }
+            return true;
+        } else if (orientacion == 'vertical') {
+            for (i = y; i < tam + y; i++) {
+                let contiene = this.casillas[x][i].contiene;
+                if (!contiene.esAgua()) {
+                    return false;
+                }
+            }
+            return true;
         }
-        return true;
+        
     }
 
     this.meDisparan = function (x, y) {

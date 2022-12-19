@@ -189,4 +189,36 @@ describe("El juego...", function () {
     })
     
   });
+
+  describe("Comprobar colocaciones verticales invalidas", function () {
+    beforeEach(function () {
+      us1.colocarBarco("Bote de remos", 0, 0, 'vertical');
+      us1.colocarBarco("Balandro", 0, 0, 'vertical');
+      us1.colocarBarco("Bergartin", 0, 2, 'horizontal');
+      us1.colocarBarco("Galeon", 0, 6, 'vertical');
+      us1.barcosDesplegados();
+      us2.colocarBarco("Bote de remos", 3, 3, 'vertical');
+      us2.colocarBarco("Balandro", 3, 2, 'vertical');
+      us2.colocarBarco("Bergartin", 2, 3, 'horizontal');
+      us2.colocarBarco("Galeon", 0, 7, 'vertical');
+      us2.barcosDesplegados();
+    });
+
+    it("Comprobar limites del tablero", function (){
+      expect(us1.flota["Galeon"].desplegado).toEqual(true);
+      expect(us2.flota["Galeon"].desplegado).toEqual(false);
+    })
+
+    it("Comprobar que no se puede colocar un barco que colisione con otro", function (){
+      expect(us2.flota["Bote de remos"].desplegado).toEqual(true);
+      expect(us2.flota["Balandro"].desplegado).toEqual(false);
+      expect(us2.flota["Bergartin"].desplegado).toEqual(false);
+    })
+
+    it("Comprobar que no se puede colocar un barco encima de otro", function (){
+      expect(us1.flota["Bote de remos"].desplegado).toEqual(true);
+      expect(us1.flota["Balandro"].desplegado).toEqual(false);
+    })
+    
+  });
 });
