@@ -36,37 +36,12 @@ function Tablero(size) {
 	}
 	this.placementListener = function (e) {
 		self = e.target.self;
+		console.log(self)
 		if (self.placingOnGrid) {
-			// Extract coordinates from event listener
 			var x = parseInt(e.target.getAttribute('data-x'), 10);
 			var y = parseInt(e.target.getAttribute('data-y'), 10);
 
-			// Don't screw up the direction if the user tries to place again.
-			//var successful = 
 			self.colocarBarco(x, y, self.nombreBarco);
-			//if (successful) {
-			// Done placing this ship
-			//self.endPlacing(self.nombreBarco);
-
-			// // Remove the helper arrow
-			// if (gameTutorial.currentStep === 2) {
-			// 	gameTutorial.nextStep();
-			// }
-
-			//self.placingOnGrid = false;
-			// if (self.areAllShipsPlaced()) {
-			// 	var el = document.getElementById('rotate-button');
-			// 	el.addEventListener(transitionEndEventName(),(function(){
-			// 		el.setAttribute('class', 'hidden');
-			// 		if (gameTutorial.showTutorial) {
-			// 			document.getElementById('start-game').setAttribute('class', 'highlight');
-			// 		} else {
-			// 			document.getElementById('start-game').removeAttribute('class');	
-			// 		}
-			// 	}),false);
-			// 	el.setAttribute('class', 'invisible');
-			// }
-			//}//
 		}
 	};
 	this.endPlacing = function (shipType) {
