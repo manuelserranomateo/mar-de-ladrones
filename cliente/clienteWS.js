@@ -111,6 +111,7 @@ function ClienteWS() {
         })
 
         this.socket.on("disparo", function (res) {
+            // console.log(res.turno)
             if (res.atacante == rest.nick) {
                 tablero.updateCell(res.x, res.y, res.impacto, 'computer-player');
             }

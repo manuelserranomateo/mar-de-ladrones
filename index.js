@@ -28,14 +28,14 @@ app.get("/", function (req, res) {
 });
 
 app.get("/agregarUsuario/:nick", function (req, response) {
-  let nick = req.params.nick; 
-  let res= juego.agregarUsuario(nick);
+  let nick = req.params.nick;
+  let res = juego.agregarUsuario(nick);
   response.send(res);
 });
 
-app.get("/auth/google",passport.authenticate('google', { scope: ['profile','email'] }));
+app.get("/auth/google", passport.authenticate('google', { scope: ['profile', 'email'] }));
 
-const cookieSession=require("cookie-session");
+const cookieSession = require("cookie-session");
 
 app.use(cookieSession({
   name: 'Mar de Ladrones',
@@ -44,25 +44,22 @@ app.use(cookieSession({
 app.use(passport.initialize());
 app.use(passport.session());
 
-
 app.get('/google/callback', passport.authenticate('google', { failureRedirect: '/fallo' }),
-    function (req, res) {
-        res.redirect('/good');
-    });
+  function (req, res) {
+    res.redirect('/good');
+  });
 app.get("/good", function (request, response) {
-    var nick = request.user.name.givenName;
-    if (nick) {
-        juego.agregarUsuario(nick);
-    }
-    response.cookie('nick', nick);
-    response.redirect('/');
+  var nick = request.user.name.givenName;
+  if (nick) {
+    juego.agregarUsuario(nick);
+  }
+  response.cookie('nick', nick);
+  response.redirect('/');
 });
 
 app.get("/fallo", function (request, response) {
-    response.send({ nick: "nook" })
+  response.send({ nick: "nook" })
 })
-
-
 
 app.get("/comprobarUsuario/:nick", function (req, response) {
   let nick = req.params.nick;
