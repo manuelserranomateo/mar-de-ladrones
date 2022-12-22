@@ -16,8 +16,8 @@ function ControlWeb() {
 		cadena = cadena + '<div class="col">'
 		cadena = cadena + '<input type="text" class="form-control mb-2 mr-sm-2 text-center w-75" id="usr" placeholder="Introduce tu nick (max 6 letras)" required></div>';
 		cadena = cadena + '<div class="col">';
-		cadena = cadena + '<button type="button" id="btnAU" class="btn btn-primary">Iniciar sesión</button>';
-		cadena = cadena + '<a href="/auth/google" class="btn btn-primary mb-2 mr-sm-2">Accede con Google</a>';
+		cadena = cadena + '<button id="btnAU" class="bn632-hover bn19">Iniciar sesion</button></a>';
+		cadena = cadena + '<a class="bn632-hover bn19" href="/auth/google">Accede con Google</a>';
 		cadena = cadena + '</div>';
 		cadena = cadena + '<div id="nota"></div>';
 		cadena = cadena + '</div></div>';

@@ -29,7 +29,7 @@ app.get("/", function (req, res) {
 
 app.get("/agregarUsuario/:nick", function (req, response) {
   let nick = req.params.nick;
-  let res = juego.agregarUsuario(nick);
+  res=juego.agregarUsuario(nick,false);
   response.send(res);
 });
 
@@ -51,7 +51,7 @@ app.get('/google/callback', passport.authenticate('google', { failureRedirect: '
 app.get("/good", function (request, response) {
   var nick = request.user.name.givenName;
   if (nick) {
-    juego.agregarUsuario(nick);
+    juego.agregarUsuario(nick, true);
   }
   response.cookie('nick', nick);
   response.redirect('/');

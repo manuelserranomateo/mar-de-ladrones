@@ -6,14 +6,20 @@ function Juego(test) {
     this.cad = new cad.Cad(); // capa de acceso a datos
     this.test = test
 
-    this.agregarUsuario = function (nick) {
+    this.agregarUsuario = function (nick, guardar) {
         let res = { "nick": -1 };
         if (!this.usuarios[nick]) {
             this.usuarios[nick] = new Usuario(nick, this);
+            this.insertarLog({ "operacion": "crearUsuario", "usuario": nick, "fecha": Date() }, function () {
+                console.log("Registro insertado");
+            });
             res = { "nick": nick };
-            this.insertarLog({ 'operacion': 'crearUsuario', 'nick': nick, 'fecha': Date() }, function () {
-                console.log('Registro insertado')
-            })
+            console.log("Nuevo usuario: " + nick);
+            if (guardar && (this.test == "false")) {
+                this.cad.obtenerOCrearUsuario({ "nick": nick }, function (usr) {
+                    console.log("Usuario creado!")
+                })
+            }
         }
         return res;
     }
@@ -149,19 +155,23 @@ function Usuario(nick, juego) {
     }
 
     this.inicializarFlota = function () {
-        this.flota["Bote de remos"] = new Barco("Bote de remos", 1);
-        this.flota["Balandro"] = new Barco("Balandro", 2);
-        this.flota["Bergartin"] = new Barco("Bergartin", 3);
-        this.flota["Galeon"] = new Barco("Galeon", 4);
+        this.flota["Bote de remos"] = new Barco("Bote de remos", 1, new Horizontal());
+        this.flota["Balandro"] = new Barco("Balandro", 2, new Horizontal());
+        this.flota["Bergartin"] = new Barco("Bergartin", 3, new Horizontal());
+        this.flota["Galeon"] = new Barco("Galeon", 4, new Horizontal());
     }
 
-    this.colocarBarco = function (nombre, x, y, orientacion) {
+    this.colocarBarco = function (nombre, x, y) {
         if (this.partida.fase == "desplegando") {
             let barco = this.flota[nombre];
-            this.tableroPropio.colocarBarco(barco, x, y, orientacion)
+            this.tableroPropio.colocarBarco(barco, x, y)
             return barco
         }
     }
+
+    this.comprobarLimites = function (tam, x) {
+		return this.tableroPropio.comprobarLimites(tam, x)
+	}
 
     this.todosDesplegados = function () {
         for (let key in this.flota) {
@@ -222,7 +232,6 @@ function Usuario(nick, juego) {
     }
 
     this.casillasLibres = function (nombre, x, y) {
-        console.log(nombre, x, y)
         return this.tableroPropio.casillasLibres(nombre, x, y)
     }
 
@@ -286,8 +295,6 @@ function Partida(codigo, user) {
         if (jugador) {
             rival = this.obtenerRival(jugador.nick)
             this.fase = "final";
-            //console.log("Fin de la partida");
-            //console.log("Ha abandonado el jugador " + jugador.nick);
             if (rival) {
                 console.log("Ganador: " + rival.nick);
             }
@@ -411,57 +418,35 @@ function Tablero(size) {
         }
     }
 
-    this.comprobarLimites = function (tam, x, y, orientacion) {
-        if (orientacion == 'horizontal') {
-            if (x + tam > this.size) {
-                return false
-            } else { return true }
-        } else if (orientacion == 'vertical') {
-            if (y + tam > this.size) {
-                return false
-            } else { return true }
-        }
-
+    this.colocarBarco = function (barco, x, y) {
+        barco.colocar(this, x, y)
     }
 
-    this.colocarBarco = function (barco, x, y, orientacion) {
-        if (this.comprobarLimites(barco.tam, x, y, orientacion)) {
-            if (this.casillasLibres(x, y, barco.tam, orientacion)) {
-                if (orientacion === 'horizontal') {
-                    for (let i = x; i < barco.tam + x; i++) {
-                        this.casillas[i][y].contiene = barco;
-                        console.log('Barco', barco.nombre, 'colocado en', i, y)
-                    }
-                } else if (orientacion === 'vertical') {
-                    for (let i = y; i < barco.tam + y; i++) {
-                        this.casillas[x][i].contiene = barco;
-                        console.log('Barco', barco.nombre, 'colocado en', x, i)
-                    }
-                }
-                barco.desplegado = true;
-            }
-        }
+    this.comprobarLimites = function (tam, x) {
+        if (x + tam > this.size) {
+            console.log('excede los limites')
+            return false
+        } else { return true }
     }
 
-    this.casillasLibres = function (x, y, tam, orientacion) {
-        if (orientacion == 'horizontal') {
-            for (i = x; i < tam + x; i++) {
-                let contiene = this.casillas[i][y].contiene;
-                if (!contiene.esAgua()) {
-                    return false;
-                }
+    this.casillasLibresHorizontales = function (x, y, tam) {
+        for (i = x; i < tam + x; i++) {
+            let contiene = this.casillas[i][y].contiene;
+            if (!contiene.esAgua()) {
+                return false;
             }
-            return true;
-        } else if (orientacion == 'vertical') {
-            for (i = y; i < tam + y; i++) {
-                let contiene = this.casillas[x][i].contiene;
-                if (!contiene.esAgua()) {
-                    return false;
-                }
-            }
-            return true;
         }
-        
+        return true;
+    }
+    
+    this.casillasLibresVerticales = function (x, y, tam) {
+        for (i = y; i < tam + y; i++) {
+            let contiene = this.casillas[x][i].contiene;
+            if (!contiene.esAgua()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     this.meDisparan = function (x, y) {
@@ -489,30 +474,129 @@ function Casilla(x, y) {
     this.contiene = new Agua();
 }
 
-function Barco(nombre, tam) {
+function Barco(nombre, tam, ori) { //"b2" barco tamaño 2
     this.nombre = nombre;
     this.tam = tam;
-    this.orientacion;
+    this.orientacion = ori; //horizontal, vertical...
     this.desplegado = false;
     this.estado = "intacto";
     this.disparos = 0;
+    this.casillas = {}; //en vez de []
     this.esAgua = function () {
         return false;
     }
+
+    // this.meDisparan = function (tablero, x, y) {
+    // 	this.disparos++;
+    // 	if (this.disparos < this.tam) {
+    // 		this.estado = "tocado";
+    // 		//console.log("Tocado");
+
+    // 	}
+    // 	else {
+    // 		this.estado = "hundido";
+    // 		//console.log("Hundido!!!");
+
+    // 	}
+    // 	tablero.ponerAgua(x, y);
+    // 	//console.log(this.estado);
+    // 	return this.estado;
+    // }
+
     this.meDisparan = function (tablero, x, y) {
-        this.disparos++;
-        if (this.disparos < this.tam) {
-            this.estado = "tocado";
-        }
-        else {
+        //this.disparos++;
+        //if (this.casillas[x] == 'intacto') { //Cambiado, puede no ser necesario este if
+        this.estado = "tocado";
+        this.casillas[x] = 'tocado'
+        console.log("Tocado")
+        //}
+        if (this.comprobarCasillas()) {
             this.estado = "hundido";
+            console.log("Hundido")
         }
-        tablero.ponerAgua(x, y);
+        //tablero.ponerAgua(x, y);
         return this.estado;
     }
+
+    this.posicion = function (x, y) {
+        this.x = x;
+        this.y = y;
+        this.desplegado = true;
+        this.iniCasillas()
+        //console.log(this)
+    }
+
+    this.colocar = function (tablero, x, y) {
+        //console.log(this,tablero,x,y)
+        this.orientacion.colocarBarco(this, tablero, x, y);
+    }
+
     this.obtenerEstado = function () {
         return this.estado;
     }
+
+    this.comprobarCasillas = function () { //Esto puede dejar de funcionar si tenemos formas raras de los barcos
+        for (i = 0; i < this.tam; i++) {
+            if (this.casillas[this.x + i] == 'intacto') {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    this.iniCasillas = function () { //Ha cambiado todo esto al ser un array asociativo
+        for (i = 0; i < this.tam; i++) {
+            this.casillas[i + this.x] = "intacto"; //cambiado
+        }
+    }
+    //this.iniCasillas(tam)	Lo inicializamos en posicion ahora
+
+
+}
+
+function Horizontal() {
+    this.nombre = "horizontal"
+    this.colocarBarco = function (barco, tablero, x, y) {
+        if (tablero.comprobarLimites(barco.tam, x)) {
+            if (tablero.casillasLibresHorizontales(x, y, barco.tam)) {
+                for (let i = x; i < barco.tam + x; i++) {
+                    tablero.casillas[i][y].contiene = barco;
+                    console.log('Barco', barco.nombre, 'colocado en', i, y)
+                }
+                barco.posicion(x, y);
+            }
+        }
+    }
+    this.esHorizontal = function () {
+        return true;
+    }
+    this.esVertical = function () {
+        return false;
+    }
+
+}
+
+function Vertical() {
+    this.nombre = "vertical"
+    this.colocarBarco = function (barco, tablero, x, y) {
+        if (tablero.comprobarLimites(barco.tam, y)) {
+            if (tablero.casillasLibresVerticales(x, y, barco.tam)) {
+                for (let i = y; i < barco.tam + y; i++) {
+                    tablero.casillas[x][i].contiene = barco;
+                    console.log('Barco', barco.nombre, 'colocado en', x, i)
+                }
+                barco.posicion(x, y);
+            }
+        }
+    }
+
+    this.esVertical = function () {
+        return true;
+    }
+    this.esHorizontal = function () {
+        return false;
+    }
+
 }
 
 function Agua() {
