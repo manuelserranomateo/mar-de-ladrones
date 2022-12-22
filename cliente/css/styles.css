@@ -13,11 +13,15 @@ body {
 
 }
 
+
+
 h1 {
-	font-size: 400%;
+	font-size: 142px;
 	font-family: 'Manuscript';
-	-webkit-text-stroke: 0.5px black;
-}
+	background: -webkit-linear-gradient(#f5ce62,white);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+  }
 
 h2,
 h3,
@@ -35,6 +39,19 @@ div {
 	padding: 0;
 	margin: 0;
 }
+
+::placeholder {
+	text-align: center;
+}
+input {
+	padding: 5px;
+	border-radius: 10px;
+	border-width: 30px;
+	border: 3px solid orange;
+	text-align: center;
+} 
+
+
 .bn632-hover {
 	width: 160px;
 	font-size: 16px;
