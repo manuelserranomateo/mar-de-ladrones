@@ -94,6 +94,7 @@ function ServidorWS() {
                 if (jugador) {
                     let partida = jugador.partida;
                     let turno = partida.obtenerTurno();
+                    console.log('Turno de ' + turno.nick)
                     if (jugador == turno) {
                         let impacto = jugador.disparar(x, y)
                         let res2 = { atacante: jugador.nick, impacto: impacto, x: x, y: y, turno: turno.nick }

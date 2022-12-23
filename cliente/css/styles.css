@@ -13,26 +13,23 @@ body {
 
 }
 
-
-
 h1 {
 	font-size: 142px;
 	font-family: 'Manuscript';
-	background: -webkit-linear-gradient(#f5ce62,white);
+	background: -webkit-linear-gradient(#f5ce62, white);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
-  }
+}
 
 h2,
 h3,
 h4,
 h5,
 h6,
-p,
 li,
 span {
 	font-family: 'Patrick Hand', 'Open Sans';
-	/* color: white; */
+	color: white;
 }
 
 div {
@@ -43,14 +40,14 @@ div {
 ::placeholder {
 	text-align: center;
 }
+
 input {
 	padding: 5px;
 	border-radius: 10px;
 	border-width: 30px;
-	border: 3px solid orange;
+	border: 3px solid #76DFE2;
 	text-align: center;
-} 
-
+}
 
 .bn632-hover {
 	width: 160px;
@@ -60,7 +57,7 @@ input {
 	cursor: pointer;
 	margin: 20px;
 	height: 55px;
-	text-align:center;
+	text-align: center;
 	border: none;
 	background-size: 300% 100%;
 	border-radius: 50px;
@@ -68,30 +65,28 @@ input {
 	-o-transition: all .4s ease-in-out;
 	-webkit-transition: all .4s ease-in-out;
 	transition: all .4s ease-in-out;
-  }
-  
-  .bn632-hover:hover {
+}
+
+.bn632-hover:hover {
 	background-position: 100% 0;
 	moz-transition: all .4s ease-in-out;
 	-o-transition: all .4s ease-in-out;
 	-webkit-transition: all .4s ease-in-out;
 	transition: all .4s ease-in-out;
-  }
-  
-  .bn632-hover:focus {
+}
+
+.bn632-hover:focus {
 	outline: none;
-  }
-  
-  .bn632-hover.bn19 {
-	background-image: linear-gradient(
-	  to right,
-	  #f5ce62,
-	  #e43603,
-	  #fa7199,
-	  #e85a19
-	);
-	box-shadow: 0 4px 15px 0 rgba(229, 66, 10, 0.75);
-  }
+}
+
+.bn632-hover.bn19 {
+	/* background-image: linear-gradient(to right,
+			#f5ce62,
+			#e43603,
+			#fa7199,
+			#e85a19); */
+	background-image: -webkit-linear-gradient(top left, #76DFE2, #7B3DF4);
+}
 
 /* button {
 	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
