@@ -35,6 +35,20 @@ app.get("/agregarUsuario/:nick", function (req, response) {
 
 app.get("/auth/google", passport.authenticate('google', { scope: ['profile', 'email'] }));
 
+app.get('/auth/twitter', passport.authenticate('twitter'));
+
+app.get(
+  '/auth/twitter/callback',
+  passport.authenticate('twitter', {
+    failureRedirect: '/login',
+    scope: ['tweet.read', 'tweet.write', 'users.read'],
+  }),
+  function (req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/');
+  }
+);
+
 const cookieSession = require("cookie-session");
 
 app.use(cookieSession({

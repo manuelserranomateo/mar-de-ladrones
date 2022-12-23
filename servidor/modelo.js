@@ -535,7 +535,7 @@ function Barco(nombre, tam, ori) { //"b2" barco tamaño 2
         return this.estado;
     }
 
-    this.comprobarCasillas = function () { //Esto puede dejar de funcionar si tenemos formas raras de los barcos
+    this.comprobarCasillas = function () {
         for (i = 0; i < this.tam; i++) {
             if (this.casillas[this.x + i] == 'intacto') {
                 return false;
@@ -544,14 +544,11 @@ function Barco(nombre, tam, ori) { //"b2" barco tamaño 2
         return true;
     }
 
-    this.iniCasillas = function () { //Ha cambiado todo esto al ser un array asociativo
+    this.iniCasillas = function () {
         for (i = 0; i < this.tam; i++) {
-            this.casillas[i + this.x] = "intacto"; //cambiado
+            this.casillas[i + this.x] = "intacto";
         }
     }
-    //this.iniCasillas(tam)	Lo inicializamos en posicion ahora
-
-
 }
 
 function Horizontal() {
