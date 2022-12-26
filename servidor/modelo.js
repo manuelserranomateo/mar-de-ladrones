@@ -155,9 +155,9 @@ function Usuario(nick, juego) {
     }
 
     this.inicializarFlota = function () {
-        // this.flota["Bote de remos"] = new Barco("Bote de remos", 1, new Horizontal());
-        // this.flota["Balandro"] = new Barco("Balandro", 2, new Horizontal());
-        // this.flota["Bergartin"] = new Barco("Bergartin", 3, new Horizontal());
+        this.flota["Bote de remos"] = new Barco("Bote de remos", 1, new Horizontal());
+        this.flota["Balandro"] = new Barco("Balandro", 2, new Horizontal());
+        this.flota["Bergartin"] = new Barco("Bergartin", 3, new Vertical());
         this.flota["Galeon"] = new Barco("Galeon", 4, new Horizontal());
     }
 
@@ -170,8 +170,8 @@ function Usuario(nick, juego) {
     }
 
     this.comprobarLimites = function (tam, x) {
-		return this.tableroPropio.comprobarLimites(tam, x)
-	}
+        return this.tableroPropio.comprobarLimites(tam, x)
+    }
 
     this.todosDesplegados = function () {
         for (let key in this.flota) {
@@ -234,18 +234,6 @@ function Usuario(nick, juego) {
     this.casillasLibres = function (nombre, x, y) {
         return this.tableroPropio.casillasLibres(nombre, x, y)
     }
-
-    // this.obtenerBarcoDesplegado = function (nombre, x, y) {
-    //     for (let key in this.flota) {
-    //         if (this.flota[key].nombre == nombre) {
-    //             if ((this.comprobarLimites(this.flota[key].tam, x))) {
-    //                 return true
-    //             } else {
-    //                 return false
-    //             }
-    //         }
-    //     }
-    // }
 
     this.obtenerFlota = function () {
         return this.flota;
@@ -340,7 +328,6 @@ function Partida(codigo, user) {
         if (this.flotasDesplegadas()) {
             this.fase = "jugando";
             this.asignarTurnoInicial();
-            //console.log('Los barcos han sido desplegados');
         }
     }
 
@@ -424,7 +411,7 @@ function Tablero(size) {
 
     this.comprobarLimites = function (tam, x) {
         if (x + tam > this.size) {
-            console.log('excede los limites')
+            console.log('El barco excede los limites del tablero')
             return false
         } else { return true }
     }
@@ -438,7 +425,7 @@ function Tablero(size) {
         }
         return true;
     }
-    
+
     this.casillasLibresVerticales = function (x, y, tam) {
         for (i = y; i < tam + y; i++) {
             let contiene = this.casillas[x][i].contiene;
@@ -474,47 +461,32 @@ function Casilla(x, y) {
     this.contiene = new Agua();
 }
 
-function Barco(nombre, tam, ori) { //"b2" barco tamaño 2
+function Barco(nombre, tam, ori) {
     this.nombre = nombre;
     this.tam = tam;
-    this.orientacion = ori; //horizontal, vertical...
+    this.orientacion = ori;
     this.desplegado = false;
     this.estado = "intacto";
-    this.disparos = 0;
-    this.casillas = {}; //en vez de []
+    this.casillas = {};
     this.esAgua = function () {
         return false;
     }
 
-    // this.meDisparan = function (tablero, x, y) {
-    // 	this.disparos++;
-    // 	if (this.disparos < this.tam) {
-    // 		this.estado = "tocado";
-    // 		//console.log("Tocado");
-
-    // 	}
-    // 	else {
-    // 		this.estado = "hundido";
-    // 		//console.log("Hundido!!!");
-
-    // 	}
-    // 	tablero.ponerAgua(x, y);
-    // 	//console.log(this.estado);
-    // 	return this.estado;
-    // }
 
     this.meDisparan = function (tablero, x, y) {
-        //this.disparos++;
-        //if (this.casillas[x] == 'intacto') { //Cambiado, puede no ser necesario este if
         this.estado = "tocado";
-        this.casillas[x] = 'tocado'
+        if (this.orientacion.nombre == "horizontal") {
+            this.casillas[x] = 'tocado'
+        }
+        if (this.orientacion.nombre == "vertical") {
+            this.casillas[y] = 'tocado'
+        }
         console.log("Tocado")
-        //}
+
         if (this.comprobarCasillas()) {
             this.estado = "hundido";
             console.log("Hundido")
         }
-        //tablero.ponerAgua(x, y);
         return this.estado;
     }
 
@@ -523,11 +495,9 @@ function Barco(nombre, tam, ori) { //"b2" barco tamaño 2
         this.y = y;
         this.desplegado = true;
         this.iniCasillas()
-        //console.log(this)
     }
 
     this.colocar = function (tablero, x, y) {
-        //console.log(this,tablero,x,y)
         this.orientacion.colocarBarco(this, tablero, x, y);
     }
 
@@ -536,18 +506,34 @@ function Barco(nombre, tam, ori) { //"b2" barco tamaño 2
     }
 
     this.comprobarCasillas = function () {
-        for (i = 0; i < this.tam; i++) {
-            if (this.casillas[this.x + i] == 'intacto') {
-                return false;
+        if (this.orientacion.nombre == "horizontal") {
+            for (i = 0; i < this.tam; i++) {
+                if (this.casillas[this.x + i] == 'intacto') {
+                    return false;
+                }
+            }
+        }
+        if (this.orientacion.nombre == "vertical") {
+            for (i = 0; i < this.tam; i++) {
+                if (this.casillas[this.y + i] == 'intacto') {
+                    return false;
+                }
             }
         }
         return true;
     }
 
     this.iniCasillas = function () {
-        for (i = 0; i < this.tam; i++) {
-            this.casillas[i + this.x] = "intacto";
+        if (this.orientacion.nombre == 'horizontal'){
+            for (i = 0; i < this.tam; i++) {
+                this.casillas[i + this.x] = "intacto";
+            }
+        } else if (this.orientacion.nombre == 'vertical'){
+            for (i = 0; i < this.tam; i++) {
+                this.casillas[i + this.y] = "intacto";
+            }
         }
+        
     }
 }
 
@@ -570,7 +556,6 @@ function Horizontal() {
     this.esVertical = function () {
         return false;
     }
-
 }
 
 function Vertical() {

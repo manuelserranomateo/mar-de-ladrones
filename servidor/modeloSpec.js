@@ -68,12 +68,12 @@ describe("El juego...", function () {
     beforeEach(function () {
       us1.colocarBarco("Bote de remos", 0, 0);
       us1.colocarBarco("Balandro", 0, 1);
-      us1.colocarBarco("Bergartin", 0, 2);
+      us1.colocarBarco("Bergartin", 3, 0);
       us1.colocarBarco("Galeon", 0, 3);
       us1.barcosDesplegados();
       us2.colocarBarco("Bote de remos", 0, 0);
       us2.colocarBarco("Balandro", 0, 1);
-      us2.colocarBarco("Bergartin", 0, 2);
+      us2.colocarBarco("Bergartin", 5, 0);
       us2.colocarBarco("Galeon", 0, 3);
       us2.barcosDesplegados();
     });
@@ -94,10 +94,10 @@ describe("El juego...", function () {
       expect(us2.tableroPropio.casillas[2][1].contiene.esAgua()).toEqual(true);
 
       // bergartin
-      expect(us2.tableroPropio.casillas[0][2].contiene.esAgua()).toEqual(false);
-      expect(us2.tableroPropio.casillas[1][2].contiene.esAgua()).toEqual(false);
-      expect(us2.tableroPropio.casillas[2][2].contiene.esAgua()).toEqual(false);
-      expect(us2.tableroPropio.casillas[3][2].contiene.esAgua()).toEqual(true);
+      expect(us2.tableroPropio.casillas[5][0].contiene.esAgua()).toEqual(false);
+      expect(us2.tableroPropio.casillas[5][1].contiene.esAgua()).toEqual(false);
+      expect(us2.tableroPropio.casillas[5][2].contiene.esAgua()).toEqual(false);
+      expect(us2.tableroPropio.casillas[5][3].contiene.esAgua()).toEqual(true);
 
       // galeon
       expect(us2.tableroPropio.casillas[0][3].contiene.esAgua()).toEqual(false);
@@ -124,11 +124,11 @@ describe("El juego...", function () {
 
       // hundir bergartin
       expect(us2.flota["Bergartin"].estado).toEqual("intacto");
-      us1.disparar(0, 2)
+      us1.disparar(5, 0)
       expect(us2.flota["Bergartin"].estado).toEqual("tocado");
-      us1.disparar(1, 2)
+      us1.disparar(5, 1)
       expect(us2.flota["Bergartin"].estado).toEqual("tocado");
-      us1.disparar(2, 2)
+      us1.disparar(5, 2)
       expect(us2.flota["Bergartin"].estado).toEqual("hundido");
 
       // hundir galeon
@@ -162,32 +162,34 @@ describe("El juego...", function () {
     beforeEach(function () {
       us1.colocarBarco("Bote de remos", 0, 0);
       us1.colocarBarco("Balandro", 0, 0);
-      us1.colocarBarco("Bergartin", 0, 2);
+      us1.colocarBarco("Bergartin", 0, 7);
       us1.colocarBarco("Galeon", 6, 0);
       us1.barcosDesplegados();
       us2.colocarBarco("Bote de remos", 3, 0);
       us2.colocarBarco("Balandro", 2, 0);
-      us2.colocarBarco("Bergartin", 1, 0);
+      us2.colocarBarco("Bergartin", 0, 8);
       us2.colocarBarco("Galeon", 7, 0);
       us2.barcosDesplegados();
     });
 
     it("Comprobar limites del tablero", function (){
+      // Horizontales
       expect(us1.flota["Galeon"].desplegado).toEqual(true);
       expect(us2.flota["Galeon"].desplegado).toEqual(false);
+
+      // Verticales
+      expect(us1.flota["Bergartin"].desplegado).toEqual(true);
+      expect(us2.flota["Bergartin"].desplegado).toEqual(false);
     })
 
     it("Comprobar que no se puede colocar un barco que colisione con otro", function (){
       expect(us2.flota["Bote de remos"].desplegado).toEqual(true);
       expect(us2.flota["Balandro"].desplegado).toEqual(false);
-      expect(us2.flota["Bergartin"].desplegado).toEqual(false);
     })
 
     it("Comprobar que no se puede colocar un barco encima de otro", function (){
       expect(us1.flota["Bote de remos"].desplegado).toEqual(true);
       expect(us1.flota["Balandro"].desplegado).toEqual(false);
     })
-    
   });
-
 });

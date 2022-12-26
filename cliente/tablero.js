@@ -3,7 +3,6 @@ function Tablero(size) {
 	this.nombreBarco;
 	this.placingOnGrid = false;
 	this.flota;
-	this.orientacion = 'horizontal'
 
 	this.mostrar = function (si) {
 		let x = document.getElementById("tablero");
@@ -40,8 +39,7 @@ function Tablero(size) {
 			var x = parseInt(e.target.getAttribute('data-x'), 10);
 			var y = parseInt(e.target.getAttribute('data-y'), 10);
 
-			console.log(self.orientacion)
-			self.colocarBarco(x, y, self.nombreBarco, self.orientacion);
+			self.colocarBarco(x, y, self.nombreBarco);
 		}
 	};
 	this.endPlacing = function (shipType) {
@@ -63,18 +61,18 @@ function Tablero(size) {
 		self.placingOnGrid = true;
 	};
 
-	this.colocarBarco = function (x, y, nombre, orientacion) {
+	this.colocarBarco = function (x, y, nombre) {
 		console.log("Colocar barco: " + x + "-" + y + " " + nombre);
-		cws.colocarBarco(nombre, x, y, orientacion);
+		cws.colocarBarco(nombre, x, y);
 	}
 
-	this.terminarDeColocarBarco = function (barco, x, y, orientacion) {
-		if (orientacion == 'horizontal') {
+	this.terminarDeColocarBarco = function (barco, x, y) {
+		if (barco.orientacion.nombre== 'horizontal') {
 			for (i = 0; i < barco.tam; i++) {
 				console.log("x: " + (x + i) + " y:" + y);
 				this.updateCell(x + i, y, "ship", 'human-player');
 			}
-		} else if (orientacion == 'vertical') {
+		} else if (barco.orientacion.nombre == 'vertical') {
 			for (i = 0; i < barco.tam; i++) {
 				console.log("x: " + x + " y:" + (i + y));
 				this.updateCell(x, i + y, "ship", 'human-player');
@@ -153,8 +151,6 @@ function Tablero(size) {
 				btnRotar.innerText = 'Horizontal'
 				self.orientacion = 'horizontal'
 			}
-
-			console.log(self.orientacion)
 		})
 		this.asignarFlotaListener();
 	}

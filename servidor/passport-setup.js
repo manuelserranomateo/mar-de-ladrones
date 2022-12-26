@@ -24,18 +24,18 @@ passport.use(new GoogleStrategy({
     }
 ));
 
-passport.use(
-    new TwitterStrategy(
-      {
-        clientType: 'confidential',
-        clientID: 'QXZUUk9TT3BjWngyaEJycm1EMnE6MTpjaQ',
-        clientSecret: '2UbS4xSbmjJRVS71WVq1B8WImKePxyHc-9Bi9v9k-l-FPjv36q',
-        callbackURL: 'https://proyecto22-y3e2t6nkdq-no.a.run.app/auth/twitter/callback',
-      },
-      function (accessToken, refreshToken, profile, done) {
-        // User.findOrCreate({ twitterId: profile.id }, function (err, user) {
-          return done(err, user);
-        // });
-      }
-    )
-  );
+// passport.use(
+//     new TwitterStrategy(
+//       {
+//         clientType: 'confidential',
+//         clientID: 'QXZUUk9TT3BjWngyaEJycm1EMnE6MTpjaQ',
+//         clientSecret: '2UbS4xSbmjJRVS71WVq1B8WImKePxyHc-9Bi9v9k-l-FPjv36q',
+//         callbackURL: 'https://proyecto22-y3e2t6nkdq-no.a.run.app/auth/twitter/callback',
+//       },
+//       function (accessToken, refreshToken, profile, done) {
+//         // User.findOrCreate({ twitterId: profile.id }, function (err, user) {
+//           return done(err, user);
+//         // });
+//       }
+//     )
+//   );
