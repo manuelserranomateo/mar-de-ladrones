@@ -68,12 +68,16 @@ describe("El juego...", function () {
     beforeEach(function () {
       us1.colocarBarco("Bote de remos", 0, 0);
       us1.colocarBarco("Balandro", 0, 1);
+      us1.cambiarOrientacion()
       us1.colocarBarco("Bergartin", 3, 0);
+      us1.cambiarOrientacion()
       us1.colocarBarco("Galeon", 0, 3);
       us1.barcosDesplegados();
       us2.colocarBarco("Bote de remos", 0, 0);
       us2.colocarBarco("Balandro", 0, 1);
+      us2.cambiarOrientacion()
       us2.colocarBarco("Bergartin", 5, 0);
+      us2.cambiarOrientacion()
       us2.colocarBarco("Galeon", 0, 3);
       us2.barcosDesplegados();
     });
@@ -162,12 +166,16 @@ describe("El juego...", function () {
     beforeEach(function () {
       us1.colocarBarco("Bote de remos", 0, 0);
       us1.colocarBarco("Balandro", 0, 0);
+      us1.cambiarOrientacion()
       us1.colocarBarco("Bergartin", 0, 7);
+      us1.cambiarOrientacion()
       us1.colocarBarco("Galeon", 6, 0);
       us1.barcosDesplegados();
       us2.colocarBarco("Bote de remos", 3, 0);
       us2.colocarBarco("Balandro", 2, 0);
+      us2.cambiarOrientacion()
       us2.colocarBarco("Bergartin", 0, 8);
+      us2.cambiarOrientacion()
       us2.colocarBarco("Galeon", 7, 0);
       us2.barcosDesplegados();
     });

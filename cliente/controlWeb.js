@@ -46,8 +46,8 @@ function ControlWeb() {
 		let cadena = "<div class ='row' id='mH'>";
 		cadena = cadena + "<div class='col'>";
 		cadena = cadena + "<h2>Bienvenido <b>" + rest.nick + "</b></h2>";
-		cadena = cadena + "<div style='margin-bottom:15px' id='codigo'></div>"
-		cadena = cadena + '<button id="btnBC" class="btn btn-primary mb-2 mr-sm-2">Salir</button>';
+		cadena = cadena + "<div style='margin-bottom:15px; color:white; ' id='codigo'></div>"
+		cadena = cadena + '<button id="btnBC" class="bn632-hover bn19">Salir</button>';
 		cadena = cadena + "</div></div>";
 		$('#agregarUsuario').append(cadena);
 		this.mostrarCrearPartida();
@@ -66,7 +66,7 @@ function ControlWeb() {
 	this.mostrarCrearPartida = function () {
 		$("#mCP").remove();
 		let cadena = '<div id="mCP">';
-		cadena = cadena + '<button id="btnCP" class="btn btn-primary mb-2 mr-sm-2">Crear partida</button>';
+		cadena = cadena + '<button id="btnCP" class="bn632-hover bn19">Crear partida</button>';
 		cadena = cadena + '<div id="nota"></div>';
 		cadena = cadena + '</div></div>';
 
@@ -82,7 +82,7 @@ function ControlWeb() {
 	this.mostrarCodigo = function (codigo) {
 		let cadena = "Codigo de la partida: " + codigo;
 		cadena = cadena + '<div style="margin-top:15px">';
-		cadena = cadena + '<button id="btnAP" class="btn btn-primary mb-2 mr-sm-2">Abandonar partida</button>';
+		cadena = cadena + '<button id="btnAP" class="bn632-hover bn19">Abandonar partida</button>';
 		cadena = cadena + '</div>';
 		this.mostrarEsperarPartidaEncontrada();
 		$("#codigo").append(cadena);
@@ -126,10 +126,6 @@ function ControlWeb() {
 		tablero = new Tablero(10);
 		this.mostrarHome()
 	}
-	{/* <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
-  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-  <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
-</svg> */}
 
 	this.mostrarEsperarPartidaEncontrada = function () {
 		$('#mEPE').remove();

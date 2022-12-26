@@ -157,7 +157,7 @@ function Usuario(nick, juego) {
     this.inicializarFlota = function () {
         this.flota["Bote de remos"] = new Barco("Bote de remos", 1, new Horizontal());
         this.flota["Balandro"] = new Barco("Balandro", 2, new Horizontal());
-        this.flota["Bergartin"] = new Barco("Bergartin", 3, new Vertical());
+        this.flota["Bergartin"] = new Barco("Bergartin", 3, new Horizontal());
         this.flota["Galeon"] = new Barco("Galeon", 4, new Horizontal());
     }
 
@@ -214,7 +214,6 @@ function Usuario(nick, juego) {
                 return false;
             }
         }
-
         return true;
     }
 
@@ -237,6 +236,18 @@ function Usuario(nick, juego) {
 
     this.obtenerFlota = function () {
         return this.flota;
+    }
+
+    this.cambiarOrientacion = function (){
+        for (let key in this.flota){
+            if (!this.flota[key].desplegado){
+                if (this.flota[key].orientacion.nombre == 'horizontal'){
+                    this.flota[key].orientacion = new Vertical()
+                } else if (this.flota[key].orientacion.nombre == 'vertical'){
+                    this.flota[key].orientacion = new Horizontal()
+                }
+            }
+        }
     }
 
     this.abandonarPartidaLog = function (codigo) {

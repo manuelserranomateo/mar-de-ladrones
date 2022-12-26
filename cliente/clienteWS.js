@@ -25,6 +25,10 @@ function ClienteWS() {
         this.socket.emit("colocarBarco", rest.nick, nombre, x, y, orientacion)
     }
 
+    this.cambiarOrientacion = function () {
+        this.socket.emit('cambiarOrientacion', rest.nick)
+    }
+
     this.barcosDesplegados = function () {
         this.socket.emit("barcosDesplegados", rest.nick)
     }
@@ -101,9 +105,8 @@ function ClienteWS() {
         })
 
         this.socket.on("barcoColocado", function (res) {
-            if (res.colocado) {
-                let barco = tablero.flota[res.barco]
-                tablero.terminarDeColocarBarco(barco, res.x, res.y, res.orientacion)
+            if (res.barco.desplegado) {
+                tablero.terminarDeColocarBarco(res.barco, res.x, res.y)
                 cli.barcosDesplegados()
             } else {
                 iu.mostrarModal('No se ha podido colocar el barco')
@@ -111,7 +114,6 @@ function ClienteWS() {
         })
 
         this.socket.on("disparo", function (res) {
-            console.log('Turno de ' + res.turno)
             if (res.atacante == rest.nick) {
                 tablero.updateCell(res.x, res.y, res.impacto, 'computer-player');
             }

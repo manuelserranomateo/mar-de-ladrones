@@ -46,6 +46,7 @@ function Tablero(size) {
 		document.getElementById(shipType).setAttribute('class', 'placed');
 		self.placingOnGrid = false;
 	}
+
 	this.rosterListener = function (e) {
 		var self = e.target.self;
 		var cli = this;
@@ -67,7 +68,8 @@ function Tablero(size) {
 	}
 
 	this.terminarDeColocarBarco = function (barco, x, y) {
-		if (barco.orientacion.nombre== 'horizontal') {
+		console.log('Orientacion en terminarDeColocarBarco ' + barco.orientacion.nombre)
+		if (barco.orientacion.nombre == 'horizontal') {
 			for (i = 0; i < barco.tam; i++) {
 				console.log("x: " + (x + i) + " y:" + y);
 				this.updateCell(x + i, y, "ship", 'human-player');
@@ -78,7 +80,7 @@ function Tablero(size) {
 				this.updateCell(x, i + y, "ship", 'human-player');
 			}
 		}
-		
+
 		self.endPlacing(barco.nombre);
 	}
 
@@ -143,13 +145,13 @@ function Tablero(size) {
 		$("#btnRotar").on("click", function () {
 			const btnRotar = document.getElementById('btnRotar')
 			orientacion = btnRotar.innerText
-			
+
 			if (orientacion == 'Horizontal') {
 				btnRotar.innerText = 'Vertical'
-				self.orientacion = 'vertical'
+				cws.cambiarOrientacion();
 			} else if (orientacion == 'Vertical') {
 				btnRotar.innerText = 'Horizontal'
-				self.orientacion = 'horizontal'
+				cws.cambiarOrientacion();
 			}
 		})
 		this.asignarFlotaListener();

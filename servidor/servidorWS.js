@@ -64,14 +64,13 @@ function ServidorWS() {
                     cli.enviarATodosEnPartida(io, codigoStr, "usuarioSalido", { nick: nick });
                     cli.enviarATodos(socket, "actualizarListaPartidas", lista);
                 }
-
             })
 
-            socket.on("colocarBarco", function (nick, nombre, x, y, orientacion) {
+            socket.on("colocarBarco", function (nick, nombre, x, y) {
                 let jugador = juego.obtenerUsuario(nick);
                 if (jugador) {
-                    let barco = jugador.colocarBarco(nombre, x, y, orientacion)
-                    let res = { barco: barco.nombre, x: x, y: y, colocado: barco.desplegado, orientacion: orientacion }
+                    let barco = jugador.colocarBarco(nombre, x, y)
+                    let res = { barco: barco, x: x, y: y,}
                     cli.enviarAlRemitente(socket, "barcoColocado", res);
                 }
             });
@@ -87,6 +86,14 @@ function ServidorWS() {
                     }
                 }
             });
+
+            socket.on("cambiarOrientacion", function (nick) {
+                let jugador = juego.obtenerUsuario(nick);
+                if (jugador) {
+                    jugador.cambiarOrientacion()                    
+                }
+            });
+
 
             socket.on("disparar", function (nick, x, y) {
                 let jugador = juego.obtenerUsuario(nick);
