@@ -2,6 +2,7 @@ const fs = require('fs');
 const express = require('express');
 const app = express();
 const passport = require('passport')
+const session = require('express-session');
 
 const http = require('http');
 const server = http.createServer(app);
@@ -33,22 +34,6 @@ app.get("/agregarUsuario/:nick", function (req, response) {
   response.send(res);
 });
 
-app.get("/auth/google", passport.authenticate('google', { scope: ['profile', 'email'] }));
-
-app.get('/auth/twitter', passport.authenticate('twitter'));
-
-app.get(
-  '/auth/twitter/callback',
-  passport.authenticate('twitter', {
-    failureRedirect: '/login',
-    scope: ['tweet.read', 'tweet.write', 'users.read'],
-  }),
-  function (req, res) {
-    // Successful authentication, redirect home.
-    res.redirect('/');
-  }
-);
-
 const cookieSession = require("cookie-session");
 
 app.use(cookieSession({
@@ -58,10 +43,38 @@ app.use(cookieSession({
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.get("/auth/google", passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+app.get(
+  '/auth/twitter',
+  passport.authenticate('twitter', {
+    scope: ['tweet.read', 'users.read', 'offline.access'],
+  })
+);
+
+app.get(
+  '/auth/twitter/callback',
+  passport.authenticate('twitter'),
+  function (req, res) {
+    const userData = JSON.stringify(req.user, undefined, 2);
+    res.redirect('/goodTwitter');
+  }
+);
+
+app.get("/goodTwitter", function (request, response) {
+  var nick = request.user.username;
+  if (nick) {
+    juego.agregarUsuario(nick, true);
+  }
+  response.cookie('nick', nick);
+  response.redirect('/');
+});
+
 app.get('/google/callback', passport.authenticate('google', { failureRedirect: '/fallo' }),
   function (req, res) {
     res.redirect('/good');
   });
+
 app.get("/good", function (request, response) {
   var nick = request.user.name.givenName;
   if (nick) {
