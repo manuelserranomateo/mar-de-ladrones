@@ -93,7 +93,8 @@ function ClienteWS() {
             }
         })
 
-        this.socket.on("aJugar", function () {
+        this.socket.on("aJugar", function (res) {
+            iu.mostrarTurno(res.nick)
             iu.mostrarModal('Ya se puede disparar!!');
         })
 
@@ -114,6 +115,7 @@ function ClienteWS() {
         })
 
         this.socket.on("disparo", function (res) {
+            iu.mostrarTurno(res.turno)
             if (res.atacante == rest.nick) {
                 tablero.updateCell(res.x, res.y, res.impacto, 'computer-player');
             }
@@ -122,7 +124,7 @@ function ClienteWS() {
             }
         });
 
-        this.socket.on("turno", function () {
+        this.socket.on("turno", function (res) {
             iu.mostrarModal("Respeta los rangos, no es tu turno");
         });
 

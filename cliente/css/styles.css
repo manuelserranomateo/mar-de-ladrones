@@ -332,6 +332,14 @@ button {
 	background-color: #222222;
 }
 
+.tuTurno{
+	color: blue;
+}
+
+.turnoEnemigo{
+	color: red
+}
+
 
 .highlight {
 	overflow: visible;

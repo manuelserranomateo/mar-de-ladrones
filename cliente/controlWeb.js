@@ -42,6 +42,7 @@ function ControlWeb() {
 
 	this.mostrarHome = function () {
 		$('#mH').remove();
+		$('#mT').remove();
 		$('#gc').remove();
 		let cadena = "<div class ='row' id='mH'>";
 		cadena = cadena + "<div class='col'>";
@@ -55,6 +56,7 @@ function ControlWeb() {
 
 		$("#btnBC").on("click", function () {
 			$("#mCP").remove();
+			$('#mT').remove();
 			$('#mLP').remove();
 			$('#mH').remove();
 			$('#gc').remove();
@@ -91,6 +93,7 @@ function ControlWeb() {
 			$('#mEPE').remove();
 			$('#mH').remove();
 			$('#mAU').remove();
+			$('#mT').remove();
 			cws.abandonarPartida();
 		})
 	}
@@ -121,6 +124,7 @@ function ControlWeb() {
 
 	this.finalPartida = function () {
 		$('#mH').remove()
+		$('#mT').remove();
 		cws.codigo = undefined;
 		$('#gc').remove();
 		tablero = new Tablero(10);
@@ -132,6 +136,17 @@ function ControlWeb() {
 		var cadena = '<div class="mt-5"id="mEPE"><h3>Aun no tienes rival...</h3>';
 		cadena = cadena + '<img src="cliente/img/espera.gif">';
 		cadena = cadena + '</div>';
+		$('#agregarUsuario').append(cadena);
+	}
+
+	this.mostrarTurno = function (nick) {
+		$('#mT').remove();
+		let cadena = ""
+		if (rest.nick == nick){
+			cadena = "<h3 class='tuTurno' id='mT'>Es tu turno</h3>";
+		} else {
+			cadena = "<h3 class='turnoEnemigo' id='mT'>No es tu turno</h3>";
+		}
 		$('#agregarUsuario').append(cadena);
 	}
 

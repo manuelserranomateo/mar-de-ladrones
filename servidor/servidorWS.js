@@ -79,10 +79,11 @@ function ServidorWS() {
                 let jugador = juego.obtenerUsuario(nick);
                 if (jugador) {
                     let partida = jugador.partida;
+                    console.log('El owner es ' + partida.owner.nick)
                     let res = jugador.barcosDesplegados();
                     let codigoStr = partida.codigo.toString();
                     if (partida.esJugando()) {
-                        cli.enviarATodosEnPartida(io, codigoStr, "aJugar", {});
+                        cli.enviarATodosEnPartida(io, codigoStr, "aJugar", {nick : partida.owner.nick});
                     }
                 }
             });
@@ -101,10 +102,10 @@ function ServidorWS() {
                 if (jugador) {
                     let partida = jugador.partida;
                     let turno = partida.obtenerTurno();
-                    console.log('Turno de ' + turno.nick)
                     if (jugador == turno) {
                         let impacto = jugador.disparar(x, y)
-                        let res2 = { atacante: jugador.nick, impacto: impacto, x: x, y: y, turno: turno.nick }
+                        let turnoAlDisparar = partida.obtenerTurno();
+                        let res2 = { atacante: jugador.nick, impacto: impacto, x: x, y: y, turno: turnoAlDisparar.nick }
                         if (partida.esFinal()) {
                             cli.enviarATodosEnPartida(io, partida.codigo.toString(), "faseFinal", jugador.nick);
                         }

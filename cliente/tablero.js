@@ -68,7 +68,6 @@ function Tablero(size) {
 	}
 
 	this.terminarDeColocarBarco = function (barco, x, y) {
-		console.log('Orientacion en terminarDeColocarBarco ' + barco.orientacion.nombre)
 		if (barco.orientacion.nombre == 'horizontal') {
 			for (i = 0; i < barco.tam; i++) {
 				console.log("x: " + (x + i) + " y:" + y);
