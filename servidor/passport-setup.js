@@ -32,7 +32,11 @@ passport.use(
         clientID: 'OTlJaVBwdVVvNDIxekxrczB2cnY6MTpjaQ',
         clientSecret: 'ES4UBpXdxON8A1TMxXkvYDsJtf5f32gQ3KF-pp2NXzRlLKIog9',
         clientType: 'confidential',
-        callbackURL: 'http://localhost:3000/auth/twitter/callback',
+        // Para local
+        // callbackURL: 'http://localhost:3000/auth/twitter/callback',
+
+        // Para despliegue
+        callbackURL: "https://proyecto22-y3e2t6nkdq-no.a.run.app/auth/twitter/callback"
       },
       (accessToken, refreshToken, profile, done) => {
         console.log('Success!', { accessToken, refreshToken });
