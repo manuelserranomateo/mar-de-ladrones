@@ -2,11 +2,10 @@
 Proyecto de la asignatura Procesos de Software curso 22-23
 
 ## Descripción
-Este repositorio contiene la arquitectura base de una solución software estilo SaaS (Software as a Service) de una aplicación genérica que implementa la siguiente funcionalidad:
-- Inicio de sesion con un nick unico
+Este repositorio contiene la arquitectura base de una solución software estilo SaaS (Software as a Service) de un juego estilo Hundir la Flota con referencias al videojuego Sea Of Thieves que permite: 
+- Inicio de sesion con un Nick unico, con Google y con Twitter
 - Crear partidas que generan un codigo
 - Unirse a partidas
-- Actualizar la lista de partidas
 - Mantener la sesion con cookies
 
 ## Comenzando 🚀
