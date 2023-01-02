@@ -1,5 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700);
-@import url(//db.onlinewebfonts.com/c/d8b9c7291ced9e7de0e106125bb6bec5?family=Manuscript);
+@import url(https://fonts.googleapis.com/css?family=Tangerine);
 @import url(https://fonts.googleapis.com/css?family=Patrick+Hand);
 
 html,
@@ -15,7 +15,7 @@ body {
 
 h1 {
 	font-size: 142px;
-	font-family: 'Manuscript';
+	font-family: 'Tangerine';
 	background: -webkit-linear-gradient(#f5ce62, white);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
