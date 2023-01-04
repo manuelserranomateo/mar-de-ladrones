@@ -47,8 +47,8 @@ function ControlWeb() {
 		$('#mT').remove();
 		$('#gc').remove();
 		let cadena = "<div class ='row' id='mH'>";
-		cadena = cadena + '<img src="cliente/img/volume-xmark-solid.svg" id="btnMusica">'
 		cadena = cadena + "<div class='col'>";
+		cadena = cadena + '<img style="margin-left:1100px" src="cliente/img/volume-xmark-solid.svg" id="btnMusica">'
 		cadena = cadena + "<h2>Bienvenido <b>" + rest.nick + "</b></h2>";
 		cadena = cadena + "<div style='margin-bottom:15px; color:white; ' id='codigo'></div>"
 		cadena = cadena + '<button id="btnBC" class="bn632-hover bn19">Salir</button>';
