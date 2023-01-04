@@ -102,7 +102,7 @@ function Juego(test) {
 
     this.finalizarPartida = function (nick) {
         for (let key in this.partidas) {
-            if ((this.partidas[key].fase == "inicial" || this.partidas[key].fase == "desplegando") && this.partidas[key].estoy(nick)) {
+            if ((this.partidas[key].fase == "inicial" || this.partidas[key].fase == "desplegando" || this.partidas[key].fase == "jugando") && this.partidas[key].estoy(nick)) {
                 this.partidas[key].fase = "final";
                 return this.partidas[key].codigo;
 
