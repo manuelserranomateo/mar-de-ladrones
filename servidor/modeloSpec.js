@@ -36,13 +36,10 @@ describe("El juego...", function () {
     expect(us1.tableroPropio.casillas.length).toEqual(SIZE);
     expect(us2.tableroPropio.casillas.length).toEqual(SIZE);
 
-    //habría que recorrer las SIZE columnas
     for (x = 0; x < SIZE; x++) {
       expect(us1.tableroPropio.casillas[x].length).toEqual(SIZE);
     }
-    //  expect(us2.tableroPropio.casillas[0].length).toEqual(SIZE);
 
-    //habría que recorrer todo el tablero
     expect(us1.tableroPropio.casillas[0][0].contiene.esAgua()).toEqual(true);
   });
 

@@ -3,7 +3,7 @@ let cad = require('./cad.js')
 function Juego(test) {
     this.partidas = {};
     this.usuarios = {};
-    this.cad = new cad.Cad(); // capa de acceso a datos
+    this.cad = new cad.Cad();
     this.test = test
 
     this.agregarUsuario = function (nick, guardar) {
@@ -129,7 +129,7 @@ function Juego(test) {
 
     if (test == 'false') {
         this.cad.conectar(function (db) {
-            console.log('conectado a atlas')
+            console.log('Conectado a Atlas')
         })
     }
 
@@ -271,7 +271,7 @@ function Partida(codigo, user) {
         let res = this.codigo;
         if (this.hayHueco()) {
             this.jugadores.push(usr);
-            //console.log("El usuario " + usr.nick + " se une a la partida con codigo " + this.codigo);
+            console.log("El usuario " + usr.nick + " se une a la partida con codigo " + this.codigo);
             usr.partida = this;
             usr.inicializarTableros(10);
             usr.inicializarFlota();
@@ -279,7 +279,7 @@ function Partida(codigo, user) {
         }
         else {
             res = -1;
-            //console.log("La partida está completa")
+            console.log("La partida está completa")
         }
         return res;
     }
@@ -344,12 +344,12 @@ function Partida(codigo, user) {
 
     this.asignarTurnoInicial = function () {
         this.turno = this.jugadores[0];
-        console.log('Turno inicial asignado a : ', this.jugadores[0].nick);
+        console.log('Turno inicial: ', this.jugadores[0].nick);
     }
 
     this.cambiarTurno = function (nick) {
         this.turno = this.obtenerRival(nick);
-        console.log('Turno asignado a : ', this.turno.nick);
+        console.log('Turno: ', this.turno.nick);
     }
 
     this.obtenerTurno = function () {
@@ -383,7 +383,7 @@ function Partida(codigo, user) {
             let estado = atacado.meDisparan(x, y);
             atacante.marcarEstado(estado, x, y);
             this.comprobarFin(atacado);
-            console.log(atacante.nick + ' dispara a ' + atacado.nick + ' en casillas ' + x, y);
+            console.log(atacante.nick + ' dispara a ' + atacado.nick + ' en las casillas ' + x, y);
             return estado
         }
         else {
@@ -394,8 +394,7 @@ function Partida(codigo, user) {
     this.comprobarFin = function (jugador) {
         if (jugador.flotaHundida()) {
             this.fase = "final";
-            console.log('Fin de la partida');
-            console.log('Gana ' + this.turno.nick);
+            console.log('Fin de la partida, Ganador: ' + this.turno.nick);
             jugador.finalizarPartidaLog({ 'ganador': this.turno.nick, 'perdedor': jugador.nick, 'codigo': this.codigo })
         }
     }
@@ -422,7 +421,7 @@ function Tablero(size) {
 
     this.comprobarLimites = function (tam, x) {
         if (x + tam > this.size) {
-            console.log('El barco excede los limites del tablero')
+            console.log('Limites del tablero excedidos')
             return false
         } else { return true }
     }
@@ -603,10 +602,6 @@ function Agua() {
     this.obtenerEstado = function () {
         return "agua";
     }
-}
-
-function Inicial() {
-    this.nombre = "inicial"
 }
 
 module.exports.Juego = Juego;

@@ -63,7 +63,7 @@ function Tablero(size) {
 	};
 
 	this.colocarBarco = function (x, y, nombre) {
-		console.log("Colocar barco: " + x + "-" + y + " " + nombre);
+		console.log("Barco " + nombre + " colocado en " + x + " " + y);
 		cws.colocarBarco(nombre, x, y);
 	}
 
@@ -79,7 +79,6 @@ function Tablero(size) {
 				this.updateCell(x, i + y, "ship", 'human-player');
 			}
 		}
-
 		self.endPlacing(barco.nombre);
 	}
 

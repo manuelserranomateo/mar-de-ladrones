@@ -5,7 +5,6 @@ function Cad() {
     this.logs;
     this.usuarios = undefined;
 
-    //logs viene bien metodo para cada coleccion
     this.insertarLog = function (registroLog, callback) {
         insertar(this.logs, registroLog, callback);
     }
@@ -14,8 +13,6 @@ function Cad() {
         obtenerTodos(this.logs, callback)
     }
 
-    //partidas
-    //usuarios
     this.obtenerUsuarios = function (callback) { 
         obtenerTodos(this.usuarios, callback);
     }
@@ -28,7 +25,7 @@ function Cad() {
         coleccion.findOneAndUpdate(criterio, { $set: criterio }, { upsert: true }, function (err, doc) {
             if (err) { throw err; }
             else {
-                console.log("Updated");
+                console.log("Actualizado");
                 callback(doc);
             }
         });
@@ -39,7 +36,7 @@ function Cad() {
     function insertar(coleccion, elemento, callback) {
         coleccion.insertOne(elemento, function (err, result) {
             if (err) {
-                console.log("error");
+                console.log("Error");
             }
             else {
                 console.log("Nuevo elemento creado");
@@ -54,12 +51,6 @@ function Cad() {
             callback(col);
         });
     };
-
-    // this.cerrar=funciton(){
-
-    // };
-
-
 
     this.conectar = function () {
         let cad = this;
@@ -91,9 +82,7 @@ function Cad() {
                     console.log("No se puedo conectar con MongoDB Atlas")
                 }
             })
-
     }
-    // this.conectar();
 }
 
 module.exports.Cad = Cad;
