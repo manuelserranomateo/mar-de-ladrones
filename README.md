@@ -1,5 +1,5 @@
 # Mar de Ladrones
-Proyecto de la asignatura Procesos de Software curso 22-23
+Proyecto de la asignatura Procesos de Software curso 22-23 basado en la solución de Jose A. Gallud, y adaptación de la clase tablero.js gracias https://github.com/billmei/battleboat
 
 ## Descripción
 Este repositorio contiene la arquitectura base de una solución software estilo SaaS (Software as a Service) de un juego estilo Hundir la Flota con referencias al videojuego Sea Of Thieves que permite: 
