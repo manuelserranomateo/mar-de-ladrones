@@ -54,7 +54,9 @@ function Cad() {
 
     this.conectar = function () {
         let cad = this;
-        mongo.connect('mongodb+srv://admin:admin@cluster0.ffrc4qy.mongodb.net/?retryWrites=true&w=majority',
+
+        mongo.connect('xxxxxxxx',
+                      // sustituir xxxxx por la clave para conectar con mongodb atlas
             { useUnifiedTopology: true }, function (err, database) {
                 if (!err) {
                     console.log("Conectado a MongoDB Atlas");
